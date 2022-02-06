@@ -37,9 +37,9 @@ import { Article } from "~/components/article";
 ### 基本功能
 
 - 整體資訊
-  ![「專業人士的設計流程」近 7 天的訪客總覽](/posts/analytics-tool-splitbee/01.jpeg)
+  ![「專業人士的設計流程」近 7 天的訪客總覽](/images/analytics-tool-splitbee/01.jpeg)
 - 個別使用者資訊：哪裡來的、裝置訊息、近 6 個月該使用者在網站上的足跡
-  ![某位台灣使用者被 Splitbee 記錄的足跡](/posts/analytics-tool-splitbee/02.jpeg)
+  ![某位台灣使用者被 Splitbee 記錄的足跡](/images/analytics-tool-splitbee/02.jpeg)
 - 記錄外連網址，不必像 GA 得埋 Tag Manager 才知道
 
 ### 還可以：
@@ -77,10 +77,10 @@ import { Article } from "~/components/article";
 <a href="/process/01-project...html" data-splitbee-event="開始閱讀" data-splitbee-event-type="第 1 章">第 1 章</a>
 ```
 
-![在 Splitbee 呈現事件的副標題](/posts/analytics-tool-splitbee/03.jpeg)
+![在 Splitbee 呈現事件的副標題](/images/analytics-tool-splitbee/03.jpeg)
 
 雖然 Splitbee 內建就會抓外連網址，如果這外連網址是很重要的轉換行為，還是要設定事件，才可以讓 `Funnel` 幫忙統計轉換率。
-![在 Splitbee 呈現外連網址的轉換率](/posts/analytics-tool-splitbee/04.jpeg)
+![在 Splitbee 呈現外連網址的轉換率](/images/analytics-tool-splitbee/04.jpeg)
 
 ## 用 Webhook 產生 Discord 訊息
 
@@ -91,13 +91,13 @@ import { Article } from "~/components/article";
 首先在 Discord 伺服器後台取得 Webhook 網址：
 Server Settings > Integrations > Webhooks > New Webhook
 
-![在 Discord 新增 Webhook](/posts/analytics-tool-splitbee/05.jpeg)
+![在 Discord 新增 Webhook](/images/analytics-tool-splitbee/05.jpeg)
 
 按下 "Copy Webhook URL"
 
 ### 設定 Automation
 
-![Splitbee 填入 Discord 的 Webhook](/posts/analytics-tool-splitbee/06.jpeg)
+![Splitbee 填入 Discord 的 Webhook](/images/analytics-tool-splitbee/06.jpeg)
 
 把剛剛 "Copy Webhook URL" 的網址貼進來，並且設定通知訊息，格式是
 
@@ -111,7 +111,7 @@ Server Settings > Integrations > Webhooks > New Webhook
 
 設定成功便可以在 Discord 收到像這樣的 Bot 訊息：
 
-![Bot 在 Discord 顯示 "New Visitor from Taiwan"](/posts/analytics-tool-splitbee/07.jpeg)
+![Bot 在 Discord 顯示 "New Visitor from Taiwan"](/images/analytics-tool-splitbee/07.jpeg)
 
 ## 收費
 

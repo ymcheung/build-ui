@@ -18,7 +18,7 @@ export const meta: MetaFunction = () => ({
   'og:title': CONSTANT.SITENAME,
   'og:description': CONSTANT.SITEDESCRIPTION,
   'og:url': 'https://build.intersection.tw',
-  'og:image': 'https://build.intersection.tw/og/home.jpg'
+  'og:image': 'https://build.intersection.tw/og.jpg'
 })
 
 export const links: LinksFunction = () => [
@@ -119,11 +119,11 @@ const Action = styled('span', {
   display: 'block',
   width: '100px',
   marginLeft: 'auto',
-  paddingRight: '$16',
+  padding: '14px $16 $12 0',
   color: 'hsl($shade10)',
   fontSize: '1.6rem',
   fontWeight: 600,
-  lineHeight: '40px',
+  lineHeight: 1,
   textAlign: 'right',
   backgroundColor: 'hsl($accent)',
 
@@ -150,7 +150,7 @@ export default function Index() {
           <ListItem nomark key={slug}>
             <IndexLink to={slug}>
               <Sticker>
-                <img src={`/posts/${slug}/sticker.svg`} alt="" />
+                <img src={`/images/${slug}/sticker.svg`} alt="" />
               </Sticker>
               <ArticleHeading purpose="index">
                 {title}
