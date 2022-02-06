@@ -150,7 +150,7 @@ export default function Index() {
           <ListItem nomark key={slug}>
             <IndexLink to={slug}>
               <Sticker>
-                <img src={`/stickers/${slug}.svg`} alt="" />
+                <img src={`/posts/${slug}/sticker.svg`} alt="" />
               </Sticker>
               <ArticleHeading purpose="index">
                 {title}
