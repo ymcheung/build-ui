@@ -35,7 +35,7 @@ export const meta: MetaFunction = ({ data }) => {
   const description = _description || SITEDESCRIPTION;
   const image = cover
     ? `${rootUrl}${cover}`
-    : `${rootUrl}/ogimage/${slug}.jpg`;
+    : `${rootUrl}/images/${slug}/og.jpg`;
 
   return {
     title,
