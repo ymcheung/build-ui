@@ -37,9 +37,9 @@ import { Article } from "~/components/article";
 ### 基本功能
 
 - 整體資訊
-  ![「專業人士的設計流程」近 7 天的訪客總覽](https://cdn.hashnode.com/res/hashnode/image/upload/v1628746900891/LIKwWW6H1.png)
+  ![「專業人士的設計流程」近 7 天的訪客總覽](/posts/analytics-tool-splitbee/01.jpeg)
 - 個別使用者資訊：哪裡來的、裝置訊息、近 6 個月該使用者在網站上的足跡
-  ![某位台灣使用者被 Splitbee 記錄的足跡](https://cdn.hashnode.com/res/hashnode/image/upload/v1628747218674/LMO1yEqSr.png)
+  ![某位台灣使用者被 Splitbee 記錄的足跡](/posts/analytics-tool-splitbee/02.jpeg)
 - 記錄外連網址，不必像 GA 得埋 Tag Manager 才知道
 
 ### 還可以：
@@ -77,10 +77,10 @@ import { Article } from "~/components/article";
 <a href="/process/01-project...html" data-splitbee-event="開始閱讀" data-splitbee-event-type="第 1 章">第 1 章</a>
 ```
 
-![在 Splitbee 呈現事件的副標題](https://cdn.hashnode.com/res/hashnode/image/upload/v1628748957780/OwnaC4fGB.png)
+![在 Splitbee 呈現事件的副標題](/posts/analytics-tool-splitbee/03.jpeg)
 
 雖然 Splitbee 內建就會抓外連網址，如果這外連網址是很重要的轉換行為，還是要設定事件，才可以讓 `Funnel` 幫忙統計轉換率。
-![在 Splitbee 呈現外連網址的轉換率](https://cdn.hashnode.com/res/hashnode/image/upload/v1628749037786/TY0IF0nK-.png)
+![在 Splitbee 呈現外連網址的轉換率](/posts/analytics-tool-splitbee/04.jpeg)
 
 ## 用 Webhook 產生 Discord 訊息
 
@@ -91,13 +91,13 @@ import { Article } from "~/components/article";
 首先在 Discord 伺服器後台取得 Webhook 網址：
 Server Settings > Integrations > Webhooks > New Webhook
 
-![在 Discord 新增 Webhook](https://cdn.hashnode.com/res/hashnode/image/upload/v1633591264546/93obwVFZH.jpeg)
+![在 Discord 新增 Webhook](/posts/analytics-tool-splitbee/05.jpeg)
 
 按下 "Copy Webhook URL"
 
 ### 設定 Automation
 
-![Splitbee 填入 Discord 的 Webhook](https://cdn.hashnode.com/res/hashnode/image/upload/v1633593941676/LiJbUWchZ.jpeg)
+![Splitbee 填入 Discord 的 Webhook](/posts/analytics-tool-splitbee/06.jpeg)
 
 把剛剛 "Copy Webhook URL" 的網址貼進來，並且設定通知訊息，格式是
 
@@ -111,7 +111,7 @@ Server Settings > Integrations > Webhooks > New Webhook
 
 設定成功便可以在 Discord 收到像這樣的 Bot 訊息：
 
-![Bot 在 Discord 顯示 "New Visitor from Taiwan"](https://cdn.hashnode.com/res/hashnode/image/upload/v1633594179953/CUgIkdAiG.png)
+![Bot 在 Discord 顯示 "New Visitor from Taiwan"](/posts/analytics-tool-splitbee/07.jpeg)
 
 ## 收費
 
@@ -119,7 +119,7 @@ Splitbee 沒有把獲取的資料轉售，因此 1 個月內使用達到 `5,000 
 
 ## 還有更多替代方案
 
-[Plausible Analytics](https://plausible.io) 是開源的統計分析套件，比 GA 小 45 倍，且不用放 GDPR 聲明。
+[Plausible Analytics](https://plausible.io) 是開源的統計分析套件，比 GA 小 45 倍，且不用放 GDPR 聲明
 
 [Amplitude](https://amplitude.com) 是許多企業規模團隊使用的分析、統計工具
 

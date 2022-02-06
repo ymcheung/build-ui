@@ -48,7 +48,7 @@ export const bundleMDX = async ({ cwd, source }: IBundleMdx) => {
       // Set the `outdir` to a public location for this bundle.
       // console.log("esbuildOptions", resolve("public"));
       // options.outdir = resolve("public", "build", "_assets");
-      options.outdir = resolve("public/build");
+      options.outdir = resolve("public/build/_assets");
       options.loader = {
         ...options.loader,
         ".png": "file",
