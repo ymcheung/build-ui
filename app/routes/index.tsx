@@ -118,25 +118,14 @@ const Timestamp = styled('time', {
 const Action = styled('span', {
   display: 'block',
   width: '100px',
+  marginRight: 0,
   marginLeft: 'auto',
   padding: '14px $16 $12 0',
   color: 'hsl($shade10)',
   fontSize: '1.6rem',
-  fontWeight: 600,
   lineHeight: 1,
   textAlign: 'right',
-  backgroundColor: 'hsl($accent)',
-
-  variants: {
-    responsive: {
-      mobile: {
-        marginRight: '-$16'
-      },
-      tablet: {
-        marginRight: 0
-      }
-    }
-  },
+  backgroundColor: 'hsl($accent)'
 });
 
 // https://remix.run/guides/routing#index-routes
@@ -161,7 +150,7 @@ export default function Index() {
               <ArticleDescription>
                 {description}
               </ArticleDescription>
-              <Action responsive={{ '@initial': 'mobile', '@m768': 'tablet' }}>
+              <Action>
                 閱讀
               </Action>
             </IndexLink>

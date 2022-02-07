@@ -13,6 +13,13 @@ const Section = styled('section', {
       tablet: {
         marginX: '$16'
       }
+    },
+    position: {
+      roof: {
+        alignSelf: 'start',
+        position: 'sticky',
+        top: '144px'
+      }
     }
   }
 });
@@ -83,7 +90,7 @@ export default function Footer() {
 
   return(
     <Container as="footer" responsive={{ '@initial': 'mobile', '@m768': 'tablet' }} area="footer" footer={{ '@m992': 'desktop' }} floor="ground">
-      <Section as="nav" responsive={{ '@m768': 'tablet' }}>
+      <Section as="nav" responsive={{ '@m768': 'tablet' }} position={{ '@m768': 'roof' }}>
         <LinkList responsive={{ '@m992': 'desktop' }}>
           <ListItem nomark>
             <Link className={footerLink()} to="/translations" prefetch="intent">
