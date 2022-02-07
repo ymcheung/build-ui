@@ -6,7 +6,7 @@ import * as postNaming from '../../content/naming-conventions.mdx';
 import * as postI18next from '../../content/react-i18next.mdx';
 
 import type { MetaFunction, LoaderFunction, LinksFunction } from 'remix';
-import { ArticleHeading, ArticleDescription } from '~/components/article';
+import { Heading, ArticleDescription } from '~/components/article';
 import { styled } from '~/stitches.config';
 import * as CONSTANT from '~/utils/CONSTANTS';
 import { ListItem } from '~/utils/layout';
@@ -141,9 +141,9 @@ export default function Index() {
               <Sticker>
                 <img src={`/images/${slug}/sticker.svg`} alt="" />
               </Sticker>
-              <ArticleHeading purpose="index">
+              <Heading purpose="index">
                 {title}
-              </ArticleHeading>
+              </Heading>
               <Timestamp responsive={{ '@initial': 'mobile', '@m768': 'tablet' }}>
                 {dateModified}
               </Timestamp>

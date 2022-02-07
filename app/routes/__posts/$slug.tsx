@@ -1,5 +1,5 @@
 import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   type MetaFunction,
   type LinksFunction,
@@ -9,6 +9,7 @@ import {
   useLoaderData,
 } from 'remix';
 
+import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem } from '~/components/article';
 import { readFile } from '~/utils.server';
 import {
   bundleMDX,
@@ -111,18 +112,46 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ frontmatter, code, jsonld, canonical });
 };
 
-const Paragraph: React.FC = props => {
+function TagHeadings(level, purpose, {children}) {
+  return <Heading as={level} purpose={purpose}>{children}</Heading>
+}
+
+function TagP(props) {
   if (typeof props.children !== 'string' && props.children.type === 'img') {
     return <>{props.children}</>
   }
 
-  return <p {...props} />
+  return <Paragraph {...props} />
+}
+
+function TagAnchor({ children, href }) {
+  if (!href.startsWith('https')) {
+    return <AnchorLink href={href}>{...children}</AnchorLink>
+  }
+
+  return <AnchorLink href={href} target="_blank" rel="noopener">{children}</AnchorLink>
+}
+
+function TagUl ({ children }) {
+  return <LayoutAsList>{children}</LayoutAsList>
+}
+
+function TagLi ({ children }) {
+  return <LayoutAsItem nomark>{children}</LayoutAsItem>
 }
 
 export default function Post() {
   const { code } = useLoaderData<LoaderData>();
   const Component = useMemo(() => getMDXComponent(code), [code]);
   return (
-    <Component components={{p: Paragraph}} />
+    <Component components={{
+      h1: (children) => TagHeadings('h1', 'articleName', children),
+      h2: (children) => TagHeadings('h2', 'lv2', children),
+      h3: (children) => TagHeadings('h3', 'lv3', children),
+      p: TagP,
+      a: TagAnchor,
+      ul: TagUl,
+      li: TagLi
+    }} />
   );
 }

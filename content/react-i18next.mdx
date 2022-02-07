@@ -100,7 +100,7 @@ type ItemProps = {
 Property 'map' does not exist on type 'string'.
 ```
 
-2021-11-14 最近在 stackoverflow 找到解法：
+在 stackoverflow 找到解法：
 ```jsx
 {t<string, ItemProps[]>('document.items', {returnObjects: true}).map(({ name, description, index }) => (
   <li key={index}>
@@ -112,39 +112,15 @@ Property 'map' does not exist on type 'string'.
 ```
 
 並且從前端社群得知這是設定為泛型，因為 i18next 的 returnObjects 允許回傳任何形式的物件，這是在告知型別檢查器說：這裡是陣列。
-做了一份 CodeSandbox 範例：
+
+直接看放在 CodeSandbox 的範例程式碼：
 
 [CodeSandbox 連結](https://codesandbox.io/s/react-i18next-typescript-array-example-5xdzk?file=/README.md)
 
-來源：Typescript i18next does not satisfy the constraint 'string | TemplateStringsArray NextJS
-
-先前在 Issue 找到的方法，已經過時：
-
-```jsx
-{t<ItemProps[]>('document.items', {returnObjects: true}).map(({ name, description, index }: ItemProps) => (
-  <li key={index}>
-     <strong dangerouslySetInnerHTML={{__html: name}} />
-     <Paragraph dangerouslySetInnerHTML={{__html: description}} />
-   </li>
-   )
-)}
-```
-
-所以會在最近的版本出現 TS 錯誤：
-
-```text
-Type 'ItemProps[]' does not satisfy the constraint 'string | TemplateStringsArray'.
-  Property 'raw' is missing in type 'ItemProps[]' but required in type 'TemplateStringsArray'.
-```
-
-.map 也有：
-
-```text
-Property 'map' does not exist on type 'TFunctionResult'.
-  Property 'map' does not exist on type 'string'.ts(2339)
-```
+來源：[Typescript i18next does not satisfy the constraint 'string | TemplateStringsArray NextJS](https://stackoverflow.com/questions/69225989/typescript-i18next-does-not-satisfy-the-constraint-string-templatestringsarra)
 
 ## 結論
+
 `react-i18next` 的[說明文件](https://react.i18next.com/latest/typescript)上其實有 TypeScript 型別設定的教學，不過跟著做之後，在使用 `next-i18next` 的 Next.js 專案沒有效果（全部都是 `any`）。
 
 </Article>
