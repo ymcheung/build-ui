@@ -11,6 +11,7 @@ const globalStyles = globalCss({
   },
 
   body: {
+    overflowY: 'scroll',
     margin: 0,
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',

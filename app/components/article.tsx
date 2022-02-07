@@ -16,6 +16,10 @@ export const Article = styled('article', {
     paddingTop: '$16'
   },
 
+  '& h3': {
+    margin: '0 0 $8'
+  },
+
   '& p': {
     margin: '0 0 $16'
   },
@@ -37,7 +41,15 @@ export const Article = styled('article', {
 
   '& img': {
     maxWidth: '100%',
-    margin: '$8 0'
+    margin: '0 0 $8'
+  },
+
+  '& li img': {
+    paddingTop: '$8'
+  },
+
+  '& pre': {
+    margin: '0 0 $16'
   }
 });
 

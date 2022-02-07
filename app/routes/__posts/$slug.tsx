@@ -1,5 +1,5 @@
 import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import {
   type MetaFunction,
   type LinksFunction,
@@ -111,10 +111,18 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ frontmatter, code, jsonld, canonical });
 };
 
+const Paragraph: React.FC = props => {
+  if (typeof props.children !== 'string' && props.children.type === 'img') {
+    return <>{props.children}</>
+  }
+
+  return <p {...props} />
+}
+
 export default function Post() {
   const { code } = useLoaderData<LoaderData>();
   const Component = useMemo(() => getMDXComponent(code), [code]);
   return (
-    <Component />
+    <Component components={{p: Paragraph}} />
   );
 }
