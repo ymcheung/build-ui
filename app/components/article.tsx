@@ -5,10 +5,6 @@ export const Article = styled('article', {
   color: 'hsl($shade150)',
   fontFamily: '$default',
 
-  '& li': {
-    listStyle: 'square'
-  },
-
   '& img': {
     maxWidth: '100%',
     margin: '0 0 $8'
@@ -19,7 +15,8 @@ export const Article = styled('article', {
   },
 
   '& pre': {
-    margin: '0 0 $16'
+    margin: '0 0 $16',
+    fontSize: '$16'
   }
 });
 

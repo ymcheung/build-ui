@@ -9,7 +9,7 @@ import {
   useLoaderData,
 } from 'remix';
 
-import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem } from '~/components/article';
+import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem, CodeBlock } from '~/components/article';
 import { readFile } from '~/utils.server';
 import {
   bundleMDX,
@@ -137,7 +137,7 @@ function TagUl ({ children }) {
 }
 
 function TagLi ({ children }) {
-  return <LayoutAsItem nomark>{children}</LayoutAsItem>
+  return <LayoutAsItem square>{children}</LayoutAsItem>
 }
 
 export default function Post() {
