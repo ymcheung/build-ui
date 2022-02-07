@@ -1,39 +1,9 @@
 import { styled } from '~/stitches.config';
+import { ListItem } from '~/utils/layout';
 
 export const Article = styled('article', {
   color: 'hsl($shade150)',
-  fontSize: '$16',
   fontFamily: '$default',
-
-  '& h1': {
-    margin: '0 0 $24',
-    fontSize: '3.2rem',
-    lineHeight: '40px'
-  },
-
-  '& h2': {
-    margin: '0 0 $8',
-    paddingTop: '$16'
-  },
-
-  '& h3': {
-    margin: '0 0 $8'
-  },
-
-  '& p': {
-    margin: '0 0 $16'
-  },
-
-  '& a': {
-    color: 'hsl($accent)'
-  },
-
-  '& ul': {
-    display: 'grid',
-    rowGap: '$8',
-    margin: '0 0 $16',
-    padding: '0 0 0 $16'
-  },
 
   '& li': {
     listStyle: 'square'
@@ -53,7 +23,16 @@ export const Article = styled('article', {
   }
 });
 
-export const ArticleHeading = styled('h2', {
+export const Paragraph = styled('p', {
+  margin: '0 0 $16',
+  fontSize: '$16',
+});
+
+export const AnchorLink = styled('a', {
+  color: 'hsl($accent)'
+});
+
+export const Heading = styled('h2', {
   variants: {
     purpose: {
       index: {
@@ -61,9 +40,36 @@ export const ArticleHeading = styled('h2', {
         color: 'hsl($shade150)',
         fontSize: '2.4rem',
         lineHeight: '32px'
+      },
+      articleName: {
+        margin: '0 0 $24',
+        fontSize: '3.2rem',
+        lineHeight: '40px',
+      },
+      lv2: {
+        margin: '0 0 $8',
+        paddingTop: '$16',
+        fontSize: '2.4rem',
+        lineHeight: '28px'
+      },
+      lv3: {
+        margin: '0 0 $8',
+        fontSize: '2rem',
+        lineHeight: '24px'
       }
     }
   }
+});
+
+export const LayoutAsList = styled('ul', {
+  display: 'grid',
+  rowGap: '$8',
+  margin: '0 0 $16',
+  padding: '0 0 0 $16'
+});
+
+export const LayoutAsItem = styled(ListItem, {
+  fontSize: '$16'
 });
 
 export const ArticleDescription = styled('p', {
