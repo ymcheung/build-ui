@@ -9,7 +9,7 @@ import {
   useLoaderData,
 } from 'remix';
 
-import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem, CodeBlock } from '~/components/article';
+import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem, InlineCode } from '~/components/article';
 import { readFile } from '~/utils.server';
 import {
   bundleMDX,
@@ -140,6 +140,10 @@ function TagLi ({ children }) {
   return <LayoutAsItem square>{children}</LayoutAsItem>
 }
 
+function TagCode ({ children }) {
+  return <InlineCode>{children}</InlineCode>
+}
+
 export default function Post() {
   const { code } = useLoaderData<LoaderData>();
   const Component = useMemo(() => getMDXComponent(code), [code]);
@@ -151,7 +155,8 @@ export default function Post() {
       p: TagP,
       a: TagAnchor,
       ul: TagUl,
-      li: TagLi
+      li: TagLi,
+      code: TagCode
     }} />
   );
 }

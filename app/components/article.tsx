@@ -69,6 +69,16 @@ export const LayoutAsItem = styled(ListItem, {
   fontSize: '$16'
 });
 
+export const InlineCode = styled('code', {
+  display: 'inline-block',
+  color: 'hsl($decor)',
+  paddingX: '$4',
+  lineHeight: '24px',
+  verticalAlign: 'text-bottom',
+  backgroundColor: '#282a36',
+  borderRadius: '4px'
+});
+
 export const ArticleDescription = styled('p', {
   margin: '0 0 $16',
   color: 'hsl($shade130)',
