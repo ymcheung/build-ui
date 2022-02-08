@@ -17,6 +17,18 @@ export const Article = styled('article', {
   '& pre': {
     margin: '0 0 $16',
     fontSize: '$16'
+  },
+
+  '& code': {
+    '&:not(pre code)': {
+      display: 'inline-block',
+      color: 'hsl($decor)',
+      paddingX: '$4',
+      lineHeight: 1.5,
+      verticalAlign: 'text-bottom',
+      backgroundColor: '#282a36',
+      borderRadius: '4px'
+    }
   }
 });
 
@@ -69,27 +81,9 @@ export const LayoutAsItem = styled(ListItem, {
   fontSize: '$16'
 });
 
-export const InlineCode = styled('code', {
-  display: 'inline-block',
-  color: 'hsl($decor)',
-  paddingX: '$4',
-  lineHeight: '24px',
-  verticalAlign: 'text-bottom',
-  backgroundColor: '#282a36',
-  borderRadius: '4px'
-});
-
 export const ArticleDescription = styled('p', {
   margin: '0 0 $16',
   color: 'hsl($shade130)',
   fontSize: '$16',
   lineHeight: '24px'
-});
-
-export const CodeInline = styled('code', {
-  display: 'inline-block',
-  padding: '0 $4',
-  color: 'hsl($decor)',
-  border: '1px solid hsl($shade20)',
-  borderRadius: '4px'
 });
