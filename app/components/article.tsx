@@ -7,7 +7,7 @@ export const Article = styled('article', {
 
   '& img': {
     maxWidth: '100%',
-    margin: '0 0 $8'
+    margin: 0
   },
 
   '& li img': {
@@ -35,6 +35,14 @@ export const Article = styled('article', {
 export const Paragraph = styled('p', {
   margin: '0 0 $16',
   fontSize: '$16',
+
+  variants: {
+    has: {
+      img: {
+        fontSize: 0
+      }
+    }
+  }
 });
 
 export const AnchorLink = styled('a', {

@@ -116,12 +116,8 @@ function TagHeadings(level, purpose, { children }) {
   return <Heading as={level} purpose={purpose}>{children}</Heading>
 }
 
-function TagForParagraph(props) {
-  if (typeof props.children !== 'string' && props.children.type === 'img') {
-    return <>{props.children}</>
-  }
-
-  return <Paragraph {...props} />
+function TagForParagraph({ children }) {
+  return <Paragraph>{children}</Paragraph>
 }
 
 function TagForImage({ src, alt }) {
