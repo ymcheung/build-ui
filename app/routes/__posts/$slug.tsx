@@ -112,7 +112,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ frontmatter, code, jsonld, canonical });
 };
 
-function TagHeadings(level, purpose, {children}) {
+function TagHeadings(level, purpose, { children }) {
   return <Heading as={level} purpose={purpose}>{children}</Heading>
 }
 
@@ -122,6 +122,10 @@ function TagForParagraph(props) {
   }
 
   return <Paragraph {...props} />
+}
+
+function TagForImage({ src, alt }) {
+  return <img src={src} alt={alt} loading="lazy" />
 }
 
 function TagForAnchor({ children, href }) {
@@ -149,6 +153,7 @@ export default function Post() {
       h2: (children) => TagHeadings('h2', 'lv2', children),
       h3: (children) => TagHeadings('h3', 'lv3', children),
       p: TagForParagraph,
+      img: TagForImage,
       a: TagForAnchor,
       ul: TagForUList,
       li: TagForListItem
