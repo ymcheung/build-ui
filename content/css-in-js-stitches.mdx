@@ -20,12 +20,12 @@ import { Article } from "~/components/article";
 
 # {frontmatter.title}
 
-`Stitches` 是剛進入穩定 1.0.0 版本的 CSS-In-JS 套件，用起來已經相當成熟，常見的 CSS 規畫都能迎刃而解。
+![Stitches 的標誌](/images/css-in-js-stitches/sticker.svg)
 
+`Stitches` 是剛進入穩定 1.0.0 版本的 CSS-In-JS 套件，用起來已經相當成熟，常見的 CSS 規畫都能迎刃而解。
 
 - 網站：[https://stitches.dev](https://stitches.dev)
 - 文件：[https://stitches.dev/docs](https://stitches.dev/docs)
-
 
 ## 使用環境
 
@@ -34,6 +34,7 @@ import { Article } from "~/components/article";
 "react": "^17.0.1",
 "next": "^12.0.2"
 ```
+
 這篇文章不會把 `Stitches` 文件裡提到的內容再講一遍，因為已經非常清楚，只會補充特色和小訣竅。
 
 `Stitches` 利用 `styled` 來撰寫 CSS 屬性，跟已經廣泛使用的 `styled-components` 同個方式，而我認為 `Stitches` 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方，`Variants` 功能可以說是 `Stitches` 之所以強大的核心。
@@ -105,7 +106,7 @@ grid: '"next" auto
 
 就會出現字串沒有關好的錯誤訊息：
 
-```
+```txt
 Unterminated string literal
 ```
 
@@ -176,9 +177,8 @@ utils: {
 沒有必要傳入 props 的時候，用法是：
 
 ```json
-  '&::before': {
-    fullAbsolute: ''
-  }
+'&::before': {
+  fullAbsolute: ''
 }
 ```
 
@@ -210,7 +210,7 @@ size: (value: Stitches.ScaleValue<'sizes'>) => ({
 
 如果用了 `css`
 
-```json
+```jsx
 const label = css({
   color: hsl($shade1200),
   transition: 'color 0.25s ease-out'
