@@ -63,9 +63,9 @@ export const loader: LoaderFunction = () =>
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
 [
+  postFromModule(postSplitbee),
   postFromModule(postNaming),
   postFromModule(postStitches),
-  postFromModule(postSplitbee),
   postFromModule(postI18next)
 ];
 
