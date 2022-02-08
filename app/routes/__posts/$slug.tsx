@@ -9,7 +9,7 @@ import {
   useLoaderData,
 } from 'remix';
 
-import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem, InlineCode } from '~/components/article';
+import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem } from '~/components/article';
 import { readFile } from '~/utils.server';
 import {
   bundleMDX,
@@ -116,7 +116,7 @@ function TagHeadings(level, purpose, {children}) {
   return <Heading as={level} purpose={purpose}>{children}</Heading>
 }
 
-function TagP(props) {
+function TagForParagraph(props) {
   if (typeof props.children !== 'string' && props.children.type === 'img') {
     return <>{props.children}</>
   }
@@ -124,7 +124,7 @@ function TagP(props) {
   return <Paragraph {...props} />
 }
 
-function TagAnchor({ children, href }) {
+function TagForAnchor({ children, href }) {
   if (!href.startsWith('https')) {
     return <AnchorLink href={href}>{...children}</AnchorLink>
   }
@@ -132,16 +132,12 @@ function TagAnchor({ children, href }) {
   return <AnchorLink href={href} target="_blank" rel="noopener">{children}</AnchorLink>
 }
 
-function TagUl ({ children }) {
+function TagForUList ({ children }) {
   return <LayoutAsList>{children}</LayoutAsList>
 }
 
-function TagLi ({ children }) {
+function TagForListItem ({ children }) {
   return <LayoutAsItem square>{children}</LayoutAsItem>
-}
-
-function TagCode ({ children }) {
-  return <InlineCode>{children}</InlineCode>
 }
 
 export default function Post() {
@@ -152,11 +148,10 @@ export default function Post() {
       h1: (children) => TagHeadings('h1', 'articleName', children),
       h2: (children) => TagHeadings('h2', 'lv2', children),
       h3: (children) => TagHeadings('h3', 'lv3', children),
-      p: TagP,
-      a: TagAnchor,
-      ul: TagUl,
-      li: TagLi,
-      code: TagCode
+      p: TagForParagraph,
+      a: TagForAnchor,
+      ul: TagForUList,
+      li: TagForListItem
     }} />
   );
 }

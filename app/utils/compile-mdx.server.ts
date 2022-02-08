@@ -39,7 +39,7 @@ export const bundleMDX = async ({ cwd, source }: IBundleMdx) => {
         ...(options.rehypePlugins ?? []),
         rehypeSlug,
         linkHeadings,
-        [rehypePrism, { ignoreMissing: true, showLineNumbers: true }],
+        [rehypePrism, { ignoreMissing: true, showLineNumbers: false }],
       ];
 
       return options;
