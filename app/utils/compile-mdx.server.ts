@@ -18,9 +18,7 @@ export const getFilePath = (contentPath: string, filename: string) =>
 export const bundleMDX = async ({ cwd, source }: IBundleMdx) => {
   const { default: remarkGfm } = await import("remark-gfm");
   const { default: remarkBreaks } = await import("remark-breaks");
-  const { default: remarkFootnotes } = await import("remark-footnotes");
   const { default: rehypeSlug } = await import("rehype-slug");
-  const { default: linkHeadings } = await import("rehype-autolink-headings");
   const { default: rehypePrism } = await import("rehype-prism-plus");
 
   return mdxBundler.bundleMDX({
@@ -31,14 +29,12 @@ export const bundleMDX = async ({ cwd, source }: IBundleMdx) => {
         ...(options.remarkPlugins ?? []),
         remarkMdxImages,
         remarkGfm,
-        remarkBreaks,
-        [remarkFootnotes, { inlineNotes: true }],
+        remarkBreaks
       ];
 
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
         rehypeSlug,
-        linkHeadings,
         [rehypePrism, { ignoreMissing: true, showLineNumbers: false }],
       ];
 
