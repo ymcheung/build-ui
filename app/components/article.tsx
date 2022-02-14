@@ -4,6 +4,7 @@ import { ListItem } from '~/utils/layout';
 export const Article = styled('article', {
   color: 'hsl($shade150)',
   fontFamily: '$default',
+  wordBreak: 'break-word',
 
   '& img': {
     maxWidth: '100%',
