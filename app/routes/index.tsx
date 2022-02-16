@@ -1,5 +1,6 @@
 import { useLoaderData, Link } from 'remix';
 
+import * as postAstro from '../../content/moment-with-astro.mdx';
 import * as postSplitbee from '../../content/analytics-tool-splitbee.mdx';
 import * as postStitches from '../../content/css-in-js-stitches.mdx';
 import * as postNaming from '../../content/naming-conventions.mdx';
@@ -63,6 +64,7 @@ export const loader: LoaderFunction = () =>
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
 [
+  postFromModule(postAstro),
   postFromModule(postSplitbee),
   postFromModule(postNaming),
   postFromModule(postStitches),
