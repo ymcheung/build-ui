@@ -30,6 +30,11 @@ export const Article = styled('article', {
       backgroundColor: '#282a36',
       borderRadius: '4px'
     }
+  },
+
+  '& hr': {
+    borderStyle: 'solid',
+    borderColor: 'hsl($shade20)'
   }
 });
 
