@@ -45,7 +45,7 @@ export const Container = styled('div', {
     },
     floor: {
       ground: {
-        paddingBottom: 'calc(32px + env(safe-area-inset-bottom))'
+        paddingBottom: 'calc(24px + env(safe-area-inset-bottom))'
       }
     }
   }

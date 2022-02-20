@@ -80,10 +80,28 @@ const IntersectionName = styled('figcaption', {
 });
 
 const Message = styled('p', {
-  margin: 0,
+  margin: '0 0 $4',
   color: 'hsl($shade130)',
   fontSize: '$14',
   lineHeight: '20px'
+});
+
+const ProfileLinksList = styled('ul', {
+  display: 'grid',
+  grid: 'auto / auto auto',
+  justifyContent: 'center',
+  columnGap: '$16',
+  margin: 0,
+  padding: 0
+});
+
+const ProfileLink = styled('a', {
+  display: 'block',
+  padding: '$12 $4'
+});
+
+const ProfileIcon = styled('svg', {
+  size: '$24'
 });
 
 export default function Footer() {
@@ -98,7 +116,7 @@ export default function Footer() {
             </Link>
           </ListItem>
           <ListItem nomark>
-            <a className={footerLink()} href="https://intersection.tw" target="_blank" rel="noopener noreferrer">
+            <a className={footerLink()} href="https://intersection.tw" target="_blank" rel="noopener">
               設計文章翻譯
             </a>
           </ListItem>
@@ -112,6 +130,22 @@ export default function Footer() {
         <Message>
           優化、插件、反饋、交互設計、高清、視頻：已經看膩這些中國用語。
         </Message>
+        <ProfileLinksList>
+          <ListItem nomark>
+            <ProfileLink href="https://ymcheung.tw" target="_blank" rel="noopener">
+              <ProfileIcon>
+                <use href="/images/profileIcons.svg#ymcheungTw" />
+              </ProfileIcon>
+            </ProfileLink>
+          </ListItem>
+          <ListItem nomark>
+            <ProfileLink href="https://github.com/ymcheung" target="_blank" rel="noopener">
+              <ProfileIcon>
+                <use href="/images/profileIcons.svg#github" />
+              </ProfileIcon>
+            </ProfileLink>
+          </ListItem>
+        </ProfileLinksList>
       </Section>
     </Container>
   )

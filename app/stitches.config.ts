@@ -33,6 +33,7 @@ export const { css, styled, globalCss, createTheme, keyframes, getCssText } = cr
       20: '20px',
       24: '24px',
       28: '28px',
+      32: '32px',
       36: '36px',
       48: '48px',
       52: '52px',
