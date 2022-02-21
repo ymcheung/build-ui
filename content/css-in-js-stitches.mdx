@@ -3,7 +3,7 @@ status: "published"
 title: "簡單介紹 CSS-In-JS 套件：Stitches"
 description: "Stitches 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方。這篇文章以小訣竅的方式，介紹 Stitches 的特色，包含多行使用情境與 body 樣式的切換方法。"
 datePublished: "2021-07-28"
-dateModified: "2021-12-30"
+dateModified: "2022-02-21"
 meta:
   - name: og:type
     content: "article"
@@ -22,7 +22,7 @@ import { Article } from "~/components/article";
 
 ![Stitches 的標誌](/images/css-in-js-stitches/sticker.svg)
 
-`Stitches` 是剛進入穩定 1.0.0 版本的 CSS-In-JS 套件，用起來已經相當成熟，常見的 CSS 規畫都能迎刃而解。
+`Stitches` 是經歷半年，終於進入穩定 `1.0.0` 版本的 CSS-In-JS 套件，用起來已經相當成熟，常見的 CSS 規畫都能迎刃而解。
 
 - 網站：[https://stitches.dev](https://stitches.dev)
 - 文件：[https://stitches.dev/docs](https://stitches.dev/docs)
@@ -132,9 +132,9 @@ const pageBody = globalCss({
 });
 ```
 
-接著就會發現：一旦切換到其他頁面，卻還保持打開頁面時的 `<body>` 樣式。因為這功能是設計給整個網站每個頁面使用的，換頁也不會變，跟 `styled-components` 不同。
+接著就會發現：一旦切換到其他頁面，卻還保持打開頁面時的 `<body>` 樣式。因為這功能是設計給整個網站、每個頁面使用的，換頁也不會變，跟 `styled-components` 不同。
 
-若有每頁換 `<body>` 樣式的需求，就用 Attribute Selector 來區分。
+若有每頁換 `<body>` 樣式的需求，社群建議用 Attribute Selector 來區分。
 
 ```jsx
 const pageBody = globalCss({

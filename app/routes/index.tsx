@@ -1,8 +1,8 @@
 import { useLoaderData, Link } from 'remix';
 
-import * as postAstro from '../../content/moment-with-astro.mdx';
 import * as postSplitbee from '../../content/analytics-tool-splitbee.mdx';
 import * as postStitches from '../../content/css-in-js-stitches.mdx';
+import * as postAstro from '../../content/moment-with-astro.mdx';
 import * as postNaming from '../../content/naming-conventions.mdx';
 import * as postI18next from '../../content/react-i18next.mdx';
 
@@ -65,9 +65,9 @@ export const loader: LoaderFunction = () =>
   // index page.
 [
   postFromModule(postAstro),
+  postFromModule(postStitches),
   postFromModule(postSplitbee),
   postFromModule(postNaming),
-  postFromModule(postStitches),
   postFromModule(postI18next)
 ];
 
