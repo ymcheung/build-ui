@@ -69,6 +69,8 @@ Astro 只能讀取 `.md` 檔案，不過實際上幾乎等同於 MDX，可以輸
 
 ```markdown
 ---
+[//]: # /bohemian-rhapsody
+
 setup: |
   import LyricSection from '../../components/LyricSection.astro';
 ---
@@ -89,6 +91,7 @@ No escape from reality
 這一段會產生 HTML 語法：
 
 ```html
+<!-- /bohemian-rhapsody -->
 <section class="lyricSection astro-SNPOEJMT">
   <p>Is this the real life?</p>
   <p>Is this just fantasy?</p>
@@ -97,7 +100,7 @@ No escape from reality
 </section>
 ```
 
-我想要設定 `<section>` 下面的 `<p>` 樣式，會發現 Astro 的 CSS 是 `Scoped`，沒辦法直接指定：
+我想要設定 `<section>` 下面的 `<p>` 樣式，會發現 Astro 的 CSS 是 `scoped`，沒辦法直接指定：
 
 ```jsx
 // LyricSection.astro
@@ -121,6 +124,8 @@ No escape from reality
 
 ```scss
 .lyricSection {
+  ...
+
   :global(p) {
     ...
   }
