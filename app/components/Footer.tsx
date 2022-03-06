@@ -134,6 +134,7 @@ export default function Footer() {
           <ListItem nomark>
             <ProfileLink href="https://ymcheung.tw" target="_blank" rel="noopener">
               <ProfileIcon>
+                <title>ymcheung 的個人網站</title>
                 <use href="/images/profileIcons.svg#ymcheungTw" />
               </ProfileIcon>
             </ProfileLink>
@@ -141,6 +142,7 @@ export default function Footer() {
           <ListItem nomark>
             <ProfileLink href="https://github.com/ymcheung" target="_blank" rel="noopener">
               <ProfileIcon>
+                <title>ymcheung 的 Github 首頁</title>
                 <use href="/images/profileIcons.svg#github" />
               </ProfileIcon>
             </ProfileLink>
