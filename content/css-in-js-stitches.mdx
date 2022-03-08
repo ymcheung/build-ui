@@ -14,11 +14,13 @@ meta:
 slug: "css-in-js-stitches"
 ---
 
-import { Article } from "~/components/article";
+import { Timestamp, Article } from "~/components/article";
 
 <Article>
 
 # {frontmatter.title}
+
+<Timestamp>{frontmatter.dateModified}</Timestamp>
 
 ![Stitches 的標誌](/images/css-in-js-stitches/sticker.svg)
 

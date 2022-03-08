@@ -112,12 +112,12 @@ export default function Footer() {
         <LinkList responsive={{ '@m992': 'desktop' }}>
           <ListItem nomark>
             <Link className={footerLink()} to="/translations" prefetch="intent">
-              技術文件翻譯
+              ☕️ 技術文件翻譯
             </Link>
           </ListItem>
           <ListItem nomark>
             <a className={footerLink()} href="https://intersection.tw" target="_blank" rel="noopener">
-              設計文章翻譯
+              💬 設計文章翻譯
             </a>
           </ListItem>
         </LinkList>
