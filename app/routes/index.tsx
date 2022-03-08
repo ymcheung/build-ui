@@ -7,7 +7,7 @@ import * as postNaming from '../../content/naming-conventions.mdx';
 import * as postI18next from '../../content/react-i18next.mdx';
 
 import type { MetaFunction, LoaderFunction, LinksFunction } from 'remix';
-import { Heading, ArticleDescription } from '~/components/article';
+import { Timestamp, Heading, ArticleDescription } from '~/components/article';
 import { styled } from '~/stitches.config';
 import * as CONSTANT from '~/utils/CONSTANTS';
 import { ListItem } from '~/utils/layout';
@@ -89,34 +89,6 @@ const Sticker = styled('figure', {
   padding: 0
 });
 
-const Timestamp = styled('time', {
-  display: 'inline-block',
-  marginBottom: '$16',
-  color: 'hsl($shade100)',
-  fontSize: '$14',
-  lineHeight: '12px',
-
-  variants: {
-    responsive: {
-      mobile: {
-        marginLeft: '-$16'
-      },
-      tablet: {
-        marginLeft: 0
-      }
-    }
-  },
-
-  '&::before': {
-    display: 'inline-block',
-    width: '$60',
-    height: '$12',
-    content: '',
-    marginRight: '$8',
-    backgroundColor: 'hsl($shade20)'
-  }
-});
-
 const Action = styled('span', {
   display: 'block',
   width: '100px',
@@ -127,7 +99,8 @@ const Action = styled('span', {
   fontSize: '1.6rem',
   lineHeight: 1,
   textAlign: 'right',
-  backgroundColor: 'hsl($accent)'
+  backgroundColor: 'hsl($accent)',
+  borderRadius: '6px'
 });
 
 // https://remix.run/guides/routing#index-routes

@@ -1,6 +1,34 @@
 import { styled } from '~/stitches.config';
 import { ListItem } from '~/utils/layout';
 
+export const Timestamp = styled('time', {
+  display: 'inline-block',
+  marginBottom: '$16',
+  color: 'hsl($shade100)',
+  fontSize: '$14',
+  lineHeight: '12px',
+
+  variants: {
+    responsive: {
+      mobile: {
+        marginLeft: '-$16'
+      },
+      tablet: {
+        marginLeft: 0
+      }
+    }
+  },
+
+  '&::before': {
+    display: 'inline-block',
+    width: '$60',
+    height: '$12',
+    content: '',
+    marginRight: '$8',
+    backgroundColor: 'hsl($shade20)'
+  }
+});
+
 export const Article = styled('article', {
   color: 'hsl($shade150)',
   fontFamily: '$default',
@@ -65,7 +93,7 @@ export const Heading = styled('h2', {
         lineHeight: '32px'
       },
       articleName: {
-        margin: '0 0 $24',
+        margin: '0 0 $12',
         fontSize: '3.2rem',
         lineHeight: '40px',
       },
