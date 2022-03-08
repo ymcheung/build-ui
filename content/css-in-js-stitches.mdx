@@ -3,7 +3,7 @@ status: "published"
 title: "簡單介紹 CSS-In-JS 套件：Stitches"
 description: "Stitches 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方。這篇文章以小訣竅的方式，介紹 Stitches 的特色，包含多行使用情境與 body 樣式的切換方法。"
 datePublished: "2021-07-28"
-dateModified: "2022-02-21"
+dateModified: "2022-03-08"
 meta:
   - name: og:type
     content: "article"
@@ -74,16 +74,16 @@ const Sidebar = styled('ul', {
 <Sidebar responsive={{ '@initial': 'mobile', 'bp768': 'tablet' }} />
 ```
 
-`Stitches` 支援 TypeScript，不過目前參數並未限定型別：`fontWeight: 500` 跟 `fontWeight: '500'` 會得到一樣的 CSS。
+`Stitches` 支援 TypeScript，不過目前參數並未限定型別：`fontWeight: 500` 跟 `fontWeight: '500'` 都可以用，會得到一樣的 CSS。
 
 ## Theme Tokens
 
-[`Theme Tokens`](https://stitches.dev/docs/tokens) 會以 CSS Custom Properties 呈現。`Stitches` 沒有 SCSS 自動編譯變數的功能，所以如果顏色有透明度的需求，建議使用 HSL 或 RGB，把 Token 設定為括弧裡的數字就好，例如：
+[`Theme Tokens`](https://stitches.dev/docs/tokens) 會以 `CSS Custom Properties` 呈現。`Stitches` 沒有 SCSS 自動編譯變數的功能，所以如果顏色有透明度的需求，建議使用 HSL 或 RGB，把 Token 設定為括弧裡的數字就好，例如：
 
 ```json
 theme: {
   colors: {
-    shade1600: '162, 2%, 99%',
+    shade1600: '162deg 2% 99%',
     ...
   }
 }
@@ -93,7 +93,7 @@ theme: {
 
 ```json
 color: 'hsl($shade1600)',
-backgroundColor: 'hsla($shade1600, 0.25)'
+backgroundColor: 'hsl($shade1600 / 0.25)'
 ```
 
 ## 多行與引號
