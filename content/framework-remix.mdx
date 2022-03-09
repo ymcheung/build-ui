@@ -1,0 +1,44 @@
+---
+status: "draft"
+title: "簡單介紹 Remix 框架"
+description: ""
+datePublished: "2022-02-01"
+dateModified: "2022-03-01"
+meta:
+  - name: og:type
+    content: "article"
+  - name: article:published_time
+    content: 2022-02-01T00:00:00
+  - name: article:author
+    content: "ymcheung"
+slug: "framework-remix"
+---
+
+import { Timestamp, Article } from "~/components/article";
+
+<Article>
+
+# {frontmatter.title}
+
+<Timestamp>{frontmatter.dateModified}</Timestamp>
+
+## 接下來的內容
+- Markdown 外部連結
+
+## Markdown 外部連結
+
+Markdown 的超連結語法：
+
+```markdown
+[Astro 首頁](https://astro.build)
+```
+
+會產生基本的超連結：
+```html
+<a href="https://astro.build">Astro 首頁</a>
+```
+
+但是，想要以新開分頁的方式開啟，而現在外部連結都強調安全性，應該要：
+```html
+<a href="https://astro.build" target="_blank" rel="noopener">Astro 首頁</a>
+```
