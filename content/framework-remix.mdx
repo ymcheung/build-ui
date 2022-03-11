@@ -1,6 +1,6 @@
 ---
 status: "draft"
-title: "簡單介紹 Remix 框架"
+title: "Remix 框架的使用心得"
 description: ""
 datePublished: "2022-02-01"
 dateModified: "2022-03-01"
@@ -22,8 +22,27 @@ import { Timestamp, Article } from "~/components/article";
 
 <Timestamp>{frontmatter.dateModified}</Timestamp>
 
+## Remix
+
+- https://remix.run
+
+```json
+"remix": "",
+"mdx-bundler": ""
+```
+
 ## 接下來的內容
+
+- 使用付費服務的原因 & 費用
 - Markdown 外部連結
+
+## 使用付費服務的原因 & 費用
+
+### 使用付費服務 fly.io
+
+想要使用 `MDX`，但是 Remix 目前把 `.mdx` 檔案當做是頁面的功能還非常陽春，例如：無法取得路徑名稱。連基本的 SEO 設定都無法滿足。因此，以 Remix 做的網站（部落格），有許多是 `mdx-bundler`，這也是 Remix 開發者做的套件。
+
+### 費用
 
 ## Markdown 外部連結
 
