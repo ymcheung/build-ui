@@ -124,7 +124,7 @@ export default function Footer() {
       </Section>
       <Section responsive={{ '@m768': 'tablet' }}>
         <Intersection>
-          <IntersectionLogo src="/intersection.svg" alt="" />
+          <IntersectionLogo src="/intersection.svg" alt="標誌 (Logo)" />
           <IntersectionName>Intersection</IntersectionName>
         </Intersection>
         <Message>
