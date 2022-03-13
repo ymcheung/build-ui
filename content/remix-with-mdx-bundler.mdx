@@ -30,6 +30,8 @@ import { Timestamp, Article } from "~/components/article";
 
 Remix 搭配 `Stitches` 的新手上路包：https://github.com/jjenzz/remix-stitches
 
+「喜歡的 UI 就要親手做出來」的 Github Repo：https://github.com/ymcheung/build-ui
+
 ```json
 "remix": "^1.2.3",
 "mdx-bundler": "^8.0.1",
@@ -41,13 +43,13 @@ Remix 搭配 `Stitches` 的新手上路包：https://github.com/jjenzz/remix-sti
 - 使用付費服務的原因 & 費用
 - Markdown 外部連結
 
-## 使用付費服務的原因 & 費用
+## 選擇付費服務 fly.io 的原因 & 費用
 
-### [fly.io](https://fly.io)
+### 目前只有 [fly.io](https://fly.io) 順利使用
 
 想要使用 `MDX`，但是 Remix 目前把 `.mdx` 檔案當做是頁面的功能還非常陽春，例如：無法取得路徑名稱，這樣連基本的 SEO 設定都無法滿足。因此，以 Remix 做的網站（部落格），有許多是 `mdx-bundler`，這也是 Remix 開發者做的套件。
 
-一開始使用 [Vercel](https://vercel.com)，發現 `mdx-bundler` 要用到的 `fs` 在開發環境可以使用，但是推上 `Vercel` build 成功，打開預覽網址才遇到錯誤訊息：
+一開始使用 [Vercel](https://vercel.com)，發現 `mdx-bundler` 要用到的 `fs` 在開發環境可以使用，推上 `Vercel` 也 build 成功，但打開預覽網址遇到錯誤訊息：
 
 ```txt
 There was an error
