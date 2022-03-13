@@ -5,6 +5,7 @@ import * as postStitches from '../../content/css-in-js-stitches.mdx';
 import * as postAstro from '../../content/moment-with-astro.mdx';
 import * as postNaming from '../../content/naming-conventions.mdx';
 import * as postI18next from '../../content/react-i18next.mdx';
+import * as postRemix from '../../content/remix-with-mdx-bundler.mdx';
 
 import type { MetaFunction, LoaderFunction, LinksFunction } from 'remix';
 import { Timestamp, Heading, ArticleDescription } from '~/components/article';
@@ -64,6 +65,7 @@ export const loader: LoaderFunction = () =>
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
 [
+  postFromModule(postRemix),
   postFromModule(postAstro),
   postFromModule(postStitches),
   postFromModule(postSplitbee),
