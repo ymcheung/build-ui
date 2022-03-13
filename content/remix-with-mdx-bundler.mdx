@@ -8,7 +8,7 @@ meta:
   - name: og:type
     content: "article"
   - name: article:published_time
-    content: 2022-03-13T00:00:00
+    content: 2022-03-13T13:45:00
   - name: article:author
     content: "ymcheung"
 slug: "remix-with-mdx-bundler"
@@ -31,7 +31,7 @@ import { Timestamp, Article } from "~/components/article";
 Remix 搭配 `Stitches` 的新手上路包：https://github.com/jjenzz/remix-stitches
 
 ```json
-"remix": "^1.1.3",
+"remix": "^1.2.3",
 "mdx-bundler": "^8.0.1",
 "@stitches/react": "^1.2.6"
 ```
@@ -77,11 +77,13 @@ Markdown 的超連結語法：
 ```
 
 會產生基本的超連結：
+
 ```html
 <a href="https://remix.run">Remix 首頁</a>
 ```
 
-但是，想要以新開分頁的方式開啟，而現在外部連結都強調安全性，應該要：
+但是，外部連結想要以新開分頁的方式開啟，而現在必須滿足安全性，應該要：
+
 ```html
 <a href="https://remix.run" target="_blank" rel="noopener">Remix 首頁</a>
 ```
