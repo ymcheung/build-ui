@@ -26,7 +26,6 @@ import { Timestamp, Article } from "~/components/article";
 
 - 首頁：https://remix.run
 - 文件：https://remix.run/docs/en/v1
-- Discord：https://rmx.as/discord
 
 Remix 搭配 `Stitches` 的新手上路包：https://github.com/jjenzz/remix-stitches
 
@@ -38,25 +37,29 @@ Remix 搭配 `Stitches` 的新手上路包：https://github.com/jjenzz/remix-sti
 "@stitches/react": "^1.2.6"
 ```
 
+看到 Remix 可以用 MDX 當成頁面，且已經有 Stitches 新手包，想拿來做部落格，並發布至 [Vercel](https://vercel.com)。然而，目前的做法是：要用 `mdx-bundler` 搭配付費服務 [fly.io](https://fly.io)。
+
+這篇文章不會再講一次 Remix 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
+
 ## 接下來的內容
 
-- 使用付費服務的原因 & 費用
+- 選擇付費服務的原因 & 費用
 - Markdown 外部連結
 
 ## 選擇付費服務 fly.io 的原因 & 費用
 
-### 目前只有 [fly.io](https://fly.io) 順利使用
+### 目前只有 fly.io 順利使用
 
-想要使用 `MDX`，但是 Remix 目前把 `.mdx` 檔案當做是頁面的功能還非常陽春，例如：無法取得路徑名稱，這樣連基本的 SEO 設定都無法滿足。因此，以 Remix 做的網站（部落格），有許多是 `mdx-bundler`，這也是 Remix 開發者做的套件。
+想要使用 `MDX` 撰寫內容，但是 Remix 目前把 `.mdx` 檔案當做是頁面的功能還非常陽春，例如：無法取得路徑名稱，這樣連基本的 SEO 設定都無法滿足。因此，以 Remix 做的網站（部落格），有許多是透過 `mdx-bundler`，這也是 Remix 開發者做的套件。
 
-一開始使用 [Vercel](https://vercel.com)，發現 `mdx-bundler` 要用到的 `fs` 在開發環境可以使用，推上 `Vercel` 也 build 成功，但打開預覽網址遇到錯誤訊息：
+`mdx-bundler` 要用到的 Node 指令 `fs` 在開發環境可以使用，推上 `Vercel` 也 build 成功，打開預覽網址才遇到錯誤訊息：
 
 ```txt
 There was an error
 ENOENT: no such file or directory, open '/var/task/content/postname.mdx'
 ```
 
-Discord 上面也有人嘗試過：[MDX blog in Remix.run](https://blog.oldweb2.com/remix-mdx-blog)，但最後結論就是改用 [fly.io](https://fly.io)。
+Discord 群組裡也有人嘗試過：[MDX blog in Remix.run](https://blog.oldweb2.com/remix-mdx-blog)，但最後結論就是改用 [fly.io](https://fly.io)。
 
 ### 調整記憶體
 
@@ -84,7 +87,7 @@ Markdown 的超連結語法：
 <a href="https://remix.run">Remix 首頁</a>
 ```
 
-但是，外部連結想要以新開分頁的方式開啟，而現在必須滿足安全性，應該要：
+但是，外部連結想要以新開分頁的方式開啟，必須滿足安全性，應該要：
 
 ```html
 <a href="https://remix.run" target="_blank" rel="noopener">Remix 首頁</a>
@@ -119,7 +122,7 @@ export default function Post() {
 
 ## 結尾
 
-想要關注 Remix 的發展，除了 Discord，[Remix Guide](https://remix.guide) 搜集文章、套件與範本。
+想要關注 Remix 的發展，除了 [Discord](https://rmx.as/discord)，[Remix Guide](https://remix.guide) 很積極搜集文章、套件與範本。
 
 本篇文章沒有從 fly.io 獲得任何好處。
 
