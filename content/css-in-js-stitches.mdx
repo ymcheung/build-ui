@@ -3,7 +3,7 @@ status: "published"
 title: "簡單介紹 CSS-In-JS 套件：Stitches"
 description: "Stitches 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方。這篇文章以小訣竅的方式，介紹 Stitches 的特色，包含多行使用情境與 body 樣式的切換方法。"
 datePublished: "2021-07-28"
-dateModified: "2022-03-09"
+dateModified: "2022-03-14"
 meta:
   - name: og:type
     content: "article"
@@ -39,8 +39,7 @@ import { Timestamp, Article } from "~/components/article";
 
 這篇文章不會把 `Stitches` 文件裡提到的內容再講一遍，因為已經非常清楚，只會補充特色和小訣竅。
 
-`Stitches` 利用 `styled` 來撰寫 CSS 屬性，跟已經廣泛使用的 `styled-components` 同個方式，而我認為 `Stitches` 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方，`Variants` 功能可以說是 `Stitches` 之所以強大的核心。
-
+`Stitches` 利用 `styled` 來撰寫 CSS 屬性，跟已經廣泛使用的 `styled-components` 同個方式，我認為 `Stitches` 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方，`Variants` 功能可以說是 `Stitches` 之所以強大的核心。
 
 ## 接下來的內容
 
@@ -48,7 +47,7 @@ import { Timestamp, Article } from "~/components/article";
 - Theme Tokens
 - 多行與引號
 - 指定 `<body>` 的樣式
-- Utils
+- 用來傳入數值的 Utils
 - 混搭 `styled` 和 `css`
 
 ## 基本語法
@@ -166,7 +165,7 @@ useEffect(() => {
 
 這樣子，換頁的時候就會更新 `data-body-style`。
 
-## Utils
+## 用來傳入數值的 `Utils`
 
 [文件](https://stitches.dev/docs/utils)裡其實也講得很清楚了，就像函式可以傳入 props。
 
