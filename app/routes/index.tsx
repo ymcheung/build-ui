@@ -65,8 +65,8 @@ export const loader: LoaderFunction = () =>
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
 [
-  postFromModule(postRemix),
   postFromModule(postAstro),
+  postFromModule(postRemix),
   postFromModule(postStitches),
   postFromModule(postSplitbee),
   postFromModule(postNaming),
@@ -96,11 +96,11 @@ const Action = styled('span', {
   width: '100px',
   marginRight: 0,
   marginLeft: 'auto',
-  padding: '14px $16 $12 0',
+  padding: '14px 0 $12',
   color: 'hsl($shade10)',
   fontSize: '1.6rem',
   lineHeight: 1,
-  textAlign: 'right',
+  textAlign: 'center',
   backgroundColor: 'hsl($accent)',
   borderRadius: '6px'
 });
@@ -128,7 +128,7 @@ export default function Index() {
                 {description}
               </ArticleDescription>
               <Action>
-                閱讀
+                📃&nbsp;閱讀
               </Action>
             </IndexLink>
           </ListItem>
