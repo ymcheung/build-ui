@@ -9,7 +9,7 @@ import * as postRemix from '../../content/remix-with-mdx-bundler.mdx';
 
 import type { MetaFunction, LoaderFunction, LinksFunction } from '@remix-run/node';
 import { Timestamp, Heading, ArticleDescription } from '~/components/article';
-import { styled } from '~/stitches.config';
+import { styled } from '~/styles/stitches.config';
 import * as CONSTANT from '~/utils/CONSTANTS';
 import { ListItem } from '~/utils/layout';
 

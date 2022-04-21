@@ -1,4 +1,4 @@
-import { styled } from '~/stitches.config';
+import { styled } from '~/styles/stitches.config';
 
 const Icon = styled('svg', {
   width: 'clamp(256px, 75vw, 288px)',
