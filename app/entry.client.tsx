@@ -1,5 +1,5 @@
-import { hydrate } from 'react-dom'
-import { RemixBrowser, RemixBrowserProps } from 'remix'
+import { RemixBrowser, RemixBrowserProps } from '@remix-run/react';
+import { hydrate } from 'react-dom';
 
 function EntryClient(props: RemixBrowserProps) {
   return <RemixBrowser {...props} />

@@ -1,6 +1,6 @@
 import {
   Link
-} from 'remix';
+} from '@remix-run/react';
 
 import { styled, css } from '~/stitches.config';
 import { Container, ListItem } from '~/utils/layout';

@@ -1,4 +1,5 @@
-import { json, ThrownResponse } from "remix";
+import { json } from '@remix-run/node';
+import { ThrownResponse } from '@remix-run/react';
 
 export type CatchData = {
   error: string;
