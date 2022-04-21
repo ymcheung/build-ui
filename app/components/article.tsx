@@ -1,4 +1,4 @@
-import { styled } from '~/stitches.config';
+import { styled } from '~/styles/stitches.config';
 import { ListItem } from '~/utils/layout';
 
 export const Timestamp = styled('time', {

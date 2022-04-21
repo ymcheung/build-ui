@@ -3,7 +3,7 @@ import {
 } from '@remix-run/react';
 
 import LogoDark from '~/elements/LogoDark';
-import { styled } from '~/stitches.config';
+import { styled } from '~/styles/stitches.config';
 import { Container } from '~/utils/layout';
 
 const LogoLink = styled(Link, {

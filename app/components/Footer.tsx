@@ -2,7 +2,7 @@ import {
   Link
 } from '@remix-run/react';
 
-import { styled, css } from '~/stitches.config';
+import { styled, css } from '~/styles/stitches.config';
 import { Container, ListItem } from '~/utils/layout';
 
 const Section = styled('section', {

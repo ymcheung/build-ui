@@ -8,12 +8,13 @@ import {
   useMatches,
   useCatch,
 } from '@remix-run/react';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import type { LinksFunction } from '@remix-run/node';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import { styled } from '~/stitches.config';
+import ClientStyleContext from "~/styles/client.context";
+import { styled } from '~/styles/stitches.config';
 import globalStyles from '~/utils/globalStyles';
 import { Container } from '~/utils/layout';
 
@@ -93,6 +94,11 @@ function Document({
   children: React.ReactNode
   title?: string
 }) {
+  const clientStyleData = useContext(ClientStyleContext);
+
+  useEffect(() => {
+    clientStyleData.reset();
+  }, [clientStyleData]);
 
   globalStyles();
 
@@ -109,6 +115,11 @@ function Document({
         <Meta />
         {!!canonical && <link rel="canonical" href={canonical} />}
         <Links />
+        <style
+          id="stitches"
+          dangerouslySetInnerHTML={{ __html: clientStyleData.sheet }}
+          suppressHydrationWarning
+        />
         <script data-respect-dnt async src="https://cdn.splitbee.io/sb.js" />
       </head>
       <DocumentBody responsive={{ '@initial': 'mobile', '@m992': 'desktop' }}>
