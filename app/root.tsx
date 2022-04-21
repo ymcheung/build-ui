@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Links,
   LiveReload,
@@ -8,9 +7,10 @@ import {
   ScrollRestoration,
   useMatches,
   useCatch,
-} from 'remix';
+} from '@remix-run/react';
+import React from 'react';
 
-import type { LinksFunction } from 'remix';
+import type { LinksFunction } from '@remix-run/node';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import { styled } from '~/stitches.config';

@@ -1,13 +1,13 @@
-import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
-import { useMemo } from 'react';
-import {
+import  {
   type MetaFunction,
   type LinksFunction,
   type LoaderFunction,
   type RouteHandle,
-  json,
-  useLoaderData,
-} from 'remix';
+  json
+} from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
+import { useMemo } from 'react';
 
 import { Heading, Paragraph, AnchorLink, LayoutAsList, LayoutAsItem } from '~/components/article';
 import { readFile } from '~/utils.server';

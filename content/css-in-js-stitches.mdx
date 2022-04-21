@@ -3,7 +3,7 @@ status: "published"
 title: "簡單介紹 CSS-In-JS 套件：Stitches"
 description: "Stitches 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方。這篇文章以小訣竅的方式，介紹 Stitches 的特色，包含多行使用情境與 body 樣式的切換方法。"
 datePublished: "2021-07-28"
-dateModified: "2022-03-14"
+dateModified: "2022-04-21"
 meta:
   - name: og:type
     content: "article"
@@ -43,12 +43,31 @@ import { Timestamp, Article } from "~/components/article";
 
 ## 接下來的內容
 
+- Stitches vs. styled-components
 - 基本語法
 - Theme Tokens
 - 多行與引號
 - 指定 `<body>` 的樣式
 - 用來傳入數值的 Utils
 - 混搭 `styled` 和 `css`
+
+## Stitches vs. styled-components
+
+### Stitches
+
+- 用的人少
+- 無法傳入 `props` 值進入元件，需在元件指定已經做好的 `Variants`
+- `Variants` 避免屬性覆蓋
+- 在龐大的專案，看起來還是很整齊
+- 用 `Variants` 遠比沿用 (Extend) 樣式更清楚，在設計上就避免多層次沿用
+
+### styled-components
+
+- 用的人多
+- 可以傳入 `props` 值進入元件，讓樣式即時變化
+- 無可避免會有很多被覆蓋的屬性
+- 在龐大的專案，CSS 屬性或值裡塞滿條件與函式，看起來很亂
+- 不斷因為沿用，得來回設定，多層次沿用會造成管理上的惡夢
 
 ## 基本語法
 

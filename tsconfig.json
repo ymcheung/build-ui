@@ -12,9 +12,10 @@
     "module": "ES2020",
     "noUncheckedIndexedAccess": true,
     "strict": true,
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"],
-      "/*": ["./*"]
+      "~/*": ["app/*"],
+      "/*": ["*"]
     },
     "noEmit": true
   }

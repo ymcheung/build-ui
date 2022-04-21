@@ -1,4 +1,4 @@
-import { useLoaderData, Link } from 'remix';
+import { useLoaderData, Link } from '@remix-run/react';
 
 import * as postSplitbee from '../../content/analytics-tool-splitbee.mdx';
 import * as postStitches from '../../content/css-in-js-stitches.mdx';
@@ -7,7 +7,7 @@ import * as postNaming from '../../content/naming-conventions.mdx';
 import * as postI18next from '../../content/react-i18next.mdx';
 import * as postRemix from '../../content/remix-with-mdx-bundler.mdx';
 
-import type { MetaFunction, LoaderFunction, LinksFunction } from 'remix';
+import type { MetaFunction, LoaderFunction, LinksFunction } from '@remix-run/node';
 import { Timestamp, Heading, ArticleDescription } from '~/components/article';
 import { styled } from '~/stitches.config';
 import * as CONSTANT from '~/utils/CONSTANTS';
@@ -65,9 +65,9 @@ export const loader: LoaderFunction = () =>
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
 [
+  postFromModule(postStitches),
   postFromModule(postAstro),
   postFromModule(postRemix),
-  postFromModule(postStitches),
   postFromModule(postSplitbee),
   postFromModule(postNaming),
   postFromModule(postI18next)

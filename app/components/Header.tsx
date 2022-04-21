@@ -1,6 +1,6 @@
 import {
   Link
-} from 'remix';
+} from '@remix-run/react';
 
 import LogoDark from '~/elements/LogoDark';
 import { styled } from '~/stitches.config';
