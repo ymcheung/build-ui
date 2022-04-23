@@ -3,7 +3,7 @@ status: "published"
 title: "初次使用 Remix，搭配 mdx-bundler"
 description: "追蹤一陣子的 Remix 能夠直接以 MDX 檔案當作頁面，而且 CSS 樣式可以用 Stitches 輔助，就開始用來製作部落格。然而，以為可以簡單用 Vercel 發布網頁，卻過於陽春，而改用 mdx-bundler 又遭遇無法在 Vercel 使用的狀況，只好改用付費服務 fly.io。"
 datePublished: "2022-03-13"
-dateModified: "2022-03-14"
+dateModified: "2022-04-23"
 meta:
   - name: og:type
     content: "article"
@@ -34,7 +34,7 @@ import { Timestamp, Article } from "~/components/article";
 "@stitches/react": "^1.2.6"
 ```
 
-- Remix 搭配 `Stitches` 的新手上路包 [Github Repo](https://github.com/jjenzz/remix-stitches)
+- Remix 搭配 `Stitches` 的新手上路包：[Remix 官方範例](https://github.com/remix-run/remix/tree/main/examples/stitches)、[jjenzz/remix-stitches](https://github.com/jjenzz/remix-stitches)。
 - 「喜歡的 UI 就要親手做出來」的 [Github Repo](https://github.com/ymcheung/build-ui)
 
 ---
@@ -95,9 +95,14 @@ Markdown 的超連結語法：
 <a href="https://remix.run" target="_blank" rel="noopener">Remix 首頁</a>
 ```
 
-`mdx-bundler` 的 [Component Substitution](https://github.com/kentcdodds/mdx-bundler#component-substitution) 可以處理這個願望：
+有兩種方式達成這個願望：
 
-判斷「外部連結」都是以 `http` 開頭，就回傳有 `target` 和 `rel` 的 `<AnchorLink>` 元件。
+- `mdx-bundler` 的 [Component Substitution](https://github.com/kentcdodds/mdx-bundler#component-substitution)
+- `Rehype` 的[外部連結外掛程式](https://github.com/rehypejs/rehype-external-links)
+
+先放 Component Substitution 的方法。
+
+目標：判斷「外部連結」都是以 `http` 開頭，就回傳有 `target` 和 `rel` 的 `<AnchorLink>` 元件。
 
 ```jsx
 import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';

@@ -3,7 +3,7 @@ status: "published"
 title: "簡單介紹 CSS-In-JS 套件：Stitches"
 description: "Stitches 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方。這篇文章以小訣竅的方式，介紹 Stitches 的特色，包含多行使用情境與 body 樣式的切換方法。"
 datePublished: "2021-07-28"
-dateModified: "2022-04-21"
+dateModified: "2022-04-23"
 meta:
   - name: og:type
     content: "article"
@@ -32,9 +32,9 @@ import { Timestamp, Article } from "~/components/article";
 ## 使用環境
 
 ```json
-"@stitches/react": "^1.2.5",
+"@stitches/react": "^1.2.7",
 "react": "^17.0.1",
-"next": "^12.0.2"
+"next": "^12.1.4"
 ```
 
 這篇文章不會把 `Stitches` 文件裡提到的內容再講一遍，因為已經非常清楚，只會補充特色和小訣竅。
@@ -53,21 +53,25 @@ import { Timestamp, Article } from "~/components/article";
 
 ## Stitches vs. styled-components
 
+在使用 Stitches 之前就是 styled-components，我覺得差別在：
+
 ### Stitches
 
-- 用的人少
 - 無法傳入 `props` 值進入元件，需在元件指定已經做好的 `Variants`
 - `Variants` 避免屬性覆蓋
 - 在龐大的專案，看起來還是很整齊
 - 用 `Variants` 遠比沿用 (Extend) 樣式更清楚，在設計上就避免多層次沿用
+- 用的人少
 
 ### styled-components
 
-- 用的人多
 - 可以傳入 `props` 值進入元件，讓樣式即時變化
 - 無可避免會有很多被覆蓋的屬性
 - 在龐大的專案，CSS 屬性或值裡塞滿條件與函式，看起來很亂
 - 不斷因為沿用，得來回設定，多層次沿用會造成管理上的惡夢
+- 用的人多
+
+也可以從 [State of CSS 參考](https://2021.stateofcss.com/technologies/css-in-js)，統計將近 9,000 位開發者的意見。
 
 ## 基本語法
 
@@ -140,7 +144,7 @@ grid: '"next" auto
 Unterminated string literal
 ```
 
-這時候要使用重音符 (grave accent)：
+這情況要使用重音符 (grave accent)：
 
 ```json
 grid: `"next" auto

@@ -107,7 +107,7 @@ function Document({
   const canonical = match?.data.canonical;
 
   return (
-    <html lang="zh-Hant-TW">
+    <html lang="zh-TW">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
