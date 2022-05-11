@@ -24,10 +24,12 @@ import { Timestamp, Article } from "~/components/article";
 
 ![Stitches 的標誌](/images/css-in-js-stitches/sticker.svg)
 
-`Stitches` 是經歷半年，終於進入穩定 `1.0.0` 版本的 CSS-In-JS 套件，用起來已經相當成熟，常見的 CSS 規畫都能迎刃而解。
+`Stitches` 是已經進入穩定 `1.0.0` 版的 CSS-In-JS 套件，用起來手感相當成熟，常見的 CSS 規畫都能迎刃而解。
 
 - 網站：[https://stitches.dev](https://stitches.dev)
 - 文件：[https://stitches.dev/docs](https://stitches.dev/docs)
+
+---
 
 ## 使用環境
 
@@ -41,6 +43,8 @@ import { Timestamp, Article } from "~/components/article";
 
 `Stitches` 利用 `styled` 來撰寫 CSS 屬性，跟已經廣泛使用的 `styled-components` 同個方式，我認為 `Stitches` 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方，`Variants` 功能可以說是 `Stitches` 之所以強大的核心。
 
+---
+
 ## 接下來的內容
 
 - Stitches vs. styled-components
@@ -50,6 +54,8 @@ import { Timestamp, Article } from "~/components/article";
 - 指定 `<body>` 的樣式
 - 用來傳入數值的 Utils
 - 混搭 `styled` 和 `css`
+
+---
 
 ## Stitches vs. styled-components
 
@@ -73,6 +79,8 @@ import { Timestamp, Article } from "~/components/article";
 
 也可以從 [State of CSS 參考](https://2021.stateofcss.com/technologies/css-in-js)，統計將近 9,000 位開發者的意見。
 
+---
+
 ## 基本語法
 
 ```jsx
@@ -83,7 +91,7 @@ const Sidebar = styled('ul', {
 });
 ```
 
-跟 `styled-components` 用法差不多，第一個傳入的參數是 HTML 標籤（或沿用其他 `styled` 元件），接著是 CSS 屬性物件，Variants 也要放在裡面。
+先定義 HTML 標籤（或沿用 `styled` 元件），接著是 CSS 屬性物件，Variants 也要放在裡面。
 
 ```jsx
 const Sidebar = styled('ul', {
@@ -108,6 +116,8 @@ const Sidebar = styled('ul', {
 
 `Stitches` 支援 TypeScript，不過目前參數並未限定型別：`fontWeight: 500` 跟 `fontWeight: '500'` 都可以用，會得到一樣的 CSS。
 
+---
+
 ## Theme Tokens
 
 [`Theme Tokens`](https://stitches.dev/docs/tokens) 會以 `CSS Custom Properties` 呈現。`Stitches` 沒有 SCSS 自動編譯變數的功能，所以如果顏色有透明度的需求，建議使用 HSL 或 RGB，把 Token 設定為括弧裡的數字就好，例如：
@@ -127,6 +137,8 @@ theme: {
 color: 'hsl($shade1600)',
 backgroundColor: 'hsl($shade1600 / 0.25)'
 ```
+
+---
 
 ## 多行與引號
 
@@ -151,6 +163,8 @@ grid: `"next" auto
        "prev" auto
        "home" auto / auto`
 ```
+
+---
 
 ## 指定 `<body>` 的樣式
 
@@ -187,6 +201,8 @@ useEffect(() => {
 ```
 
 這樣子，換頁的時候就會更新 `data-body-style`。
+
+---
 
 ## 用來傳入數值的 `Utils`
 
@@ -240,6 +256,8 @@ size: (value: Stitches.ScaleValue<'sizes'>) => ({
 
 也就是以後 `size` 這個 Util 能傳入的值，必須是在 `sizes` Token 裡已經設定好的，無法像之前可以傳入任意值，如果專案還在東改西改的階段，就少了一些彈性。
 
+---
+
 ## 混搭 `styled` 和 `css`
 
 如果用了 `css`
@@ -260,6 +278,8 @@ const NameLabel = styled('span', label,
   }
 );
 ```
+
+---
 
 ## 結論
 

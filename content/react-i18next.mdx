@@ -35,10 +35,14 @@ import { Timestamp, Article } from "~/components/article";
 
 覺得 [i18next](https://www.i18next.com) 的文件寫得夠完整，所以在決定[作品集](https://ymcheung.tw)要做多國語系時，用這一款來輔助，避免重新發明輪胎，[next-i18next](https://github.com/isaachinman/next-i18next) 又做好許多 `Next.js` 和 `i18next` 之間的整合。然而，使用上還是有向技術社群求助的經驗，在這一篇集合起來。
 
+---
+
 ## 接下來的內容
 
 - 使用特殊符號與 HTML 語法
 - TypeScript 的陣列問題
+
+---
 
 ## 使用特殊符號與 HTML 語法
 
@@ -60,6 +64,8 @@ import { Timestamp, Article } from "~/components/article";
 ```
 
 `dangerouslySetInnerHTML` 的缺點是無法放置其他元件，結構寫起來很不一樣。
+
+---
 
 ## TypeScript 的陣列問題
 
@@ -127,6 +133,8 @@ Property 'map' does not exist on type 'string'.
 [CodeSandbox 連結](https://codesandbox.io/s/react-i18next-typescript-array-example-5xdzk?file=/README.md)
 
 來源：[Typescript i18next does not satisfy the constraint 'string | TemplateStringsArray NextJS](https://stackoverflow.com/questions/69225989/typescript-i18next-does-not-satisfy-the-constraint-string-templatestringsarra)
+
+---
 
 ## 結論
 
