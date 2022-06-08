@@ -64,13 +64,13 @@ export const loader: LoaderFunction = () =>
   // Referencing the posts here instead of in the Index component down below
   // lets us avoid bundling the actual posts themselves in the bundle for the
   // index page.
-[
+  [
+  postFromModule(postI18next),
   postFromModule(postStitches),
   postFromModule(postAstro),
   postFromModule(postRemix),
   postFromModule(postSplitbee),
-  postFromModule(postNaming),
-  postFromModule(postI18next)
+  postFromModule(postNaming)
 ];
 
 const IndexList = styled('ul', {

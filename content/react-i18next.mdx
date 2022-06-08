@@ -1,9 +1,9 @@
 ---
 status: "published"
-title: "使用 react-i18next 的瑣碎注意事項"
+title: "使用 i18next 的瑣碎注意事項"
 description: "i18next 的文件寫得夠完整，所以在決定作品集要做多國語系時，用這一款來輔助。這篇文章記錄文件裡找不到，只好從 Issue 和 stackoverflow 翻找的問題解方。"
 datePublished: "2021-09-01"
-dateModified: "2022-03-09"
+dateModified: "2022-06-08"
 meta:
   - name: og:type
     content: "article"
@@ -22,15 +22,15 @@ import { Timestamp, Article } from "~/components/article";
 
 <Timestamp>{frontmatter.dateModified}</Timestamp>
 
-![react-i18next 的標誌](/images/react-i18next/sticker.svg)
+![i18next 的標誌](/images/react-i18next/sticker.svg)
 
 ## 環境與套件
 
 ```json
 "react": ^17.0.1,
-"next": 11.0.1,
-"next-i18next": ^8.5.5,
-"typescript": 4.3.2
+"next": 12.1.6,
+"next-i18next": ^11.0.0,
+"typescript": 4.5.5
 ```
 
 覺得 [i18next](https://www.i18next.com) 的文件寫得夠完整，所以在決定[作品集](https://ymcheung.tw)要做多國語系時，用這一款來輔助，避免重新發明輪胎，[next-i18next](https://github.com/isaachinman/next-i18next) 又做好許多 `Next.js` 和 `i18next` 之間的整合。然而，使用上還是有向技術社群求助的經驗，在這一篇集合起來。
@@ -39,37 +39,14 @@ import { Timestamp, Article } from "~/components/article";
 
 ## 接下來的內容
 
-- 使用特殊符號與 HTML 語法
 - TypeScript 的陣列問題
-
----
-
-## 使用特殊符號與 HTML 語法
-
-撰寫 HTML 的時候，遇到特殊符號，例如 &copy;，會去 [Character Entity Reference](https://dev.w3.org/html5/html-author/charref) 查詢（關鍵字打 _html5 entity_），並且寫成 `&copy;`。這樣寫在語系檔裡面，就會照樣輸出 `&copy;`。
-
-必須依賴 React 的 `dangerouslySetInnerHTML` 來顯示：
-
-```jsx
-<ContentTitle dangerouslySetInnerHTML={{__html: t('intro.title')}} />
-```
-
-若在語系檔裡帶 HTML，也必須用這個方法來顯示，並且在雙引號加上 escape：
-
-```json
-{
-"description":
-  "Get started with <a class=\"paragraph-link\" href=\"https://...\" target=\"_blank\" rel=\"noopener\">Onboarding</a>."
-}
-```
-
-`dangerouslySetInnerHTML` 的缺點是無法放置其他元件，結構寫起來很不一樣。
+- 使用特殊符號與 HTML 語法
 
 ---
 
 ## TypeScript 的陣列問題
 
-多國語系檔有時候會想要使用陣列的方法來呈現：
+在語系檔裡面，會有使用陣列的情境：
 
 ```json
 "document":
@@ -133,6 +110,29 @@ Property 'map' does not exist on type 'string'.
 [CodeSandbox 連結](https://codesandbox.io/s/react-i18next-typescript-array-example-5xdzk?file=/README.md)
 
 來源：[Typescript i18next does not satisfy the constraint 'string | TemplateStringsArray NextJS](https://stackoverflow.com/questions/69225989/typescript-i18next-does-not-satisfy-the-constraint-string-templatestringsarra)
+
+---
+
+## 使用特殊符號與 HTML 語法
+
+撰寫 HTML 的時候，遇到特殊符號，例如 &copy;，會去 [Character Entity Reference](https://dev.w3.org/html5/html-author/charref) 查詢（關鍵字打 _html5 entity_），並且寫成 `&copy;`。這樣寫在語系檔裡面，就會照樣輸出 `&copy;`。
+
+必須依賴 React 的 `dangerouslySetInnerHTML` 來顯示：
+
+```jsx
+<ContentTitle dangerouslySetInnerHTML={{__html: t('intro.title')}} />
+```
+
+若在語系檔裡帶 HTML，也必須用這個方法來顯示，並且在雙引號加上 escape：
+
+```json
+{
+"description":
+  "Get started with <a class=\"paragraph-link\" href=\"https://...\" target=\"_blank\" rel=\"noopener\">Onboarding</a>."
+}
+```
+
+`dangerouslySetInnerHTML` 的缺點是無法放置其他元件，結構寫起來很不一樣。
 
 ---
 
