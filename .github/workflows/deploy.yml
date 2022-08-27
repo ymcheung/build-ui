@@ -10,6 +10,10 @@ jobs:
       contents: read # Needed to clone the repository
 
     steps:
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7.8.0
+
       - name: Clone repository
         uses: actions/checkout@v2
 
