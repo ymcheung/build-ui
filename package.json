@@ -6,12 +6,15 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "devDependencies": {
     "@astrojs/solid-js": "^1.0.0",
-    "astro": "^1.0.1",
+    "astro": "^1.0.5",
     "solid-js": "^1.4.3"
+  },
+  "dependencies": {
+    "@astrojs/deno": "^1.0.0"
   }
 }
