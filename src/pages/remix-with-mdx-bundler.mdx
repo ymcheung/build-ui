@@ -1,0 +1,142 @@
+---
+title: "初次使用 Remix，搭配 mdx-bundler"
+layout: ../layouts/Post.astro
+description: "追蹤一陣子的 Remix 能夠直接以 MDX 檔案當作頁面，而且 CSS 樣式可以用 Stitches 輔助，就開始用來製作部落格。然而，以為可以簡單用 Vercel 發布網頁，卻過於陽春，而改用 mdx-bundler 又遭遇無法在 Vercel 使用的狀況，只好改用付費服務 fly.io。"
+datePublished: "2022-03-13"
+dateModified: "2022-04-23"
+meta:
+  - name: og:type
+    content: "article"
+  - name: article:published_time
+    content: 2022-03-13T13:45:00
+  - name: article:author
+    content: "ymcheung"
+slug: "remix-with-mdx-bundler"
+---
+
+import { Timestamp, Article } from "~/components/article";
+
+<Article>
+
+# {frontmatter.title}
+
+<Timestamp>{frontmatter.dateModified}</Timestamp>
+
+## ![Remix 的標誌](/images/remix-with-mdx-bundler/sticker.svg)
+
+- 首頁：https://remix.run
+- 文件：https://remix.run/docs/en/v1
+- mdx-bundler：https://github.com/kentcdodds/mdx-bundler
+
+```json
+"remix": "^1.2.3",
+"mdx-bundler": "^8.0.1",
+"@stitches/react": "^1.2.6"
+```
+
+- Remix 搭配 `Stitches` 的新手上路包：[Remix 官方範例](https://github.com/remix-run/remix/tree/main/examples/stitches)、[jjenzz/remix-stitches](https://github.com/jjenzz/remix-stitches)。
+- 「喜歡的 UI 就要親手做出來」的 [Github Repo](https://github.com/ymcheung/build-ui)
+
+看到 Remix 可以用 MDX 當成頁面，且 CSS 樣式方面已經有 Stitches 新手包，想拿來做部落格，並發布至 [Vercel](https://vercel.com)。然而，目前的做法是：要用 `mdx-bundler` 搭配付費服務 [fly.io](https://fly.io)。
+
+這篇文章不會再講一次 Remix 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
+
+---
+
+## 接下來的內容
+
+- 選擇付費服務的原因 & 費用
+- Markdown 判斷外部連結
+
+---
+
+## 選擇付費服務 fly.io 的原因 & 費用
+
+### 目前只有 fly.io 順利使用
+
+想要使用 `MDX` 撰寫內容，但是 Remix 目前把 `.mdx` 檔案當做是頁面的功能還非常陽春，例如：無法取得路徑名稱，這樣連基本的 SEO 設定都無法滿足。因此，以 Remix 做的網站（部落格），有許多是透過 `mdx-bundler`，這也是 Remix 開發者做的套件。
+
+`mdx-bundler` 要用到的 Node 指令 `fs` 在開發環境可以使用，推上 `Vercel` 也 build 成功，打開預覽網址才遇到錯誤訊息：
+
+```txt
+There was an error
+ENOENT: no such file or directory, open '/var/task/content/postname.mdx'
+```
+
+Discord 群組裡也有人嘗試過：[MDX blog in Remix.run](https://blog.oldweb2.com/remix-mdx-blog)，但最後結論就是改用 [fly.io](https://fly.io)。
+
+### 調整記憶體
+
+Remix 在安裝的時候就有提供 fly.io 的設定，要能夠跑 Remix，Memory 必須調整為 512MB 才跑得動。
+
+![在 fly.io 設定 Memory 為 512MB](/images/remix-with-mdx-bundler/flyIoMemory.webp)
+
+### 費用
+
+2022 年 2 月使用一個月的費用是：0.95 鎂。
+
+![fly.io 使用一個月的帳單是 0.95 鎂](/images/remix-with-mdx-bundler/flyIoInvoice.webp)
+
+---
+
+## Markdown 判斷外部連結
+
+Markdown 的超連結語法：
+
+```markdown
+[Remix 首頁](https://remix.run)
+```
+
+會產生基本的超連結：
+
+```html
+<a href="https://remix.run">Remix 首頁</a>
+```
+
+但是，外部連結想要以新開分頁的方式開啟，必須滿足安全性，應該要：
+
+```html
+<a href="https://remix.run" target="_blank" rel="noopener">Remix 首頁</a>
+```
+
+有兩種方式達成這個願望：
+
+- `mdx-bundler` 的 [Component Substitution](https://github.com/kentcdodds/mdx-bundler#component-substitution)
+- `Rehype` 的[外部連結外掛程式](https://github.com/rehypejs/rehype-external-links)
+
+先放 Component Substitution 的方法。
+
+目標：判斷「外部連結」都是以 `http` 開頭，就回傳有 `target` 和 `rel` 的 `<AnchorLink>` 元件。
+
+```jsx
+import { getMDXComponent, getMDXExport } from 'mdx-bundler/client';
+import { useMemo } from 'react';
+
+function TagForAnchor({ children, href }) {
+  if (!href.startsWith('http')) {
+    return <AnchorLink href={href}>{...children}</AnchorLink>
+  }
+
+  return <AnchorLink href={href} target="_blank" rel="noopener">{children}</AnchorLink>
+}
+
+export default function Post() {
+  const { code } = useLoaderData<LoaderData>();
+  const Component = useMemo(() => getMDXComponent(code), [code]);
+  return (
+    <Component components={{
+      a: TagForAnchor
+    }} />
+  );
+}
+```
+
+---
+
+## 結尾
+
+想要關注 Remix 的發展，除了 [Discord](https://rmx.as/discord)，[Remix Guide](https://remix.guide) 很積極搜集文章、套件與範本。
+
+本篇文章沒有從 fly.io 獲得任何好處。
+
+</Article>

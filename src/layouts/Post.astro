@@ -1,0 +1,42 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  datePublished: string;
+  dateModified: string;
+}
+
+const { title, description, datePublished, dateModified } =
+  Astro.props as Props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <style lang="scss">
+      .timestamp {
+        display: inline-block;
+        margin-bottom: 16px;
+        /* color: hsl($shade100), */
+        font-size: "$14";
+        line-height: 14px;
+
+        &::before {
+          display: inline-block;
+          width: "$60";
+          height: "$12";
+          content: "";
+          margin-right: "$8";
+          background-color: "hsl($shade20)";
+        }
+      }
+    </style>
+  </body>
+</html>

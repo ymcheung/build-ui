@@ -1,0 +1,239 @@
+---
+title: "使用 Astro 打造速度飛快的靜態網站"
+layout: ../layouts/Post.astro
+description: "在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 還未進入穩定版本。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。"
+datePublished: "2022-02-16"
+dateModified: "2022-08-27"
+meta:
+  - name: og:type
+    content: "article"
+  - name: article:published_time
+    content: 2022-02-16T15:12:00
+  - name: article:author
+    content: "ymcheung"
+slug: "moment-with-astro"
+---
+# {frontmatter.title}
+
+<Timestamp>{frontmatter.dateModified}</Timestamp>
+
+在蓋「[Moment：看電影看劇時，聽到喜歡的音樂](https://moment.intersection.tw)」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求，找到了 [Remix](https://remix.run) 和 Astro。這個部落格使用 Remix；在 Moment 使用 Astro。
+
+Astro 在 2022 年 8 月正式進入 1.0 穩定版本。這篇文章不會再講一次 Astro 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
+
+## ![Astro 的標誌](/images/moment-with-astro/sticker.svg)
+
+```json
+"astro": "^1.1.0"
+```
+
+- 網站：https://astro.build
+- 文件：https://docs.astro.build/zh-tw/getting-started/
+
+Moment 根據 Astro 的 [Blog Starter 範例](https://github.com/withastro/astro/tree/main/examples/blog)進行修改，基礎是 `preact`，使用的體感跟 React 幾乎沒有差別，後來改用 `Solid.js`，用到後來 Astro 本身幾乎是隱形，跟搭配的框架整合得不錯。
+
+[![Moment 首頁截圖](/images/moment-with-astro/moment.webp)](https://moment.intersection.tw)
+
+- Github Repo: https://github.com/ymcheung/moment-astro
+
+首頁有 30 張，平均 24 KB 的 JPG 圖檔，依然可以在 Lighthouse 獲得 4 個 100 綠燈。（慶祝動畫怎麼不見了？）
+
+![Moment 首頁的 Lighthouse 分數](/images/moment-with-astro/lighthouse.webp)
+
+---
+
+## 接下來的內容
+
+- Astro v.s. Remix
+- 區分 `<body>` 樣式
+- 設定 Markdown 語法的樣式
+- 加入結構化資料 JSON LD 語法
+
+---
+
+## Astro v.s. Remix
+
+Remix 的開發體驗確實很棒，社群也非常活絡。但畢竟是全端套件，如果只是要做靜態網站，以後會優先選擇 Astro。
+
+### Astro
+
+- 可以發布到靜態網站服務：Github Pages、Vercel 或 Netlify 都行，也就是可以免費。
+- 維護團隊不建議使用 `CSS-In-JS`，而是有 SCSS（或者更像 CSS Modules）和 PostCSS 支援。
+
+### Remix
+
+- 可以使用 `CSS-In-JS`。
+- 雖然同樣可以做成靜態網頁，但 MDX 放在路徑資料夾裡的時候，連路徑名稱都無法取得，目前實用程度不高。
+- 無法在（免費）靜態網站服務使用 `mdx-bundler` 的原因與考究，詳情請看這篇：[初次使用 Remix，搭配 mdx-bundler](/remix-with-mdx-bundler)。
+
+---
+
+## 區分 `<body>` 樣式
+
+Astro 的 CSS 是 `scoped`，不同頁的樣式不會混在一起。我想要首頁跟內文頁的外觀、版面不同。因此在各自頁面的 `<body>` 設定：
+
+```scss
+// pages/index.astro
+body {
+  background-color: lavender;
+}
+
+// layouts/BlogPost.astro
+body {
+  background-color: thistle;
+}
+```
+
+發現首頁的 `<body>` 樣式，會被內頁的設定覆蓋：
+
+![首頁的 body 樣式被內文頁覆蓋](/images/moment-with-astro/astroOverride.webp)
+
+詢問過 Astro 製作團隊，是他們刻意這樣設計，如果也有不同 `<body>` 樣式需求，有以下 3 個步驟：
+
+### 在 `<body>` 加上屬性來區別頁面
+
+```html
+<!-- pages/index.astro -->
+<body data-body-style="home">
+...
+</body>
+
+<!-- layouts/BlogPost.astro -->
+<body data-body-style="post">
+...
+</body>
+```
+
+### 以 `import` 匯入全域 CSS 檔案
+
+```jsx
+// Head.astro
+import '~/styles/global.css';
+```
+
+### 設定個別樣式
+
+```scss
+// ~/styles/global.css
+[data-body-style="home"] {
+  background-color: lavender;
+}
+
+[data-body-style="post"] {
+  background-color: thistle;
+}
+```
+
+內容頁，或者說 `/layouts` 裡的樣式，就不會蓋掉首頁的。
+
+---
+
+## 設定 Markdown 語法的樣式
+
+Astro 只能讀取 `.md` 檔案，實際上幾乎等同於 MDX，可以輸入元件使用。
+
+```jsx
+// LyricSection.astro
+<section class="lyricSection">
+  <slot />
+</section>
+```
+
+```markdown
+---
+# /bohemian-rhapsody
+
+setup: |
+  import LyricSection from '../../components/LyricSection.astro';
+---
+
+<LyricSection>
+
+Is this the real life?
+
+Is this just fantasy?
+
+Caught in a landslide
+
+No escape from reality
+
+</LyricSection>
+```
+
+這一段會產生 HTML 語法：
+
+```html
+<!-- /bohemian-rhapsody -->
+<section class="lyricSection astro-SNPOEJMT">
+  <p>Is this the real life?</p>
+  <p>Is this just fantasy?</p>
+  <p>Caught in a landslide</p>
+  <p>No escape from reality</p>
+</section>
+```
+
+我想要設定 `<section>` 下面的 `<p>` 樣式，會發現也是因為 `scoped` 的緣故，沒辦法直接指定：
+
+```jsx
+// LyricSection.astro
+...
+<style lang="scss">
+.lyricSection {
+  display: grid;
+  row-gap: 16px;
+
+  p {
+    margin: 0;
+    color: hsl(var(--color-midnight1600));
+    font-size: 1.6rem;
+    line-height: 24px;
+  }
+}
+</style>
+```
+
+必須加上 `:global()` 才有效果：
+
+```scss
+// LyricSection.astro
+
+.lyricSection {
+  ...
+
+  :global(p) {
+    ...
+  }
+}
+```
+
+---
+
+## 加入結構化資料 JSON LD 語法
+
+按照直覺把結構化資料放在 `<head> ... </head>` 裡面時，會發現無法如預期輸出 JSON LD 語法：
+
+```jsx
+---
+// BaseHead.astro
+
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [{
+    '@type': 'WebPage',
+    url: `${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`,
+    name: title,
+    datePublished: published,
+    dateModified: modified
+  }]
+});
+---
+
+<script type="application/ld+json">{schema}</script>
+```
+
+`0.23.0` 版開始，在 `<script>` 得要讓 HTML 有 Escape 過，才會出現有效的 JSON LD 語法：
+
+```jsx
+// BaseHead.astro
+<script type="application/ld+json" set:html={schema} />
+```
