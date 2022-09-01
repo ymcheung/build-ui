@@ -1,41 +1,30 @@
 ---
-import "../style/global.css";
-import BaseHead from "../components/BaseHead.astro";
+import '../style/global.css';
+import BaseHead from '../components/BaseHead.astro';
 export interface Props {
-	title: string;
+  title: string;
 }
 
 const { title } = Astro.props as Props;
 ---
 
 <!DOCTYPE html>
-<html lang="zh-TW">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
-		<title>{title}</title>
-	</head>
-	<body>
-		<main class="container">
-			<slot />
-		</main>
-		<style>
-			html {
-				font-family: system-ui, sans-serif;
-				font-size: var(--font-size-base);
-				color: var(--color-text);
-				background-color: var(--color-bg);
-			}
-
-			body {
-				margin: 0;
-			}
-
-			.container {
-				padding-inline-start: 16px;
-				padding-inline-end: 16px;
-			}
-		</style>
-	</body>
+<html lang='zh-TW'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/x-icon' href='/favicon.ico' />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main class='container'>
+      <slot />
+    </main>
+    <style>
+      .container {
+        padding-inline-start: 16px;
+        padding-inline-end: 16px;
+      }
+    </style>
+  </body>
 </html>
