@@ -9,6 +9,9 @@ export default defineConfig({
   output: 'server',
   adapter: deno(),
   integrations: [solid(), sitemap(), mdx()],
+  markdown: {
+    syntaxHighlight: 'prism'
+  },
   site: 'https://build.intersection.tw',
   trailingSlash: 'never'
 });

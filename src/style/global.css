@@ -1,0 +1,35 @@
+:root {
+  --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
+  --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
+  --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
+
+  --color-shade150: 210 8% 95%;
+  --color-shade130: 210 8% 84%;
+  --color-shade100: 210 1% 64%;
+  --color-shade20: 210 4% 16%;
+  --color-shade10: 210 4% 10%;
+  --color-accent: 162 57% 84%;
+  --color-decor: 50 50% 84%;
+}
+
+html {
+  min-height: 100%;
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100%;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  overflow-y: scroll;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: hsl(var(--color-shade10));
+};

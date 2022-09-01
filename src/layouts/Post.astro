@@ -1,13 +1,17 @@
 ---
+import "../style/global.css";
+
 export interface Props {
-  title: string;
-  description: string;
-  datePublished: string;
-  dateModified: string;
+  frontmatter: {
+    title: string;
+    description: string;
+    datePublished: string;
+    dateModified: string;
+  };
 }
 
-const { title, description, datePublished, dateModified } =
-  Astro.props as Props;
+const { frontmatter } = Astro.props as Props;
+const { title, description, datePublished, dateModified } = frontmatter;
 ---
 
 <!DOCTYPE html>
@@ -16,26 +20,47 @@ const { title, description, datePublished, dateModified } =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/prism/dracula.css" />
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <h1 class="title">{title}</h1>
+    <time class="timestamp">{dateModified}</time>
+    <article class="article">
+      <slot />
+    </article>
     <style lang="scss">
+      .title {
+        color: hsl(var(--color-shade150));
+        font-size: 3.2rem;
+      }
+
       .timestamp {
         display: inline-block;
         margin-bottom: 16px;
-        /* color: hsl($shade100), */
-        font-size: "$14";
+        margin-left: -16px;
+        color: hsl(var(--color-shade100));
+        font-size: 1.4rem;
         line-height: 14px;
+
+        @media (screen and min-width: 992px) {
+          margin-left: 0;
+        }
 
         &::before {
           display: inline-block;
-          width: "$60";
-          height: "$12";
+          width: 60px;
+          height: 12px;
           content: "";
-          margin-right: "$8";
-          background-color: "hsl($shade20)";
+          margin-right: 8px;
+          background-color: hsl(var(--color-shade20));
         }
+      }
+
+      .article {
+        color: hsl(var(--color-shade150));
+        font-family: "$default";
+        word-break: break-word;
       }
     </style>
   </body>
