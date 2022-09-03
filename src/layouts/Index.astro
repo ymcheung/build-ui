@@ -1,23 +1,24 @@
 ---
 import '../style/global.css';
 import BaseHead from '../components/BaseHead.astro';
-export interface Props {
+interface Props {
   title: string;
+  description: string;
+  dateModified: string;
+  datePublished: string;
 }
 
-const { title } = Astro.props as Props;
+const { title, description, dateModified, datePublished } =
+  Astro.props as Props;
 ---
 
 <!DOCTYPE html>
-<html lang='zh-TW'>
+<html lang="zh-TW">
   <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width' />
-    <link rel='icon' type='image/x-icon' href='/favicon.ico' />
-    <title>{title}</title>
+    <BaseHead {title} {description} {dateModified} {datePublished} />
   </head>
   <body>
-    <main class='container'>
+    <main class="container">
       <slot />
     </main>
     <style>

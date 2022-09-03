@@ -1,5 +1,5 @@
 ---
-export interface Props {
+interface Props {
   title: string;
   description: string;
   dateModified: string;
@@ -10,12 +10,12 @@ const { title, description, dateModified, url } = Astro.props as Props;
 ---
 
 <li>
-  <a class='link' href={url}>
-    <h2 class='title'>{title}</h2>
-    <p class='description'>{description}</p>
+  <a class="link" href={url}>
+    <h2 class="title">{title}</h2>
+    <p class="description">{description}</p>
   </a>
 </li>
-<style lang='scss'>
+<style lang="scss">
   .link {
     display: block;
     text-decoration: none;

@@ -2,6 +2,14 @@
 import Layout from '../layouts/Index.astro';
 import Card from '../components/Card.astro';
 
+const meta = {
+  title: '喜歡的 UI 就要親手做出來',
+  description:
+    '做 UI 也想要寫程式。用 Figma 畫的 UI 要怎麼做出來，自己最清楚。',
+  dateModified: '2022-09-03',
+  datePublished: '2021-08-11',
+};
+
 interface Frontmatter {
   draft?: boolean;
   title: string;
@@ -16,12 +24,17 @@ const articles = mdxes.filter(
 );
 ---
 
-<Layout title='Welcome to Astro.'>
-  <ul class='indexList'>
+<Layout
+  title={meta.title}
+  description={meta.description}
+  dateModified={meta.dateModified}
+  datePublished={meta.datePublished}
+>
+  <ul class="indexList">
     {
       articles.map(
         ({ frontmatter: { title, description, dateModified }, url }) => (
-          <Card {title} {description} {dateModified} url={url} />
+          <Card {title} {description} {dateModified} {url} />
         )
       )
     }

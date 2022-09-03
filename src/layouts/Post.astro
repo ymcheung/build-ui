@@ -1,27 +1,33 @@
 ---
-import "../style/global.css";
+import '../style/global.css';
+import BaseHead from '../components/BaseHead.astro';
 
-export interface Props {
+interface Props {
   frontmatter: {
     title: string;
     description: string;
     datePublished: string;
     dateModified: string;
   };
+  url: string;
 }
 
-const { frontmatter } = Astro.props as Props;
+const { frontmatter, url } = Astro.props as Props;
 const { title, description, datePublished, dateModified } = frontmatter;
+
+console.log(url);
 ---
 
 <!DOCTYPE html>
 <html lang="zh-TW">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="stylesheet" href="/prism/dracula.css" />
-    <title>{title}</title>
+    <BaseHead
+      {title}
+      {description}
+      {dateModified}
+      {datePublished}
+      permalink={url}
+    />
   </head>
   <body>
     <h1 class="title">{title}</h1>
@@ -51,7 +57,7 @@ const { title, description, datePublished, dateModified } = frontmatter;
           display: inline-block;
           width: 60px;
           height: 12px;
-          content: "";
+          content: '';
           margin-right: 8px;
           background-color: hsl(var(--color-shade20));
         }
@@ -59,7 +65,7 @@ const { title, description, datePublished, dateModified } = frontmatter;
 
       .article {
         color: hsl(var(--color-shade150));
-        font-family: "$default";
+        font-family: '$default';
         word-break: break-word;
       }
     </style>
