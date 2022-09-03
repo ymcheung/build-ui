@@ -61,19 +61,38 @@ html {
   box-sizing: border-box;
 }
 
-body {
-  min-height: 100%;
-}
-
 *, *::before, *::after {
   box-sizing: inherit;
 }
 
 body {
+  display: grid;
+  grid: "header" auto
+        "main" 1fr
+        "footer" auto / 1fr;
+  row-gap: 24px;
+  min-height: 100vh;
   overflow-y: scroll;
   margin: 0;
   font-family: var(--default-fonts);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: hsl(var(--color-shade10));
+
+  @media screen and (min-width: 768px) {
+    grid: "header footer" auto
+          "main footer" 1fr / 640px 320px;
+    justify-content: center;
+    column-gap: 64px;
+  }
 };
+
+.container {
+  padding-top: 12px;
+  padding-inline-start: 16px;
+  padding-inline-end: 16px;
+
+  @media screen and (min-width: 768px) {
+    padding-top: 24px;
+  }
+}

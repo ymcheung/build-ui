@@ -1,6 +1,9 @@
 ---
-import '../style/global.css';
+import '../style/global.scss';
 import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -18,13 +21,15 @@ const { title, description, dateModified, datePublished } =
     <BaseHead {title} {description} {dateModified} {datePublished} />
   </head>
   <body>
-    <main class="container">
+    <Header />
+    <main class="container main">
       <slot />
     </main>
+    <Footer />
     <style>
-      .container {
-        padding-inline-start: 16px;
-        padding-inline-end: 16px;
+      .main {
+        grid-area: main;
+        min-width: 0;
       }
     </style>
   </body>
