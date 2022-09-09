@@ -1,4 +1,6 @@
 ---
+import Timestamp from './Timestamp.astro';
+
 interface Props {
   title: string;
   description: string;
@@ -11,14 +13,25 @@ const { title, description, dateModified, url } = Astro.props as Props;
 
 <li>
   <a class="link" href={url}>
+    <figure class="sticker">
+      <img src={`/images${url}/sticker.svg`} />
+    </figure>
     <h2 class="title">{title}</h2>
+    <Timestamp {dateModified} />
     <p class="description">{description}</p>
+    <span class="action">📃&nbsp;閱讀</span>
   </a>
 </li>
 <style lang="scss">
   .link {
     display: block;
     text-decoration: none;
+  }
+
+  .sticker {
+    height: 40px;
+    margin: 0 0 8px;
+    padding: 0;
   }
 
   .title {
@@ -29,6 +42,23 @@ const { title, description, dateModified, url } = Astro.props as Props;
   }
 
   .description {
+    margin: 0 0 16px;
+    color: hsl(var(--color-shade130));
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .action {
+    display: block;
+    width: 100px;
+    margin-right: 0;
+    margin-left: auto;
+    padding: 14px 0 12px;
+    color: hsl(var(--color-shade10));
     font-size: 1.6rem;
+    line-height: 1;
+    text-align: center;
+    background-color: hsl(var(--color-accent));
+    border-radius: 6px;
   }
 </style>

@@ -1,6 +1,7 @@
 ---
 import '../style/global.scss';
 import BaseHead from '../components/BaseHead.astro';
+import Timestamp from '../components/Timestamp.astro';
 
 interface Props {
   frontmatter: {
@@ -14,8 +15,6 @@ interface Props {
 
 const { frontmatter, url } = Astro.props as Props;
 const { title, description, datePublished, dateModified } = frontmatter;
-
-console.log(url);
 ---
 
 <!DOCTYPE html>
@@ -31,7 +30,7 @@ console.log(url);
   </head>
   <body>
     <h1 class="title">{title}</h1>
-    <time class="timestamp">{dateModified}</time>
+    <Timestamp {dateModified} />
     <article class="article">
       <slot />
     </article>
@@ -39,28 +38,6 @@ console.log(url);
       .title {
         color: hsl(var(--color-shade150));
         font-size: 3.2rem;
-      }
-
-      .timestamp {
-        display: inline-block;
-        margin-bottom: 16px;
-        margin-left: -16px;
-        color: hsl(var(--color-shade100));
-        font-size: 1.4rem;
-        line-height: 14px;
-
-        @media (screen and min-width: 992px) {
-          margin-left: 0;
-        }
-
-        &::before {
-          display: inline-block;
-          width: 60px;
-          height: 12px;
-          content: '';
-          margin-right: 8px;
-          background-color: hsl(var(--color-shade20));
-        }
       }
 
       .article {

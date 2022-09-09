@@ -79,7 +79,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: hsl(var(--color-shade10));
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 992px) {
     grid: "header footer" auto
           "main footer" 1fr / 640px 320px;
     justify-content: center;
@@ -92,7 +92,7 @@ body {
   padding-inline-start: 16px;
   padding-inline-end: 16px;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 992px) {
     padding-top: 24px;
   }
 }
