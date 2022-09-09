@@ -20,7 +20,7 @@ const schema = JSON.stringify({
   '@graph': [
     {
       '@type': 'BlogPosting',
-      url: `${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`,
+      url: `${import.meta.env.SITE}${canonicalPath}`,
       name: title,
       datePublished: published,
       dateModified: modified,
@@ -28,7 +28,7 @@ const schema = JSON.stringify({
         {
           '@type': 'Person',
           name: 'Yuming Cheung',
-          url: 'http://read.cv/ymcheung',
+          url: 'https://read.cv/ymcheung',
         },
       ],
       publisher: {
@@ -49,39 +49,29 @@ const schema = JSON.stringify({
 ---
 
 <meta charset="utf-8" />
-<!-- <meta name="viewport" content="width=device-width" /> -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
-<link
-  rel="canonical"
-  href={`${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`}
-/>
+<link rel="canonical" href={`${import.meta.env.SITE}${canonicalPath}`} />
 <link rel="icon" sizes="any" href="/favicon.ico" />
 <link rel="icon" type="image/svg+xml" href="/intersecrtion.svg" />
 <link rel="apple-touch-icon" href="/intersection.png" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
 <meta property="og:type" content="website" />
-<meta
-  property="og:url"
-  content={`${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`}
-/>
+<meta property="og:url" content={`${import.meta.env.SITE}${canonicalPath}`} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta
-  property="og:image"
-  content={`${import.meta.env.PUBLIC_HOSTNAME}/og${ogCoverPath}`}
-/>
+<meta property="og:image" content={`${import.meta.env.SITE}og${ogCoverPath}`} />
 <meta property="twitter:card" content="summary_large_image" />
 <meta
   property="twitter:url"
-  content={`${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`}
+  content={`${import.meta.env.SITE}${canonicalPath}`}
 />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta
   property="twitter:image"
-  content={`${import.meta.env.PUBLIC_HOSTNAME}/og${ogCoverPath}`}
+  content={`${import.meta.env.SITE}og${ogCoverPath}`}
 />
 <meta name="format-detection" content="telephone=no" />
 <script type="application/ld+json" set:html={schema}></script>
