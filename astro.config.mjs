@@ -8,7 +8,20 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   output: 'server',
   adapter: deno(),
-  integrations: [solid(), sitemap(), mdx()],
+  integrations: [
+    solid(),
+    sitemap({
+      customPages: [
+        'https://build.intersection.tw/analytics-tool-splitbee',
+        'https://build.intersection.tw/css-in-js-stitches',
+        'https://build.intersection.tw/moment-with-astro',
+        'https://build.intersection.tw/react-i18next',
+        'https://build.intersection.tw/remix-with-mdx-bundler',
+        'https://build.intersection.tw/translations',
+      ],
+    }),
+    mdx(),
+  ],
   markdown: {
     syntaxHighlight: 'shiki',
     shikiConfig: {

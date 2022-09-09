@@ -39,17 +39,14 @@ articles = articles.sort(
   <ul class="indexList">
     {
       articles.map(
-        ({ frontmatter: { title, description, dateModified }, url }) => {
-          console.log(url);
-          return (
-            <Card
-              title={title}
-              description={description}
-              dateModified={dateModified}
-              path={url}
-            />
-          );
-        }
+        ({ frontmatter: { title, description, dateModified }, url }) => (
+          <Card
+            title={title}
+            description={description}
+            dateModified={dateModified}
+            path={url}
+          />
+        )
       )
     }
   </ul>
