@@ -22,6 +22,8 @@ const mdxes = await Astro.glob<Frontmatter>('./*.mdx');
 const articles = mdxes.filter(
   ({ frontmatter: { type, draft } }) => type === 'article' && !draft
 );
+
+console.log(articles);
 ---
 
 <Layout
@@ -33,9 +35,17 @@ const articles = mdxes.filter(
   <ul class="indexList">
     {
       articles.map(
-        ({ frontmatter: { title, description, dateModified }, url }) => (
-          <Card {title} {description} {dateModified} {url} />
-        )
+        ({ frontmatter: { title, description, dateModified }, url }) => {
+          console.log(url);
+          return (
+            <Card
+              title={title}
+              description={description}
+              dateModified={dateModified}
+              path={url}
+            />
+          );
+        }
       )
     }
   </ul>

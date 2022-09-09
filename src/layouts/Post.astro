@@ -1,6 +1,8 @@
 ---
 import '../style/global.scss';
 import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import Timestamp from '../components/Timestamp.astro';
 
 interface Props {
@@ -21,29 +23,102 @@ const { title, description, datePublished, dateModified } = frontmatter;
 <html lang="zh-TW">
   <head>
     <BaseHead
-      {title}
-      {description}
-      {dateModified}
-      {datePublished}
+      title={title}
+      description={description}
+      dateModified={dateModified}
+      datePublished={datePublished}
       permalink={url}
     />
   </head>
   <body>
-    <h1 class="title">{title}</h1>
-    <Timestamp {dateModified} />
-    <article class="article">
-      <slot />
-    </article>
+    <Header />
+    <main class="container">
+      <h1 class="title">{title}</h1>
+      <Timestamp dateModified={dateModified} />
+      <article class="article">
+        <slot />
+      </article>
+    </main>
+    <Footer />
     <style lang="scss">
       .title {
+        margin: 0 0 12px;
         color: hsl(var(--color-shade150));
         font-size: 3.2rem;
+        line-height: 40px;
       }
 
       .article {
+        margin-block-end: 40px;
         color: hsl(var(--color-shade150));
-        font-family: '$default';
         word-break: break-word;
+
+        :global(h2) {
+          margin: 0 0 8px;
+          padding-top: 16px;
+          font-size: 2.4rem;
+          line-height: 28px;
+        }
+
+        :global(h3) {
+          margin: 0 0 8px;
+          font-size: 2rem;
+          line-height: 24px;
+        }
+
+        :global(a) {
+          color: hsl(var(--color-accent));
+        }
+
+        :global(img) {
+          max-width: 100%;
+        }
+
+        :global(ul) {
+          margin: 0 0 16px;
+          padding-inline-start: 16px;
+        }
+
+        :global(li) {
+          font-size: 1.6rem;
+          line-height: 1.75;
+          list-style-type: square;
+        }
+
+        :global(li img) {
+          padding-top: 8px;
+        }
+
+        :global(p) {
+          margin: 0 0 16px;
+          font-size: 1.6rem;
+          line-height: 1.5;
+        }
+
+        :global(pre) {
+          margin: 0 0 16px;
+          padding: 12px;
+          font-size: 1.6rem;
+          line-height: 1.5;
+          border-radius: 12px;
+        }
+
+        :global(code:not(pre code)) {
+          display: inline-block;
+          color: hsl(var(--color-decor));
+          padding-inline-start: 4px;
+          padding-inline-end: 4px;
+          line-height: 1.5;
+          vertical-align: text-bottom;
+          background-color: #282a36;
+          border-radius: 4px;
+        }
+
+        :global(hr) {
+          margin-block-end: 16px;
+          border-style: solid;
+          border-color: hsl(var(--color-shade20));
+        }
       }
     </style>
   </body>

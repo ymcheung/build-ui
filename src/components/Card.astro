@@ -5,19 +5,19 @@ interface Props {
   title: string;
   description: string;
   dateModified: string;
-  url: string;
+  path?: string;
 }
 
-const { title, description, dateModified, url } = Astro.props as Props;
+const { title, description, dateModified, path } = Astro.props as Props;
 ---
 
 <li>
-  <a class="link" href={url}>
+  <a class="link" href={path}>
     <figure class="sticker">
-      <img src={`/images${url}/sticker.svg`} />
+      <img src={`/images${path}/sticker.svg`} />
     </figure>
     <h2 class="title">{title}</h2>
-    <Timestamp {dateModified} />
+    <Timestamp dateModified={dateModified} />
     <p class="description">{description}</p>
     <span class="action">📃&nbsp;閱讀</span>
   </a>

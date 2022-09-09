@@ -67,7 +67,7 @@ type: "article"
 </head>
 ```
 
-這段 `<script>` 放在每個頁面，去 Splitbee 新增專案就可以了，非常無腦。
+這段 `<script>` 放在每個頁面，接著去 Splitbee 新增專案就可以了，非常無腦。
 
 目前手上的專案都是蓋在 Next.js，所以不須特別設定，若是 Client Side Rendering，要用其他方法。
 
@@ -77,7 +77,7 @@ type: "article"
 
 最基本只要在 HTML 標籤加上屬性 `data-splitbee-event`，點擊就會記錄成事件：
 
-```html
+```jsx
 <button type="button" onClick={toggleScheme} data-splitbee-event="切換為暗色模式">
 ```
 
