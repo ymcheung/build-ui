@@ -31,7 +31,7 @@ const { title, description, datePublished, dateModified } = frontmatter;
     />
   </head>
   <body>
-    <Header />
+    <Header as="strong" />
     <main class="container">
       <h1 class="title">{title}</h1>
       <Timestamp dateModified={dateModified} />

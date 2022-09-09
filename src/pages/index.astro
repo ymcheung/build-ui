@@ -19,11 +19,15 @@ interface Frontmatter {
 }
 
 const mdxes = await Astro.glob<Frontmatter>('./*.mdx');
-const articles = mdxes.filter(
+let articles = mdxes.filter(
   ({ frontmatter: { type, draft } }) => type === 'article' && !draft
 );
 
-console.log(articles);
+articles = articles.sort(
+  (older, newer) =>
+    new Date(newer.frontmatter.dateModified).valueOf() -
+    new Date(older.frontmatter.dateModified).valueOf()
+);
 ---
 
 <Layout
