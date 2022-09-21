@@ -132,7 +132,7 @@ import '~/styles/global.css';
 
 ## 設定 Markdown 語法的樣式
 
-Astro 只能讀取 `.md` 檔案，實際上幾乎等同於 MDX，可以輸入元件使用。
+在 Astro 的 `pages/` 下，無論是使用 `.md` 或 `.mdx` 檔案，都可以有等同於 MDX 的功能，將元件輸入至內文。
 
 ```jsx
 // LyricSection.astro
@@ -143,10 +143,9 @@ Astro 只能讀取 `.md` 檔案，實際上幾乎等同於 MDX，可以輸入元
 
 ```markdown
 ---
-# /bohemian-rhapsody
+# /pages/bohemian-rhapsody.mdx
 
-setup: |
-  import LyricSection from '../../components/LyricSection.astro';
+layout: LyricSection from '../../components/LyricSection.astro';
 ---
 
 <LyricSection>
@@ -246,7 +245,7 @@ const schema = JSON.stringify({
 
 在上一段內容，程式碼區塊裡有提到 Astro 的[環境變數](https://docs.astro.build/en/guides/environment-variables)。
 
-上傳到正式環境才發現：Markdown 區塊裡應該要直接顯示環境變數的地方，卻當成一般環境變數顯示，在使用 [SSR](https://docs.astro.build/en/guides/server-side-rendering/#enabling-ssr-in-your-project) 的情況下，甚至會無法 Build 成功。
+上傳到正式環境才發現：Markdown 區塊裡應該要直接顯示環境變數原始碼的地方，卻直接顯示，或是令人不解的訊息，在使用 [SSR](https://docs.astro.build/en/guides/server-side-rendering/#enabling-ssr-in-your-project) 的情況下，甚至會無法 Build 成功。
 
 Astro 目前已經把[回報的 Issue](https://github.com/withastro/astro/issues/4801) 標示為重要。
 
