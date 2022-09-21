@@ -244,9 +244,9 @@ const schema = JSON.stringify({
 
 ### 在程式碼區塊使用環境變數
 
-在上一段內容，程式碼區塊裡有提到 Astro 的[環境變數](https://docs.astro.build/en/guides/environment-variables/)。
+在上一段內容，程式碼區塊裡有提到 Astro 的[環境變數](https://docs.astro.build/en/guides/environment-variables)。
 
-上傳到正式環境才發現：Markdown 區塊裡應該要直接顯示 `import.meta.env.PUBLIC_HOSTNAME` 的地方，卻當成一般環境變數顯示。
+上傳到正式環境才發現：Markdown 區塊裡應該要直接顯示環境變數的地方，卻當成一般環境變數顯示，在使用 [SSR](https://docs.astro.build/en/guides/server-side-rendering/#enabling-ssr-in-your-project) 的情況下，甚至會無法 Build 成功。
 
 Astro 目前已經把[回報的 Issue](https://github.com/withastro/astro/issues/4801) 標示為重要。
 
