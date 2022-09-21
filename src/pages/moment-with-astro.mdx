@@ -2,13 +2,13 @@
 title: "使用 Astro 打造速度飛快的靜態網站"
 layout: ../layouts/Post.astro
 description: "在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 還未進入穩定版本。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。"
-dateModified: "2022-09-14"
+dateModified: "2022-09-21"
 datePublished: "2022-02-16"
 meta:
   - name: og:type
     content: "article"
   - name: article:modified_time
-    content: 2022-09-14T09:20:00
+    content: 2022-09-21T09:21:09
   - name: article:published_time
     content: 2022-02-16T15:12:00
   - name: article:author
@@ -49,6 +49,7 @@ Moment 是搭配 `Solid.js`，用來處理影片播放互動，後來 Astro 本�
 - 區分 `<body>` 樣式
 - 設定 Markdown 語法的樣式
 - 加入結構化資料 JSON LD 語法
+- 遇到的 Bug
 
 ---
 
@@ -214,8 +215,8 @@ No escape from reality
 按照直覺把結構化資料放在 `<head> ... </head>` 裡面時，會發現無法如預期輸出 JSON LD 語法：
 
 ```jsx
----
 // BaseHead.astro
+---
 
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -238,3 +239,15 @@ const schema = JSON.stringify({
 // BaseHead.astro
 <script type="application/ld+json" set:html={schema} />
 ```
+
+## 遇到的 Bug
+
+### 在程式碼區塊使用環境變數
+
+在上一段內容，程式碼區塊裡有提到 Astro 的[環境變數](https://docs.astro.build/en/guides/environment-variables/)。
+
+上傳到正式環境才發現：Markdown 區塊裡應該要直接顯示 `import.meta.env.PUBLIC_HOSTNAME` 的地方，卻當成一般環境變數顯示。
+
+Astro 目前已經把[回報的 Issue](https://github.com/withastro/astro/issues/4801) 標示為重要。
+
+![把環境變數顯示出來的 Markdown 程式碼區塊](/images/moment-with-astro/codeblock.webp)
