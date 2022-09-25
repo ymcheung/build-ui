@@ -10,6 +10,8 @@ interface Props {
 const { title, description, dateModified, datePublished, path } =
   Astro.props as Props;
 
+const trailingSiteName = path ? ` - ${import.meta.env.PUBLIC_SITENAME}` : '';
+
 const handleStartingSlash = (thePath?: string) => {
   if (thePath === undefined) return;
 
@@ -56,7 +58,7 @@ const schema = JSON.stringify({
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{title}</title>
+<title>{title}{trailingSiteName}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={`${import.meta.env.SITE}${canonicalPath}`} />
 <link rel="icon" sizes="any" href="/favicon.ico" />
@@ -68,6 +70,10 @@ const schema = JSON.stringify({
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
+<meta
+  property="og:image:alt"
+  content={`${title}（發表於${import.meta.env.PUBLIC_SITENAME}）`}
+/>
 {
   path && (
     <>
