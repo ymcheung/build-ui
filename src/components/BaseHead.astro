@@ -12,8 +12,6 @@ const { title, description, dateModified, datePublished, permalink } =
 
 const ogCoverPath = permalink ? `${permalink}.jpg` : '/home.jpg';
 const canonicalPath = permalink ? permalink : '';
-const published = new Date(datePublished).toISOString();
-const modified = new Date(dateModified).toISOString();
 
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -22,8 +20,8 @@ const schema = JSON.stringify({
       '@type': 'BlogPosting',
       url: `${import.meta.env.SITE}${canonicalPath}`,
       name: title,
-      datePublished: published,
-      dateModified: modified,
+      dateModified: dateModified,
+      datePublished: datePublished,
       author: [
         {
           '@type': 'Person',
@@ -57,11 +55,20 @@ const schema = JSON.stringify({
 <link rel="icon" type="image/svg+xml" href="/intersecrtion.svg" />
 <link rel="apple-touch-icon" href="/intersection.png" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content={permalink ? 'article' : 'website'} />
 <meta property="og:url" content={`${import.meta.env.SITE}${canonicalPath}`} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${import.meta.env.SITE}og${ogCoverPath}`} />
+{
+  permalink && (
+    <>
+      <meta property="og:article:modified_time" content={dateModified} />
+      <meta property="og:article:published_time" content={datePublished} />
+      <meta property="og:article:author" content="Yuming Cheung" />
+    </>
+  )
+}
 <meta property="twitter:card" content="summary_large_image" />
 <meta
   property="twitter:url"
@@ -79,4 +86,8 @@ const schema = JSON.stringify({
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
 />
-<script async src="https://cdn.splitbee.io/sb.js"></script>
+{
+  import.meta.env.MODE === 'production' && (
+    <script async src="https://cdn.splitbee.io/sb.js" />
+  )
+}

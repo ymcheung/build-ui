@@ -1,13 +1,16 @@
 ---
+import { format } from 'date-fns';
+
 interface Props {
   dateModified: string;
 }
 
 const { dateModified } = Astro.props as Props;
+const modified = format(new Date(dateModified), 'MM-dd・yyyy');
 ---
 
 <time class="timestamp" datetime={dateModified}>
-  {dateModified}
+  {modified}
 </time>
 
 <style lang="scss">

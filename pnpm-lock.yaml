@@ -6,19 +6,19 @@ specifiers:
   '@astrojs/sitemap': ^1.0.0
   '@astrojs/solid-js': ^1.0.0
   astro: ^1.2.0
+  date-fns: ^2.29.3
   sass: ^1.54.5
-  solid-js: ^1.4.3
 
 dependencies:
   '@astrojs/deno': 1.0.0
+  date-fns: 2.29.3
 
 devDependencies:
   '@astrojs/mdx': 0.10.2
   '@astrojs/sitemap': 1.0.0
-  '@astrojs/solid-js': 1.0.0_solid-js@1.4.8
+  '@astrojs/solid-js': 1.0.0
   astro: 1.2.8_sass@1.54.5
   sass: 1.54.5
-  solid-js: 1.4.8
 
 packages:
 
@@ -142,14 +142,13 @@ packages:
       zod: 3.18.0
     dev: true
 
-  /@astrojs/solid-js/1.0.0_solid-js@1.4.8:
+  /@astrojs/solid-js/1.0.0:
     resolution: {integrity: sha512-OEshIFX7itx8mzh3vFQgsWjzzcCYJegjY6aIoO0w2W34MP+iwEYvUwuyd6tXsDRPzTEDoCVDJDLHw/uZoNB18w==}
     engines: {node: ^14.18.0 || >=16.12.0}
     peerDependencies:
       solid-js: ^1.4.3
     dependencies:
       babel-preset-solid: 1.4.8
-      solid-js: 1.4.8
     transitivePeerDependencies:
       - '@babel/core'
     dev: true
@@ -1110,6 +1109,11 @@ packages:
     resolution: {integrity: sha512-Vr3mLBA8qWmcuschSLAOogKgQ/Jwxulv3RNE4FXnYWRGujzrRWQI4m12fQqRkwX06C0KanhLr4hK+GydchZsaA==}
     engines: {node: '>= 12'}
     dev: true
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -3381,10 +3385,6 @@ packages:
   /slash/4.0.0:
     resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
     engines: {node: '>=12'}
-    dev: true
-
-  /solid-js/1.4.8:
-    resolution: {integrity: sha512-XErZdnnYYXF7OwGSUAPcua2y5/ELB/c53zFCpWiEGqxTNoH1iQghzI8EsHJXk06sNn+Z/TGhb8bPDNNGSgimag==}
     dev: true
 
   /source-map-js/1.0.2:

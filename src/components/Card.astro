@@ -11,7 +11,7 @@ interface Props {
 const { title, description, dateModified, path } = Astro.props as Props;
 ---
 
-<li>
+<li class="indexListItem">
   <a class="link" href={path}>
     <figure class="sticker">
       <img src={`/images${path}/sticker.svg`} />
@@ -23,6 +23,10 @@ const { title, description, dateModified, path } = Astro.props as Props;
   </a>
 </li>
 <style lang="scss">
+  .indexListItem {
+    list-style-type: none;
+  }
+
   .link {
     display: block;
     text-decoration: none;
