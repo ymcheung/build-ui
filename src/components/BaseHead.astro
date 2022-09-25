@@ -4,14 +4,22 @@ interface Props {
   description: string;
   dateModified: string;
   datePublished: string;
-  permalink?: string;
+  path?: string;
 }
 
-const { title, description, dateModified, datePublished, permalink } =
+const { title, description, dateModified, datePublished, path } =
   Astro.props as Props;
 
-const ogCoverPath = permalink ? `${permalink}.jpg` : '/home.jpg';
-const canonicalPath = permalink ? permalink : '';
+const handleStartingSlash = (thePath?: string) => {
+  if (thePath === undefined) return;
+
+  return thePath.startsWith('/') ? thePath.slice(1) : thePath;
+};
+
+const ogCoverPath = path
+  ? `images/${handleStartingSlash(path)}/og.jpg`
+  : 'og.jpg';
+const canonicalPath = path ? handleStartingSlash(path) : '';
 
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -55,13 +63,13 @@ const schema = JSON.stringify({
 <link rel="icon" type="image/svg+xml" href="/intersecrtion.svg" />
 <link rel="apple-touch-icon" href="/intersection.png" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
-<meta property="og:type" content={permalink ? 'article' : 'website'} />
+<meta property="og:type" content={path ? 'article' : 'website'} />
 <meta property="og:url" content={`${import.meta.env.SITE}${canonicalPath}`} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={`${import.meta.env.SITE}og${ogCoverPath}`} />
+<meta property="og:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
 {
-  permalink && (
+  path && (
     <>
       <meta property="og:article:modified_time" content={dateModified} />
       <meta property="og:article:published_time" content={datePublished} />
@@ -78,7 +86,7 @@ const schema = JSON.stringify({
 <meta property="twitter:description" content={description} />
 <meta
   property="twitter:image"
-  content={`${import.meta.env.SITE}og${ogCoverPath}`}
+  content={`${import.meta.env.SITE}${ogCoverPath}`}
 />
 <meta name="format-detection" content="telephone=no" />
 <script type="application/ld+json" set:html={schema}></script>
@@ -86,8 +94,4 @@ const schema = JSON.stringify({
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
 />
-{
-  import.meta.env.MODE === 'production' && (
-    <script async src="https://cdn.splitbee.io/sb.js" />
-  )
-}
+{import.meta.env.PROD && <script async src="https://cdn.splitbee.io/sb.js" />}
