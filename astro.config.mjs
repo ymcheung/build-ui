@@ -12,6 +12,7 @@ export default defineConfig({
     // solid(),
     sitemap({
       customPages: [
+        'https://build.intersection.tw/mdx-typescript',
         'https://build.intersection.tw/analytics-tool-splitbee',
         'https://build.intersection.tw/css-in-js-stitches',
         'https://build.intersection.tw/moment-with-astro',
