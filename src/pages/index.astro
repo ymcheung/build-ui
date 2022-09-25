@@ -1,9 +1,10 @@
 ---
+import { SITENAME } from '../../constants';
 import Layout from '../layouts/Index.astro';
 import Card from '../components/Card.astro';
 
 const meta = {
-  title: import.meta.env.PUBLIC_SITENAME,
+  title: SITENAME,
   description:
     '做 UI 也想要寫程式。用 Figma 畫的 UI 要怎麼做出來，自己最清楚。',
   dateModified: '2022-09-03T00:00:00+08:00',

@@ -1,4 +1,6 @@
 ---
+import { SITENAME } from '../../constants';
+
 interface Props {
   title: string;
   description: string;
@@ -10,7 +12,7 @@ interface Props {
 const { title, description, dateModified, datePublished, path } =
   Astro.props as Props;
 
-const trailingSiteName = path ? ` - ${import.meta.env.PUBLIC_SITENAME}` : '';
+const trailingSiteName = path ? ` - ${SITENAME}` : '';
 
 const handleStartingSlash = (thePath?: string) => {
   if (thePath === undefined) return;
@@ -70,10 +72,7 @@ const schema = JSON.stringify({
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
-<meta
-  property="og:image:alt"
-  content={`${title}（發表於${import.meta.env.PUBLIC_SITENAME}）`}
-/>
+<meta property="og:image:alt" content={`${title}（發表於${SITENAME}）`} />
 {
   path && (
     <>
