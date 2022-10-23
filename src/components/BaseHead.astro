@@ -12,8 +12,6 @@ interface Props {
 const { title, description, dateModified, datePublished, path } =
   Astro.props as Props;
 
-const trailingSiteName = path ? ` - ${SITENAME}` : '';
-
 const handleStartingSlash = (thePath?: string) => {
   if (thePath === undefined) return;
 
@@ -25,42 +23,50 @@ const ogCoverPath = path
   : 'og.jpg';
 const canonicalPath = path ? handleStartingSlash(path) : '';
 
-const schema = JSON.stringify({
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'BlogPosting',
-      url: `${import.meta.env.SITE}${canonicalPath}`,
-      name: title,
-      dateModified: dateModified,
-      datePublished: datePublished,
-      author: [
-        {
-          '@type': 'Person',
-          name: 'Yuming Cheung',
-          url: 'https://read.cv/ymcheung',
-        },
-      ],
-      publisher: {
-        '@type': 'Organization',
-        name: 'Intersection',
-        url: 'https://intersection.tw',
-        logo: {
-          '@type': 'ImageObject',
-          name: 'Intersection: 優化、插件、高清、視頻、反饋、交互設計：已經看膩這些中國網路媒體用語。',
-          width: 400,
-          height: 400,
-          url: 'https://build.intersection.tw/intersection.png',
-        },
+const schema = () => {
+  const website = {
+    '@type': 'Website',
+    name: SITENAME,
+    url: import.meta.env.SITE,
+  };
+
+  const blogPosting = {
+    '@type': 'BlogPosting',
+    url: `${import.meta.env.SITE}${canonicalPath}`,
+    name: title,
+    dateModified: dateModified,
+    datePublished: datePublished,
+    author: [
+      {
+        '@type': 'Person',
+        name: 'Yuming Cheung',
+        url: 'https://read.cv/ymcheung',
+      },
+    ],
+    publisher: {
+      '@type': 'Organization',
+      name: 'Intersection',
+      url: 'https://intersection.tw',
+      logo: {
+        '@type': 'ImageObject',
+        name: 'Intersection: 優化、插件、高清、視頻、反饋、交互設計：已經看膩這些中國網路媒體用語。',
+        width: 400,
+        height: 400,
+        url: 'https://build.intersection.tw/intersection.png',
       },
     },
-  ],
-});
+  };
+
+  return JSON.stringify({
+    '@context': 'https://schema.org/',
+    '@graph': [website, ...(path ? [blogPosting] : [])],
+  });
+};
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>{title}{trailingSiteName}</title>
+<title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={`${import.meta.env.SITE}${canonicalPath}`} />
 <link rel="icon" sizes="any" href="/favicon.ico" />
@@ -68,11 +74,15 @@ const schema = JSON.stringify({
 <link rel="apple-touch-icon" href="/intersection.png" />
 <link rel="manifest" href="/favicons/site.webmanifest" />
 <meta property="og:type" content={path ? 'article' : 'website'} />
+<meta property="og:site_name" content={SITENAME} />
 <meta property="og:url" content={`${import.meta.env.SITE}${canonicalPath}`} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
-<meta property="og:image:alt" content={`${title}（發表於${SITENAME}）`} />
+<meta
+  property="og:image:alt"
+  content={`${title}${path ? `（發表於${SITENAME}）` : ''}`}
+/>
 {
   path && (
     <>
@@ -95,7 +105,7 @@ const schema = JSON.stringify({
 />
 <meta name="format-detection" content="telephone=no" />
 <meta property="fb:app_id" content="1241704385975640" />
-<script type="application/ld+json" set:html={schema}></script>
+<script type="application/ld+json" set:html={schema()}></script>
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
