@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@astrojs/deno': ^1.0.0
-  '@astrojs/mdx': ^0.11.0
+  '@astrojs/mdx': ^0.11.5
   '@astrojs/sitemap': ^1.0.0
   '@astrojs/solid-js': ^1.0.0
   astro: ^1.5.0
