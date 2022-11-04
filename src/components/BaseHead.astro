@@ -110,4 +110,18 @@ const schema = () => {
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
 />
-{import.meta.env.PROD && <script async src="https://cdn.splitbee.io/sb.js" />}
+{
+  import.meta.env.PROD && (
+    <script data-respect-dnt async src="https://cdn.splitbee.io/sb.js" />
+  )
+}
+{
+  import.meta.env.PROD && (
+    <script
+      async
+      src="https://analytics.intersection.tw/tracker.js"
+      data-ackee-server="https://analytics.intersection.tw"
+      data-ackee-domain-id="bb701655-bfd8-4bff-989f-096c19b553d9"
+    />
+  )
+}
