@@ -1,5 +1,5 @@
 ---
-title: "使用 Chakra UI 搭配 React-Hook-Form，文件上沒說清楚的地方"
+title: "Chakra UI 搭配 React-Hook-Form，文件上沒說清楚的地方"
 layout: ../layouts/Post.astro
 description: "Chakra UI 是很方便的 UI 套件，很容易跟 React-Hook-Form 搭配使用，兩邊的文件已經滿足 8 成的情況，但是在建立 Radio 和 Checkbox 的時候，遇到需爬文、請教才解決的問題。"
 dateModified: "2023-01-12T16:00:00+08:00"
@@ -7,4 +7,191 @@ datePublished: "2023-01-12T16:00:00+08:00"
 type: "article"
 ---
 
+## 使用環境
+
+```json
+"next": ^13.1.1,
+"@chakra-ui/react": ^2.4.6,
+"react-hook-form": ^7.41.5,
+```
+
 ## ![Chakra UI 的標誌](/images/chakra-ui-with-react-hook-form/sticker.svg)
+
+**Chakra UI**
+
+- 首頁：https://chakra-ui.com
+- 文件：https://chakra-ui.com/getting-started
+
+## ![React Hook Form 的標誌](/images/chakra-ui-with-react-hook-form/reactHookForm.svg)
+
+**React Hook Form**
+
+- 首頁：https://react-hook-form.com
+- 文件：https://react-hook-form.com/get-started
+
+---
+
+## 接下來的內容
+
+- 一般用法
+- Radio 和 Checkbox 的用法
+- 可能會沒注意到的地方
+
+---
+
+## 一般用法
+
+使用 `<Input />` 的表單，只要按照 React Hook Form 的說明，加上 `register()` 即可：
+
+```jsx
+import { useForm } from 'react-hook-form';
+import { Input } from '@chakra-ui/react';
+
+const { register } = useForm({ defaultValues });
+
+<Input {...register('name', { required: true })} />
+```
+
+文件上說明得很清楚，就不再贅述。
+
+---
+
+## Radio 和 Checkbox 的用法
+
+Chakra UI 的 Radio、Checkbox 通常不是直接使用，而是有語法規則：
+
+```jsx
+import { RadioGroup, Radio, CheckboxGroup, Checkbox, Stack } from '@chakra-ui/react';
+
+<RadioGroup>
+  <Stack>
+    <Radio>選項一</Radio>
+    <Radio>選項二</Radio>
+    <Radio>選項三</Radio>
+  </Stack>
+</RadioGroup>
+
+<CheckboxGroup>
+  <Stack>
+    <Checkbox>選項一</Checkbox>
+    <Checkbox>選項二</Checkbox>
+    <Checkbox>選項三</Checkbox>
+  </Stack>
+</CheckboxGroup>
+```
+
+試過很多方法，卻總是在與 `defaultValues` 相關的情境不如預期。
+
+```jsx
+// ❌ 會出現錯誤的語法
+
+// 在 Group 層級加上 register()
+
+<RadioGroup {...register('range')}>
+  <Stack>
+    ...
+  </Stack>
+</RadioGroup>
+
+<CheckboxGroup {...register('range')}>
+  <Stack>
+    ...
+  </Stack>
+</CheckboxGroup>
+
+// 或在選項加上 register()
+
+<RadioGroup>
+  <Stack>
+    <Radio {...register('range')}>選項一</Radio>
+    <Radio {...register('range')}>選項二</Radio>
+    <Radio {...register('range')}>選項三</Radio>
+  </Stack>
+</RadioGroup>
+
+<CheckboxGroup>
+  <Stack>
+    <Checkbox {...register('option')}>選項一</Checkbox>
+    <Checkbox {...register('option')}>選項二</Checkbox>
+    <Checkbox {...register('option')}>選項三</Checkbox>
+  </Stack>
+</CheckboxGroup>
+```
+
+正確的方法是使用 React Hook Form 的 Controller：
+
+```jsx
+// ✅ 正確的語法
+
+import { useForm, Controller } from 'react-hook-form';
+import { RadioGroup, Radio, CheckboxGroup, Checkbox, Stack } from '@chakra-ui/react';
+
+const { control } = useForm({ defaultValues });
+
+<Controller
+  name="range" //改用 name
+  control={control}
+  render={({ field }) => (
+    <RadioGroup {...field}>
+      <Stack>
+        <Radio>選項一</Radio>
+        <Radio>選項二</Radio>
+        <Radio>選項三</Radio>
+      </Stack>
+    </RadioGroup>
+  )}
+/>
+
+<Controller
+  name="option" //改用 name
+  control={control}
+  render={({ field }) => (
+    <RadioGroup {...field}>
+      <Stack>
+        <Radio>選項一</Radio>
+        <Radio>選項二</Radio>
+        <Radio>選項三</Radio>
+      </Stack>
+    </RadioGroup>
+  )}
+/>
+```
+
+---
+
+## 可能會沒注意到的地方
+
+React Hook Form 儲存資料的格式一律是字串。
+
+所以在使用 `<Radio />` 或 `<Checkbox />` 的時候，若把 `value` 以數字排序，並設定 `defaultValue`：
+
+```jsx
+// ⚠️ 選項一應要預設選取
+import { useForm, Controller } from 'react-hook-form';
+import { RadioGroup, Radio, Stack } from '@chakra-ui/react';
+
+const { control } = useForm({ defaultValues });
+
+<Controller
+  name="range"
+  defaultValue={0}
+  control={control}
+  render={({ field }) => (
+    <RadioGroup {...field}>
+      <Stack>
+        <Radio value={0}>選項一</Radio>
+        <Radio value={1}>選項二</Radio>
+        <Radio value={2}>選項三</Radio>
+      </Stack>
+    </RadioGroup>
+  )}
+/>
+```
+
+會發現無法讓 `value` 是 `0` 的`選項一`預設選取。
+
+需把是數字的 `defaultValue` 轉為字串：
+
+```jsx
+defaultValue={`${0}`}
+```

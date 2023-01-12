@@ -12,6 +12,7 @@ export default defineConfig({
     // solid(),
     sitemap({
       customPages: [
+        'https://build.intersection.tw/chakra-ui-with-react-hook-form',
         'https://build.intersection.tw/mdx-typescript',
         'https://build.intersection.tw/analytics-tool-splitbee',
         'https://build.intersection.tw/css-in-js-stitches',
