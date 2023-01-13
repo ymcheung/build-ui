@@ -1,5 +1,6 @@
 :root {
-  --default-fonts: 'Overpass', system-ui, sans-serif;
+  --default-fonts: 'Mona Sans', system-ui, sans-serif;
+  --mono-fonts: 'Martian Mono', 'Monaco', monospace;
   --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
   --font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
   --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
@@ -14,45 +15,59 @@
 }
 
 @font-face {
-  font-family: 'Overpass';
+  font-family: 'Mona Sans';
   font-style: normal;
   font-weight: 400;
-  src: local('Overpass'), url('/fonts/Overpass-Regular.woff2') format('woff2');
+  src: local('Mona Sans'), url('/fonts/mona/Mona-Sans-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Overpass';
+  font-family: 'Mona Sans';
   font-style: italic;
   font-weight: 400;
-  src: local('Overpass'), url('/fonts/Overpass-Italic.woff2') format('woff2');
+  src: local('Mona Sans'), url('/fonts/mona/Mona-Sans-RegularItalic.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Overpass';
+  font-family: 'Mona Sans';
   font-style: normal;
   font-weight: 600;
-  src: local('Overpass'), url('/fonts/Overpass-SemiBold.woff2') format('woff2');
+  src: local('Mona Sans'), url('/fonts/mona/Mona-Sans-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mona Sans';
+  font-style: italic;
+  font-weight: 600;
+  src: local('Mona Sans'), url('/fonts/mona/Mona-Sans-SemiBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mona Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Mona Sans'), url('/fonts/mona/Mona-Sans-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Mona Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Mona Sans'), url('/fonts/mona/Mona-Sans-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Martian Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Martian Mono Std Lt'), url('/fonts/martian/MartianMono-StdLt') format('woff2');
 }
 
 @font-face {
   font-family: 'Overpass';
   font-style: italic;
-  font-weight: 600;
-  src: local('Overpass'), url('/fonts/Overpass-SemiBoldItalic.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Overpass';
-  font-style: normal;
   font-weight: 700;
-  src: local('Overpass'), url('/fonts/Overpass-Bold.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Overpass';
-  font-style: italic;
-  font-weight: 700;
-  src: local('Overpass'), url('/fonts/Overpass-BoldItalic.woff2') format('woff2');
+  src: local('Overpass'), url('/fonts/overpass/Overpass-BoldItalic.woff2') format('woff2');
 }
 
 html {

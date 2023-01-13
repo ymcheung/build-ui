@@ -2,7 +2,7 @@
 title: "Chakra UI 搭配 React-Hook-Form，文件上沒說清楚的地方"
 layout: ../layouts/Post.astro
 description: "Chakra UI 是很方便的 UI 套件，很容易跟 React-Hook-Form 搭配使用，兩邊的文件已經滿足 8 成的情況，但是在建立表單元件 Radio 和 Checkbox 的時候，遇到需爬文、請教才解決的問題。"
-dateModified: "2023-01-13T15:15:00+08:00"
+dateModified: "2023-01-13T22:00:00+08:00"
 datePublished: "2023-01-12T22:00:00+08:00"
 type: "article"
 ---
@@ -14,7 +14,7 @@ type: "article"
 ```json
 "next": ^13.1.1,
 "@chakra-ui/react": ^2.4.6,
-"react-hook-form": ^7.41.5,
+"react-hook-form": ^7.41.5
 ```
 
 ## ![Chakra UI 的標誌](/images/chakra-ui-with-react-hook-form/sticker.svg)
@@ -60,7 +60,7 @@ const { register } = useForm({ defaultValues });
 
 ## Radio 和 Checkbox 的用法
 
-Chakra UI 的 Radio、Checkbox 通常不是直接使用，而是有語法規則：
+Chakra UI 的 `Radio`、`Checkbox` 通常不是如 html 表單直接使用，而是有語法規則：
 
 ```jsx
 import { RadioGroup, Radio, CheckboxGroup, Checkbox, Stack } from '@chakra-ui/react';
@@ -132,7 +132,7 @@ import { RadioGroup, Radio, CheckboxGroup, Checkbox, Stack } from '@chakra-ui/re
 </CheckboxGroup>
 ```
 
-正確的方法是使用 React Hook Form 的 Controller：
+正確的方法是使用 React Hook Form 的 `Controller`：
 
 ```jsx
 // ✅ 正確的語法
