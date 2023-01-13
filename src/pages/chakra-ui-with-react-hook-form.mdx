@@ -1,11 +1,13 @@
 ---
 title: "Chakra UI 搭配 React-Hook-Form，文件上沒說清楚的地方"
 layout: ../layouts/Post.astro
-description: "Chakra UI 是很方便的 UI 套件，很容易跟 React-Hook-Form 搭配使用，兩邊的文件已經滿足 8 成的情況，但是在建立 Radio 和 Checkbox 的時候，遇到需爬文、請教才解決的問題。"
-dateModified: "2023-01-12T16:00:00+08:00"
-datePublished: "2023-01-12T16:00:00+08:00"
+description: "Chakra UI 是很方便的 UI 套件，很容易跟 React-Hook-Form 搭配使用，兩邊的文件已經滿足 8 成的情況，但是在建立表單元件 Radio 和 Checkbox 的時候，遇到需爬文、請教才解決的問題。"
+dateModified: "2023-01-13T10:30:00+08:00"
+datePublished: "2023-01-12T22:00:00+08:00"
 type: "article"
 ---
+
+查閱 Chakra UI 和 React Hook Form 的文件，已經能夠滿足 8 呈的使用情況，但是，在建立表單元件 Radio 和 Checkbox，就沒那麼順利了，在文件上找不到用法。
 
 ## 使用環境
 
@@ -103,17 +105,17 @@ import { RadioGroup, Radio, CheckboxGroup, Checkbox, Stack } from '@chakra-ui/re
 
 <RadioGroup>
   <Stack>
-    <Radio {...register('range')}>選項一</Radio>
-    <Radio {...register('range')}>選項二</Radio>
-    <Radio {...register('range')}>選項三</Radio>
+    <Radio {...register('range')} value={0}>選項一</Radio>
+    <Radio {...register('range')} value={1}>選項二</Radio>
+    <Radio {...register('range')} value={2}>選項三</Radio>
   </Stack>
 </RadioGroup>
 
 <CheckboxGroup>
   <Stack>
-    <Checkbox {...register('option')}>選項一</Checkbox>
-    <Checkbox {...register('option')}>選項二</Checkbox>
-    <Checkbox {...register('option')}>選項三</Checkbox>
+    <Checkbox {...register('option')} value={0}>選項一</Checkbox>
+    <Checkbox {...register('option')} value={1}>選項二</Checkbox>
+    <Checkbox {...register('option')} value={2}>選項三</Checkbox>
   </Stack>
 </CheckboxGroup>
 ```
@@ -134,9 +136,9 @@ const { control } = useForm({ defaultValues });
   render={({ field }) => (
     <RadioGroup {...field}>
       <Stack>
-        <Radio>選項一</Radio>
-        <Radio>選項二</Radio>
-        <Radio>選項三</Radio>
+        <Radio value={0}>選項一</Radio>
+        <Radio value={1}>選項二</Radio>
+        <Radio value={2}>選項三</Radio>
       </Stack>
     </RadioGroup>
   )}
@@ -148,9 +150,9 @@ const { control } = useForm({ defaultValues });
   render={({ field }) => (
     <RadioGroup {...field}>
       <Stack>
-        <Radio>選項一</Radio>
-        <Radio>選項二</Radio>
-        <Radio>選項三</Radio>
+        <Radio value={0}>選項一</Radio>
+        <Radio value={1}>選項二</Radio>
+        <Radio value={2}>選項三</Radio>
       </Stack>
     </RadioGroup>
   )}
@@ -163,7 +165,7 @@ const { control } = useForm({ defaultValues });
 
 React Hook Form 儲存資料的格式一律是字串。
 
-所以在使用 `<Radio />` 或 `<Checkbox />` 的時候，若把 `value` 以數字排序，並設定 `defaultValue`：
+所以在使用 `<Radio />` 或 `<Checkbox />` 的時候，若把 `value` 值指定為數字，並設定 `defaultValue`：
 
 ```jsx
 // ⚠️ 選項一應要預設選取
@@ -174,10 +176,9 @@ const { control } = useForm({ defaultValues });
 
 <Controller
   name="range"
-  defaultValue={0}
   control={control}
   render={({ field }) => (
-    <RadioGroup {...field}>
+    <RadioGroup {...field} defaultValue={0}>
       <Stack>
         <Radio value={0}>選項一</Radio>
         <Radio value={1}>選項二</Radio>
@@ -193,5 +194,7 @@ const { control } = useForm({ defaultValues });
 需把是數字的 `defaultValue` 轉為字串：
 
 ```jsx
+// ✅ 正確的語法（之一）
+
 defaultValue={`${0}`}
 ```
