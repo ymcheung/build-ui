@@ -32,6 +32,6 @@ export default defineConfig({
       wrap: true,
     },
   },
-  site: 'https://build.intersection.tw',
+  site: 'https://build.intersection.tw/',
   trailingSlash: 'never',
 });
