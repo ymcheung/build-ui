@@ -2,7 +2,7 @@
 title: "Chakra UI 搭配 React-Hook-Form，文件上沒說清楚的地方"
 layout: ../layouts/Post.astro
 description: "Chakra UI 是很方便的 UI 套件，很容易跟 React-Hook-Form 搭配使用，兩邊的文件已經滿足 8 成的情況，但是在建立表單元件 Radio 和 Checkbox 的時候，遇到需爬文、請教才解決的問題。"
-dateModified: "2023-01-13T22:00:00+08:00"
+dateModified: "2023-02-07T23:50:00+08:00"
 datePublished: "2023-01-12T22:00:00+08:00"
 type: "article"
 ---
@@ -37,6 +37,7 @@ type: "article"
 
 - 一般用法
 - `Radio` 和 `Checkbox` 的用法
+- `name` 和錯誤訊息的資料格式
 - 可能會沒注意到的地方
 
 ---
@@ -169,6 +170,81 @@ const { control } = useForm({ defaultValues });
     </RadioGroup>
   )}
 />
+```
+
+---
+
+## `name` 和錯誤訊息的資料格式
+
+React Hook Form 設定表單物件層級的方法是在 `register()` 裡面，以 `.` 分開的字串；而錯誤訊息是物件。
+
+這個不同之處，會在表單有許多欄位，且層級不同時出現問題：
+
+```jsx
+const { register, formState: { errors } } = useForm({ defaultValues });
+import { FormControl, Input, FormErrorMessage } from '@chakra-ui/react';
+
+const fields = [
+  {
+    name: 'displayName',
+    rules: {
+      required: {
+        value: true,
+        message: '必填'
+      }
+    }
+  },
+  {
+    name: 'subscription.months',
+    rules: {
+      max: {
+        value: 12,
+        message: '最多 12 個月'
+      }
+    }
+  },
+  {
+    name: 'company.id',
+    rules: {
+      maxLength: {
+        value: 20,
+        message: '最多 20 個字'
+      }
+    }
+  }
+];
+
+// ...
+
+{fields.map(({ name, rules }) =>
+  // ❌ 只有第 1 組欄位會按照安排顯示錯誤訊息
+  <FormControl isInvalid={errors[name]}>
+    <Input {...register(name, { ...rules })} />
+    <FormErrorMessage>{!!errors[name] && errors[name].message}</FormErrorMessage>
+  </FormControl>
+)}
+```
+
+其實 React Hook Form [文件上有提到該怎麼辦](https://react-hook-form.com/advanced-usage#ErrorMessages)，只是擺在很偏僻的地方，非常容易錯過。
+
+最簡單的方法是用 `lodash` 的 `get()`，就可以把 `subscription.months` 之類的格式變成物件：
+
+```jsx
+import get from 'lodash/get';
+
+//...
+
+{fields.map(({ name, rules }) => {
+  // ✅ 取得 errors 物件裡，對應的 value 和 message
+  const error = get(errors, name);
+
+  return (
+    <FormControl isInvalid={error}>
+      <Input {...register(name, { ...rules })} />
+      <FormErrorMessage>{!!error && error.message}</FormErrorMessage>
+    </FormControl>
+  )}
+)}
 ```
 
 ---
