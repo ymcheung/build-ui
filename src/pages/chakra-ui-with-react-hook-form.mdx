@@ -217,7 +217,7 @@ const fields = [
 // ...
 
 {fields.map(({ name, rules }) =>
-  // ❌ 只有第 1 組欄位會按照安排顯示錯誤訊息
+  // ❌ 只有第 1 組欄位會在不符規則時，顯示錯誤訊息
   <FormControl isInvalid={errors[name]}>
     <Input {...register(name, { ...rules })} />
     <FormErrorMessage>{!!errors[name] && errors[name].message}</FormErrorMessage>
