@@ -5,16 +5,17 @@ interface Props {
   title: string;
   description: string;
   dateModified: string;
+  sticker: string;
   path?: string;
 }
 
-const { title, description, dateModified, path } = Astro.props as Props;
+const { title, description, dateModified, sticker, path } = Astro.props as Props;
 ---
 
 <li class="indexListItem">
   <a class="link" href={path}>
     <figure class="sticker">
-      <img src={`/images${path}/sticker.svg`} />
+      <img src={`/images${path}/sticker.svg`} alt={`${sticker} 的標誌`} />
     </figure>
     <h2 class="title">{title}</h2>
     <Timestamp dateModified={dateModified} />
