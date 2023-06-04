@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import deno from '@astrojs/deno';
+import remarkUnwrapImages from 'remark-unwrap-images';
 // import solid from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
@@ -22,15 +23,19 @@ export default defineConfig({
         'https://build.intersection.tw/translations',
       ],
     }),
-    mdx(),
+    mdx({
+      drafts: true
+    }),
   ],
   markdown: {
+    remarkPlugins: [remarkUnwrapImages],
     syntaxHighlight: 'shiki',
     shikiConfig: {
       theme: 'dracula',
       langs: [],
       wrap: true,
     },
+    drafts: true
   },
   site: 'https://build.intersection.tw/',
   trailingSlash: 'never',

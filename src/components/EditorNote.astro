@@ -1,0 +1,24 @@
+---
+---
+<div class="note">
+  <slot />
+</div>
+
+<style lang="scss">
+  .note {
+    width: 64%;
+    margin-inline: auto 0;
+    padding-block: 16px 2px;
+    padding-inline: 16px;
+    background-color: #282A36;
+    border-radius: 12px;
+  }
+
+  :global(.note p) {
+    font-size: 1.4rem;
+  }
+
+  :global(.note strong) {
+    display: block;
+  }
+</style>

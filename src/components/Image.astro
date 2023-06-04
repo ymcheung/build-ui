@@ -1,0 +1,22 @@
+---
+interface Props {
+  src: string;
+  maxWidth?: string;
+  description: string;
+  caption: boolean;
+}
+
+const { src, maxWidth, description, caption } = Astro.props as Props;
+---
+
+<figure>
+  <slot />
+  {caption && <figcaption>{description}</figcaption>}
+</figure>
+
+
+<style lang="scss">
+  .image {
+
+  }
+</style>

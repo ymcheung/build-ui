@@ -1,0 +1,371 @@
+---
+title: "以 2023 年的方法製作 Favicon：6 個檔案就搞定大多數需求 (翻譯)"
+layout: ../layouts/Post.astro
+description: "用 SVG 取代 PNG，相信瀏覽器向下相容，捨棄過時的格式—現代網頁 Favicon 的終極、詳盡指南。包含靜態 HTML 和 Webpack 會用到的步驟。"
+dateModified: "2023-06-04T23:59:00+08:00"
+datePublished: "2023-06-04T22:00:00+08:00"
+type: "article"
+sticker: "Favicon"
+draft: true
+---
+import Image from '../components/Image.astro';
+import EditorNote from '../components/EditorNote.astro';
+
+**原文標題**
+
+[How to Favicon in 2023: Six files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+
+**發表於** [Evil Martians](https://evilmartians.com)
+
+本文原作者 [Andrey Sitnik](https://twitter.com/sitnikcode) 是 PostCSS 和 Autoprefixer 的作者，首席前端工程師，現居西班牙巴塞隆納。
+
+---
+
+是時候再想一下，要如何打造現代瀏覽器的 Favicon？終結圖示產生器的混亂。目前，前端開發者為了在瀏覽器分頁或觸控螢幕上，顯示小小的網站標誌，就得要處理 20 個以上靜態 PNG 檔案。更聰明的做法要怎麼進行？只要加上最少量的一組圖示，即可適用於大多數現代需求的方法，請繼續看下去。
+
+事實證明，Favicon 這個話題，比任何人所希望的還要難搞。因此，為了已經受盡折磨，還有清楚知道該做什麼事情的大家，整篇文章統整成只要 2 行的程式碼片段。然而，建議還是要發揮追究到底的精神！
+
+<EditorNote>
+**作者的 2022 年註記：**
+新的一年到來，這篇文章也稍微修改，證明這裡的內容還是非常值得參考！
+
+**作者的 2023 年註記：**
+再次保證，這裡一定有最新的資訊！
+</EditorNote>
+
+## 極致簡短版
+
+其實只要有 5 個圖示和 1 個 JSON 檔案即可，不需要放上好幾打圖示。
+
+用在瀏覽器的 HTML：
+
+```html
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+```
+
+
+還有用在 Web App 的 Manifest：
+
+```json
+{
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
+```
+
+這樣就好了。如果想要知道這是怎麼歸納出來、得要妥協的決定，還有從無到有一步一步做出這一組，別轉台，都在這篇文章剩下的部分。
+
+## 完整版，全部解釋一遍
+
+達到完美的境界，並非無法再增加，而是不能再減少。
+
+Antoine de Saint-Exupéry
+
+Airman's Odyssey
+
+Favicon，也就是 "Favorite Icon" 的縮寫，這個概念在 2000 年代左右就滿街跑了。大家都有看到瀏覽器分頁上可愛的小圖片，協助分辨已經打開的網站。使用者**預期**網站有 Favicon，這是會獲得其他人敬重的小事情之一。
+
+即使是蘋果公司，一直有對 Cupertino 以外的圖示美學具有影響力，長年在 Safari 佛系對待 Favicon，最終還是放棄，現在已經在所有裝置上正確顯示。
+
+> 如果是對外公開的網站，就必須要有 Favicon。讓人悲傷的是，使用者看到一個圖示，事實上有非常多。
+
+因此，為了所必要檔案，因為螢幕和裝置持續增加，這種混雜成一團的工作，很常就交給 Favicon 產生器工具來減輕負擔。只有神智不清的人，才會想要花費好幾小時手動來做。畢竟，我們是來做網站的，而不是讓瀏覽器廠商開心。
+
+<Image description="由知名線上產生器的一組 Favicon" caption="true">
+  ![由知名線上產生器的一組 Favicon](/images/how-to-favicon/generated.avif)
+</Image>
+
+身為 [NanoID](https://evilmartians.com/opensource/nanoid) 的作者，以及極簡開源支持者，我傾向以稍稍不同的方向思考。最有效率的一組網站圖示有哪些？哪些格式已經過時？哪些圖示種類能夠以小小的妥協取代？
+
+因此，我著手打造最精簡的 Favicon 列表，可以在所有場合，以及所有瀏覽器使用。但是，會捨棄一些極端情況。即使如此，還是行得通，就只是沒有 100% 完美。
+
+## 終極版 Favicon 設定
+
+與其做一堆不同尺寸的圖片，我決定倚賴 SVG 與瀏覽器的向下相容。如果擔心效能，這裡直接說明：
+
+- 瀏覽器在背景下載 Favicon，所以大一點的 Favicon 圖片不會影響網站效能
+- 在沒有必須要用到點陣圖的時候，非常適合以 SVG 減少圖片檔案大小。對於大多數的標誌來說，最終檔案會遠比 PNG 還要小。
+- 這組極簡版就只有 3 個 PNG 圖片，可以使用進階工具來把檔案大小最佳化。這解決了沒有上網吃到飽方案網路使用者的問題。
+
+現在，要進一步揭露經過研究和實做想出來的極簡圖示組。這份清單應該可用於所有常見的瀏覽器與裝置，新或舊的皆可。
+
+### I. 過時瀏覽器使用的 favicon.ico
+
+其實，ICO 檔案格式有[資料夾結構](https://en.wikipedia.org/wiki/ICO_(file_format)#Icon_resource_structure)，可以把不同解析度的檔案打包起來。建議只要用單一的 32x32 圖片，除非手上的檔案無法良好地降為 16x16（例如：會變得模糊）。遇到這種情況，可以向設計師要求出個專為小像素網格的特別版本標誌。
+
+資料夾、靜態檔案資料夾結構和快取破壞方面就不要自作聰明。`https://example.com﻿` 這個網站的 Favicon 就要放在 `https://example.com/favicon.ico﻿`。像是 RSS 閱讀器等工具，只會找伺服器的 `/favicon.ico`，絕對不有其它地方。
+
+連至 .ico 的 `<link>` 要有 `sizes="any"`，這是為了修正 [Chrome 的 Bug](https://twitter.com/subzey/status/1417099064949235712)，會選擇 ICO 檔案，而不是 SVG 檔案。
+
+### II. 現代瀏覽器能以單獨的 SVG 圖示擁有亮色/暗色版本
+
+SVG 是一種描述曲線的向量格式，而不是像素。尺寸很大的時候，效能比點陣圖片還要好。撰寫這篇文章的時候，[72% 的瀏覽器](https://caniuse.com/link-icon-svg)支援 SVG 圖示。
+
+HTML 頁面必須要在 `<head>` 裡面有`rel="icon"`、`type="image/svg+xml"` 和`href`包含連至 SVG 檔案等屬性的 `<link>`標籤。
+
+SVG 能夠加上描述 CSS 用的 `<style>` 標籤，是一種 XML 格式。既然可以放任何 CSS，也就能用 `@media (prefers-color-scheme: dark)` 這樣子的 media query。達成在[亮色與暗色系統主題](https://web.dev/building-an-adaptive-favicon/)之間，以同個圖示切換。
+
+### III. 蘋果裝置使用的 180×180 PNG 圖片
+
+蘋果裝置上，如果在 iPhone 或 iPad 主畫面新增網頁捷徑，會使用的圖片，稱為蘋果觸控圖示。HTML 頁面要在 `<head>` 裡面加入 `<link rel="apple-touch-icon" href="apple-touch-icon.png">`。
+
+從 iOS 8 開始，在 iPad 得使用 180x180 解析度的圖片，其它裝置會降級。但是，如果來源檔案的品質夠高，降級不會對終端使用者造成傷害（稍後會回頭來談這件事）。
+
+小附註：在蘋果觸控圖示的內緣周圍設下 `20 像素` 留白，然後加上一些背景顏色，會比較好看。任何一款圖片編輯器都可以做到。
+
+### IV. Android 裝置使用的 Android Web 應用程式 Manifest，192x192 和 512x512 PNG 圖示
+
+- Web 應用程式 Manifest 是 JSON 檔案，裡面有讓瀏覽器把網站安裝成系統應用程式的所有細節。這個格式誕生於 Google 倡議的 [PWA](https://en.wikipedia.org/wiki/Progressive_web_application)。
+- HTML 頁面必須要有 標籤，連至 Manifest 檔案。
+- Manifest 要有 `icon` 欄位，連至 2 個圖示：192x192 是在主畫面顯示的，512x512 是 PWA 在讀取時當作進場等待畫面。
+
+```json
+{
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
+```
+
+## 有遺漏的嗎？
+
+當然，市面上還有更多 Favicon 的配方，有些非常冷門。接著，來看看這份設定怎麼應對。或許，是時候向沒那麼成功的格式說再見了。
+
+### Windows Tile Icon
+
+微軟 Edge 曾經[支援](https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/platform-apis/hh772707(v=vs.85))的特殊圖示格式，能把網站釘選在開始選單。近期版本的 Windows 已經不是必備。
+
+### Safari Pinned Icon
+
+先前，Safari 要求[釘選分頁](https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/pinnedTabs/pinnedTabs.html)得有黑白 SVG 圖示。不過，Safari 12 開始，釘選頁籤可以用一般 Favicon 就好。甚至 [apple.com](https://www.apple.com/) 都不再用 `mask-icon`。
+
+### `rel="shortcut"`
+
+很多教學（已經過時的）提到在 HTML 加入這樣的  `favicon.ico`：
+
+```html
+<link rel="shortcut icon" href="/favicon.ico" sizes="any">
+```
+
+請注意，`shortcut` 從來就不是有效的連結關係。請拜讀這篇 Mathias Bynens 10 年前的[好文](https://mathiasbynens.be/notes/rel-shortcut-icon)，說明一開始就沒必要用 shortcut，只要 `rel="icon"` 就夠了。
+
+### Opera Coast
+
+從前，iOS 有一款實驗性質的瀏覽器叫做 Opera Coast，要用特殊的 228x228 圖示。此瀏覽器在 2017 年離開 App Store，令人懷疑是否能在多次 iOS 更新存活下來。
+
+現在，向殞落的戰士們揮手說再見後，來看看為了仍挺立的那群，而打造終極的 Favicon 組合。
+
+## 打造終極 Favicon 組合
+
+以下是 6 個步驟打造終極簡Favicon 組合。只要有預計當作標誌的 SVG 檔案，就可以開始。
+
+### 步驟 1：準備 SVG
+
+SVG 圖片必須是正方形。在系統打開原始檔案，檢查圖片的寬和高。調整 SVG 尺寸很簡單，任何 SVG 編輯器皆可。如果是用 Inkscape 來更改文件尺寸，選擇 File → Document Properties，接著使用 Object → Align and Distribute 把標誌置中。
+
+把檔案儲存為 icon.svg。然後，把 SVG 稍做修改，讓它可以在現代系統主題好好表現。向設計師詢問在暗色主題的顏色要如何反轉（黑白的標誌就只要把黑色改為白色。）
+
+現在，在文字編輯器打開 SVG 檔案。尋找暗色或沒有 `fill` 的 `<path>`。加入會因為主題改變的 CSS Media Query，把 `fill` 改成想要的顏色。
+
+```html
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
++   <style>
++     @media (prefers-color-scheme: dark) {
++     .a { fill: #f0f0f0 }
++     }
++   </style>
+-   <path fill="#0f0f0f" d="…" />
++   <path class="a" fill="#0f0f0f" d="…" />
+  </svg>
+```
+
+這裡 SVG 的 Media Query 技巧，也可以用在把 Favicon [加上廣色域 P3 顏色](https://evilmartians.com/chronicles/how-to-use-p3-colors-in-svg)。
+
+### 步驟 2：加上 ICO 檔案
+
+在點陣圖編輯器打開 `icon.svg` 檔案。推薦使用 GIMP，免費而且跨平台。
+
+把 SVG 改為點陣輸出。設定寬和高都 32 像素。存成名為 `favicon.ico` 的檔案，32 位元/像素、8 位元 Alpha，沒有色票設定。
+
+如果沒有在用 GIMP，也可以安裝 Inkscape 和 [ImageMagick](https://www.imagemagick.org/script/download.php)，在終端機把 SVG 轉成 ICO：
+
+```bash
+inkscape ./icon.svg --export-width=32 --export-filename="./tmp.png"
+
+convert ./tmp.png ./favicon.ico
+rm ./tmp.png
+```
+
+把圖片縮為 16x16，檢查還夠不夠清楚。如果已經太模糊，最好向設計師要客製迷你版的標誌。
+
+額外加入 16x16 版本的圖示：
+
+1. 打開 32x32 的 `favicon.ico`圖示。
+2. 新增 16x16 尺寸的圖層。
+3. 把 16x16 版本的圖示放進圖層。
+4. 輸出檔案。GIMP 會把每個版面都存成不同版本的圖示。
+
+	或者用 ImageMagick 也可以：
+
+```bash
+convert ./icon-32.png ./icon-16.png ./favicon.ico
+```
+
+### 步驟 3：建立 PNG 圖片
+
+再次用點陣圖編輯器打開原始 SVG 檔案，建立 512x512 的圖片。輸出為 `icon-512.png`。
+
+把圖片縮成 192x192，輸出為 `icon-192.png`。把這個檔案再縮成 140x140，畫布設定成 180x180，輸出為 `apple-touch-icon.png`。
+
+### 步驟 4：將 PNG 和 SVG 檔案最佳化
+
+最優秀的 SVG 最佳化工具是 [SVGO](https://github.com/svg/svgo)，執行指令：
+
+```bash
+npx svgo --multipass icon.svg
+```
+
+[Squoosh](https://squoosh.app/) 是很好用的點陣圖最佳化網路應用程式：
+
+1. 在 Squoosh 打開 `icon-512.png`。
+2. 把壓縮設定改成 `OxiPNG`。
+3. 開啟 "Reduce palette"。
+4. 設定為 64 個顏色。
+5. 移動滑桿，比較前後差別。如果有察覺到，就增加顏色。
+6. 儲存檔案。
+
+`icon-192.png` 和 `apple-touch-icon.png` 也一樣用這些步驟。
+
+### 步驟 5：把圖示加入 HTML
+
+必須要把連至 `favicon.ico` 和 `apple-touch-icon.png`的連結加入 HTML。
+
+靜態 HTML：
+
+```html
+  <title>My website</title>
++ <link rel="icon" href="/favicon.ico" sizes="any">
++ <link rel="icon" href="/icon.svg" type="image/svg+xml">
++ <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+```
+
+不過，建議用打包工具產生快取破壞 (名稱帶有檔案的 Hash，當作是 Fingerprint)。如果是在 Webpack，使用 [`HtmlWebpackPlugin`](https://webpack.js.org/plugins/html-webpack-plugin/)：
+
+1. 建立 index.html 範本。
+2. 把範本加入外掛選項：
+
+```javascript
+new HtmlWebpackPlugin({ template: "./view/index.html" });
+```
+
+3. 定義帶有連結的 HTML 範本（這裡的範例使用 `HtmlWebpackPlugin`加入檔案，這可以是任何偏好的範本語言）
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>My website</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="<%=
+      require('./icon.svg').default
+    %>">
+    <link rel="apple-touch-icon" href="<%=
+      require('./apple-touch-icon.png').default
+    %>"
+   >
+  </head>
+  <body></body>
+</html>
+```
+
+4. 使用 [`copy-webpack-plugin`](https://www.npmjs.com/package/copy-webpack-plugin) 複製 `favicon.ico`，才不會在檔名加上 Hash。
+
+### 附贈提示：建立 Staging 環境的額外圖示
+
+Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Staging 使用不同圖示，用來避免任何造成得不償失的狀況非常好用。
+
+用相同的標誌建立 `favicon-dev.ico`，但是把顏色反轉（或是任何覺得有道理的方法）。SVG 也這樣做，新增 `icon-dev.svg`。
+
+現在，在 HTML 範本，以 `process.env.NODE_ENV === 'production'` 條件取代圖示：
+
+```html
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>My website</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+-     <link rel="icon" href="/favicon.ico" sizes="any">
++     <link rel="icon" sizes="any" href="<%=
++       process.env.NODE_ENV === 'production'
++         ? '/favicon.ico'
++         : require('./favicon-dev.ico').default
++     %>">
+      <link rel="icon" type="image/svg+xml" href="<%=
+-       require('./icon.svg').default
++       process.env.NODE_ENV === 'production'
++         ? require('./icon.svg').default
++         : require('./icon-dev.svg').default
+      %>">
+      <link rel="apple-touch-icon" href="<%=
+        require('./apple-touch-icon.png').default
+      %>">
+    </head>
+    <body></body>
+  </html>
+```
+
+### 步驟 6：加入網路應用程式 Manifest
+
+如果是靜態 HTML，新增檔名是 `manifest.webmanifest` 的 JSON 檔案：
+
+```json
+{
+  "name": "My website",
+  "icons": [
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
+```
+
+在 HTML 裡連結過去：
+
+```html
+  <title>My website</title>
++ <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+```
+
+
+在 Webpack，可以使用  [webpack-pwa-manifest](https://www.npmjs.com/package/webpack-pwa-manifest)  外掛：
+
+```javascript
+  plugins: [
+  …,
+    new WebpackPwaManifest({
+      name: 'My website',
+      icons: [
+        { src: resolve('./icon-192.png'), sizes: '192x192' },
+        { src: resolve('./icon-512.png'), sizes: '512x512 }
+      ]
+    })
+  ]
+```
+
+感謝閱讀！如你/妳所見，以現代網頁技術，打造終極 Favicon 組合得要做的事情，變得相當直覺。即使照著這些步驟來做，並不會花費多少時間，有自動化工具達到一樣的效果，會讓事情變得更讚！如果有意願打造出來，歡迎隨時在 Twitter 上找我。如果可以幫上忙，會非常榮幸！
+
+---
+原文版權所有：[Andrey Sitnik](https://twitter.com/sitnikcode)
+
+翻譯版權所有：[@ymcheung](https://github.com/ymcheung)
