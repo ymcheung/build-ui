@@ -9,14 +9,21 @@ interface Props {
 const { src, maxWidth, description, caption } = Astro.props as Props;
 ---
 
-<figure>
+<figure class="wrap">
   <slot />
-  {caption && <figcaption>{description}</figcaption>}
+  {caption && <figcaption class="caption">{description}</figcaption>}
 </figure>
 
 
 <style lang="scss">
-  .image {
+  .wrap {
+    margin: 0 0 24px;
+    padding: 0;
+  }
 
+  .caption {
+    color: hsl(var(--color-shade130));
+    font-size: 1.4rem;
+    text-align: center;
   }
 </style>

@@ -21,7 +21,11 @@ import EditorNote from '../components/EditorNote.astro';
 
 ---
 
-是時候再想一下，要如何打造現代瀏覽器的 Favicon？終結圖示產生器的混亂。目前，前端開發者為了在瀏覽器分頁或觸控螢幕上，顯示小小的網站標誌，就得要處理 20 個以上靜態 PNG 檔案。更聰明的做法要怎麼進行？只要加上最少量的一組圖示，即可適用於大多數現代需求的方法，請繼續看下去。
+<Image description="由知名線上產生器的一組 Favicon" caption={false}>
+![Favicon 炒菜鍋](/images/how-to-favicon/cover.jpg)
+</Image>
+
+是時候再想一下，要如何打造現代瀏覽器的 Favicon？終結圖示產生器的混亂。目前，前端開發者為了在瀏覽器分頁或觸控螢幕上，顯示小小的網站標誌，就得要處理 20 個以上靜態 PNG 檔案。更聰明的做法要怎麼進行？只要加上最少量的一組圖示，即可適用於大多數現代需求，請繼續看下去。
 
 事實證明，Favicon 這個話題，比任何人所希望的還要難搞。因此，為了已經受盡折磨，還有清楚知道該做什麼事情的大家，整篇文章統整成只要 2 行的程式碼片段。然而，建議還是要發揮追究到底的精神！
 
@@ -46,7 +50,6 @@ import EditorNote from '../components/EditorNote.astro';
 <link rel="manifest" href="/manifest.webmanifest">
 ```
 
-
 還有用在 Web App 的 Manifest：
 
 ```json
@@ -62,11 +65,11 @@ import EditorNote from '../components/EditorNote.astro';
 
 ## 完整版，全部解釋一遍
 
-達到完美的境界，並非無法再增加，而是不能再減少。
-
-Antoine de Saint-Exupéry
-
-Airman's Odyssey
+> 達到完美的境界，並非不能再增加，而是無法再減少。
+>
+> Antoine de Saint-Exupéry
+>
+> Airman's Odyssey
 
 Favicon，也就是 "Favorite Icon" 的縮寫，這個概念在 2000 年代左右就滿街跑了。大家都有看到瀏覽器分頁上可愛的小圖片，協助分辨已經打開的網站。使用者**預期**網站有 Favicon，這是會獲得其他人敬重的小事情之一。
 
@@ -76,8 +79,8 @@ Favicon，也就是 "Favorite Icon" 的縮寫，這個概念在 2000 年代左�
 
 因此，為了所必要檔案，因為螢幕和裝置持續增加，這種混雜成一團的工作，很常就交給 Favicon 產生器工具來減輕負擔。只有神智不清的人，才會想要花費好幾小時手動來做。畢竟，我們是來做網站的，而不是讓瀏覽器廠商開心。
 
-<Image description="由知名線上產生器的一組 Favicon" caption="true">
-  ![由知名線上產生器的一組 Favicon](/images/how-to-favicon/generated.avif)
+<Image description="由知名線上產生器的 Favicon 組合" caption="true">
+  ![由知名線上產生器的 Favicon 組合](/images/how-to-favicon/generated.avif)
 </Image>
 
 身為 [NanoID](https://evilmartians.com/opensource/nanoid) 的作者，以及極簡開源支持者，我傾向以稍稍不同的方向思考。最有效率的一組網站圖示有哪些？哪些格式已經過時？哪些圖示種類能夠以小小的妥協取代？
@@ -189,7 +192,7 @@ SVG 圖片必須是正方形。在系統打開原始檔案，檢查圖片的寬�
 
 ### 步驟 2：加上 ICO 檔案
 
-在點陣圖編輯器打開 `icon.svg` 檔案。推薦使用 GIMP，免費而且跨平台。
+在點陣圖編輯器打開 `icon.svg` 檔案。推薦使用 [GIMP](https://www.gimp.org/)，免費而且跨平台。
 
 把 SVG 改為點陣輸出。設定寬和高都 32 像素。存成名為 `favicon.ico` 的檔案，32 位元/像素、8 位元 Alpha，沒有色票設定。
 
