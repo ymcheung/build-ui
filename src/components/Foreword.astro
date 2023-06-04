@@ -1,0 +1,16 @@
+---
+interface Props {
+  word: string;
+}
+
+const { word } = Astro.props as Props;
+---
+<section class="foreword">{word}</section>
+
+<style lang="scss">
+  .foreword {
+    margin-block-end: 24px;
+    font-size: 2.4rem;
+    line-height: 36px;
+  }
+</style>
