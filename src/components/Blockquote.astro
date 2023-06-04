@@ -1,0 +1,30 @@
+---
+interface Props {
+  name?: string;
+  tagline?: string;
+}
+
+const { name, tagline } = Astro.props as Props;
+---
+<blockquote class="wrap">
+  <slot />
+  {!!name && <strong class="byName">- {name}</strong>}
+  {!!tagline && <div class="tagline">{tagline}</div>}
+</blockquote>
+
+<style lang="scss">
+  .byName {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding-block-start: 16px;
+    color: hsl(var(--color-shade130));
+    font-size: 1.6rem;
+    line-height: 1.5;
+  }
+
+  .tagline {
+    margin: 0;
+    color: hsl(var(--color-shade130));
+    font-size: 1.4rem;
+  }
+</style>

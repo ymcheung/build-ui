@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import deno from '@astrojs/deno';
+import remarkGfm from 'remark-gfm';
 import remarkUnwrapImages from 'remark-unwrap-images';
 // import solid from '@astrojs/solid-js';
 import sitemap from '@astrojs/sitemap';
@@ -28,7 +29,7 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkUnwrapImages],
+    remarkPlugins: [remarkGfm, remarkUnwrapImages],
     syntaxHighlight: 'shiki',
     shikiConfig: {
       theme: 'dracula',

@@ -44,8 +44,8 @@ const { title, description, datePublished, dateModified } = frontmatter;
       .title {
         margin: 0 0 12px;
         color: hsl(var(--color-shade150));
-        font-size: 3.2rem;
-        line-height: 40px;
+        font-size: 3.6rem;
+        line-height: 48px;
       }
 
       .article {
@@ -55,15 +55,16 @@ const { title, description, datePublished, dateModified } = frontmatter;
 
         :global(h2) {
           margin: 0 0 8px;
-          padding-top: 16px;
-          font-size: 2.4rem;
-          line-height: 28px;
+          padding-top: 20px;
+          font-size: 2.8rem;
+          line-height: 36px;
         }
 
         :global(h3) {
           margin: 0 0 8px;
-          font-size: 2rem;
-          line-height: 24px;
+          padding-top: 14px;
+          font-size: 2.2rem;
+          line-height: 30px;
         }
 
         :global(a) {
@@ -74,7 +75,7 @@ const { title, description, datePublished, dateModified } = frontmatter;
           max-width: 100%;
         }
 
-        :global(ul) {
+        :global(ul, ol) {
           margin: 0 0 16px;
           padding-inline-start: 16px;
         }
@@ -92,9 +93,30 @@ const { title, description, datePublished, dateModified } = frontmatter;
           padding-top: 8px;
         }
 
-        :global(p) {
+        :global(> p) {
           margin: 0 0 16px;
           font-size: 1.6rem;
+          line-height: 1.5;
+        }
+
+        :global(blockquote) {
+          margin: 0 0 16px;
+          padding: 12px;
+          background-color: hsl(var(--color-shade20));
+          border-radius: 12px;
+
+          @media screen and (min-width: 768px) {
+            width: 80%;
+          }
+
+          @media screen and (min-width: 992px) {
+            margin: 0 0 16px -12px;
+          }
+        }
+
+        :global(blockquote > p) {
+          margin: 0;
+          font-size: 2.8rem;
           line-height: 1.5;
         }
 

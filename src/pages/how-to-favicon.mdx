@@ -9,11 +9,10 @@ sticker: "Favicon"
 draft: true
 ---
 import Image from '../components/Image.astro';
+import Blockquote from '../components/Blockquote.astro';
 import EditorNote from '../components/EditorNote.astro';
 
-**原文標題**
-
-[How to Favicon in 2023: Six files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+**原文標題** [How to Favicon in 2023: Six files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
 
 **發表於** [Evil Martians](https://evilmartians.com)
 
@@ -65,17 +64,15 @@ import EditorNote from '../components/EditorNote.astro';
 
 ## 完整版，全部解釋一遍
 
-> 達到完美的境界，並非不能再增加，而是無法再減少。
->
-> Antoine de Saint-Exupéry
->
-> Airman's Odyssey
+<Blockquote name="Antoine de Saint-Exupéry" tagline="Airman’s Odyssey">
+  達到完美的境界，並非不能再增加，而是無法再減少。
+</Blockquote>
 
-Favicon，也就是 "Favorite Icon" 的縮寫，這個概念在 2000 年代左右就滿街跑了。大家都有看到瀏覽器分頁上可愛的小圖片，協助分辨已經打開的網站。使用者**預期**網站有 Favicon，這是會獲得其他人敬重的小事情之一。
+Favicon，也就是 “Favorite Icon” 的縮寫，這個概念在 2000 年代左右就滿街跑了。大家都有看到瀏覽器分頁上可愛的小圖片，協助分辨已經打開的網站。使用者**預期**網站有 Favicon，這是會獲得其他人敬重的小事情之一。
 
 即使是蘋果公司，一直有對 Cupertino 以外的圖示美學具有影響力，長年在 Safari 佛系對待 Favicon，最終還是放棄，現在已經在所有裝置上正確顯示。
 
-> 如果是對外公開的網站，就必須要有 Favicon。讓人悲傷的是，使用者看到一個圖示，事實上有非常多。
+> 如果是對外公開的網站，就必須要有 Favicon。讓人悲傷的是，使用者看到的圖示，背後有非常多個。
 
 因此，為了所必要檔案，因為螢幕和裝置持續增加，這種混雜成一團的工作，很常就交給 Favicon 產生器工具來減輕負擔。只有神智不清的人，才會想要花費好幾小時手動來做。畢竟，我們是來做網站的，而不是讓瀏覽器廠商開心。
 
@@ -267,7 +264,7 @@ npx svgo --multipass icon.svg
 new HtmlWebpackPlugin({ template: "./view/index.html" });
 ```
 
-3. 定義帶有連結的 HTML 範本（這裡的範例使用 `HtmlWebpackPlugin`加入檔案，這可以是任何偏好的範本語言）
+3. 定義帶有連結的 HTML 範本（這裡的範例使用 `HtmlWebpackPlugin` 加入檔案，這可以是任何偏好的範本語言）：
 
 ```html
 <!DOCTYPE html>
@@ -297,7 +294,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
 
 用相同的標誌建立 `favicon-dev.ico`，但是把顏色反轉（或是任何覺得有道理的方法）。SVG 也這樣做，新增 `icon-dev.svg`。
 
-現在，在 HTML 範本，以 `process.env.NODE_ENV === 'production'` 條件取代圖示：
+接著，在 HTML 範本，以 `process.env.NODE_ENV === 'production'` 條件取代圖示：
 
 ```html
   <!doctype html>
@@ -350,8 +347,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ```
 
-
-在 Webpack，可以使用  [webpack-pwa-manifest](https://www.npmjs.com/package/webpack-pwa-manifest)  外掛：
+在 Webpack，可以使用 [webpack-pwa-manifest](https://www.npmjs.com/package/webpack-pwa-manifest) 外掛：
 
 ```javascript
   plugins: [
@@ -366,7 +362,9 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
   ]
 ```
 
-感謝閱讀！如你/妳所見，以現代網頁技術，打造終極 Favicon 組合得要做的事情，變得相當直覺。即使照著這些步驟來做，並不會花費多少時間，有自動化工具達到一樣的效果，會讓事情變得更讚！如果有意願打造出來，歡迎隨時在 Twitter 上找我。如果可以幫上忙，會非常榮幸！
+---
+
+感謝閱讀！如你/妳所見，以現代網頁技術，打造終極 Favicon 組合得要做的事情，變得相當直覺。即使照著這些步驟來做，並不會花費多少時間，有自動化工具達到一樣的效果，會讓事情變得更讚！如果有意願打造出來，歡迎隨時在 [Twitter](https://twitter.com/sitnikcode) 上找我。如果可以幫上忙，會非常榮幸！
 
 ---
 原文版權所有：[Andrey Sitnik](https://twitter.com/sitnikcode)

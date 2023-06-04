@@ -7,6 +7,9 @@ dependencies:
   date-fns:
     specifier: ^2.29.3
     version: 2.29.3
+  remark-gfm:
+    specifier: ^3.0.1
+    version: 3.0.1
   remark-unwrap-images:
     specifier: ^3.0.1
     version: 3.0.1
