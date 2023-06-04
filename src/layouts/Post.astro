@@ -11,12 +11,13 @@ interface Props {
     description: string;
     datePublished: string;
     dateModified: string;
+    draft?: boolean;
   };
   url: string;
 }
 
 const { frontmatter, url } = Astro.props as Props;
-const { title, description, datePublished, dateModified } = frontmatter;
+const { title, description, datePublished, dateModified, draft } = frontmatter;
 ---
 
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ const { title, description, datePublished, dateModified } = frontmatter;
       dateModified={dateModified}
       datePublished={datePublished}
       path={url}
+      isDraft={draft}
     />
   </head>
   <body>

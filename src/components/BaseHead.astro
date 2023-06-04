@@ -7,9 +7,10 @@ interface Props {
   dateModified: string;
   datePublished: string;
   path?: string;
+  isDraft?: boolean;
 }
 
-const { title, description, dateModified, datePublished, path } =
+const { title, description, dateModified, datePublished, path, isDraft } =
   Astro.props as Props;
 
 const handleStartingSlash = (thePath?: string) => {
@@ -79,6 +80,7 @@ const schema = () => {
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
+{isDraft && <meta name="robots" content="noindex" />}
 <meta
   property="og:image:alt"
   content={`${title}${path ? `（發表於${SITENAME}）` : ''}`}
