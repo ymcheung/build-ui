@@ -41,4 +41,5 @@ export default defineConfig({
   },
   site: 'https://build.intersection.tw/',
   trailingSlash: 'never',
+  // experimental: { assets: true }
 });
