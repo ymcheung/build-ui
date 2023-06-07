@@ -6,13 +6,17 @@
 
 <style lang="scss">
   .note {
-    width: 48%;
+    width: 80%;
     margin-inline: auto 0;
     padding-block: 8px 2px;
     padding-inline: 16px;
     line-height: 1.5;
     background-color: #282A36;
     border-radius: 12px;
+
+    @media screen and (min-width: 768px) {
+      width: 48%;
+    }
   }
 
   :global(.note strong) {
