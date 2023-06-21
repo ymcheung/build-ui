@@ -13,7 +13,7 @@ const { title, description, dateModified, sticker, path } = Astro.props as Props
 ---
 
 <li class="indexListItem">
-  <a class="link" href={path}>
+  <a class="link" href={path} />
     {!!sticker &&
       <figure class="sticker">
         <img src={`/images${path}/sticker.svg`} alt={`${sticker} 的標誌`} />
@@ -23,15 +23,18 @@ const { title, description, dateModified, sticker, path } = Astro.props as Props
     <Timestamp dateModified={dateModified} />
     <p class="description">{description}</p>
     <span class="action">📃&nbsp;閱讀</span>
-  </a>
 </li>
 <style lang="scss">
   .indexListItem {
+    position: relative;
     list-style-type: none;
   }
 
   .link {
     display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     text-decoration: none;
   }
 
