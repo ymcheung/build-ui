@@ -69,6 +69,13 @@ const { title, description, datePublished, dateModified, draft } = frontmatter;
           line-height: 30px;
         }
 
+        :global(h2, h3) {
+          &:target {
+            padding-top: 112px;
+            margin-top: -112px;
+          }
+        }
+
         :global(a) {
           color: hsl(var(--color-accent));
         }
