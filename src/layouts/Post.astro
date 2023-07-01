@@ -56,24 +56,31 @@ const { title, description, datePublished, dateModified, draft } = frontmatter;
         word-break: break-word;
 
         :global(h2) {
-          margin: 0 0 8px;
-          padding-top: 20px;
+          padding-block-start: 20px;
           font-size: 2.8rem;
           line-height: 36px;
+
+          &:target {
+            padding-block-start: 112px;
+            margin-block-start: -92px;
+          }
         }
 
         :global(h3) {
-          margin: 0 0 8px;
-          padding-top: 14px;
+          padding-block-start: 14px;
           font-size: 2.2rem;
           line-height: 30px;
+
+          &:target {
+            padding-block-start: 112px;
+            margin-block-start: -98px;
+          }
         }
 
         :global(h2, h3) {
-          &:target {
-            padding-top: 112px;
-            margin-top: -112px;
-          }
+          margin-inline: 0;
+          margin-block-start: 0;
+          margin-block-end: 8px;
         }
 
         :global(a) {
