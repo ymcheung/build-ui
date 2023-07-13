@@ -2,7 +2,7 @@
 title: "Chakra UI 搭配 React-Hook-Form，文件上沒說清楚的地方"
 layout: ../layouts/Post.astro
 description: "Chakra UI 是很方便的 UI 套件，很容易跟 React-Hook-Form 搭配使用，兩邊的文件已經滿足 8 成的情況，但是在建立表單元件 Radio 和 Checkbox 的時候，遇到需爬文、請教才解決的問題。"
-dateModified: "2023-02-07T23:50:00+08:00"
+dateModified: "2023-07-13T12:50:00+08:00"
 datePublished: "2023-01-12T22:00:00+08:00"
 type: "article"
 sticker: "Chakra UI 和 React-Hook-Form"
@@ -13,9 +13,9 @@ sticker: "Chakra UI 和 React-Hook-Form"
 ## 使用環境
 
 ```json
-"next": ^13.1.1,
-"@chakra-ui/react": ^2.4.6,
-"react-hook-form": ^7.41.5
+"next": "^13.1.1",
+"@chakra-ui/react": "^2.7.1",
+"react-hook-form": "^7.45.1"
 ```
 
 ## ![Chakra UI 的標誌](/images/chakra-ui-with-react-hook-form/sticker.svg)
@@ -39,7 +39,8 @@ sticker: "Chakra UI 和 React-Hook-Form"
 - [一般用法](#一般用法)
 - [`Radio` 和 `Checkbox` 的用法](#radio-和-checkbox-的用法)
 - [`name` 和錯誤訊息的資料格式](#name-和錯誤訊息的資料格式)
-- [可能會沒注意到的地方](#可能會沒注意到的地方)
+- [可能會沒注意到的地方：型別](#可能會沒注意到的地方型別)
+- [可能會沒注意到的地方：驗證](#可能會沒注意到的地方驗證)
 
 ---
 
@@ -250,7 +251,7 @@ import get from 'lodash/get';
 
 ---
 
-## 可能會沒注意到的地方
+## 可能會沒注意到的地方：型別
 
 React Hook Form 儲存資料的格式一律是字串。
 
@@ -286,4 +287,54 @@ const { control } = useForm({ defaultValues });
 // ✅ 正確的語法（之一）
 
 defaultValue={`${0}`}
+```
+
+---
+
+## 可能會沒注意到的地方：驗證
+
+React Hook Form 所控制的表單，可以使用 `validate` 來驗證輸入的資料是否有效：
+
+```jsx
+// ...
+<FormControl isInvalid={error}>
+  <Input {...register('min', {
+    validate: {
+      minNumber: (value) => !isNaN(value) && value > 0 || '必須大於 0'
+    }
+  })} />
+</FormControl>
+```
+
+在複雜的表單裡，常常會需要根據另一個欄位，來驗證欄位。例如：有最小值、最大值欄位，而最大值必須大於最小值。
+
+先前爬文到這樣做：
+
+```jsx
+// ...
+<FormControl isInvalid={error}>
+  <Input {...register('max', {
+    validate: {
+      maxNumber: (value) => !isNaN(value) && (value > getValues('min')) || '必須大於最小值'
+    }
+  })} />
+</FormControl>
+```
+
+然而，在結構複雜的專案裡，會遇到不方便直接使用 `getValues()` 的情境。
+
+其實文件上確實有提到要怎麼做，但沒有進一步解釋。
+
+方法是在 `validate` 可以再傳入 `formValues`：
+
+```jsx
+// ...
+<FormControl isInvalid={error}>
+  <Input {...register('max', {
+    validate: {
+      maxNumber: (value, formValues) =>
+        !isNaN(value) && (value > formValues?.min) || '必須大於最小值';
+    }
+  })} />
+</FormControl>
 ```
