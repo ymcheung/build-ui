@@ -1,0 +1,60 @@
+---
+import '../style/global.scss';
+import Layout from '../layouts/Post.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Timestamp from '../components/Timestamp.astro';
+
+import { getEntry } from "astro:content";
+// 1. Get the slug from the incoming server request
+
+const { slug } = Astro.params;
+if (slug === undefined) {
+  throw new Error("Slug is required");
+}
+// 2. Query for the entry directly using the request slug
+const entry = await getEntry("posts", slug);
+// 3. Redirect if the entry does not exist
+if (entry === undefined) {
+  return Astro.redirect("/404");
+}
+// 4. (Optional) Render the entry to HTML in the template
+const { Content } = await entry.render();
+console.log({ slug })
+const { title, description, dateModified, datePublished, draft } = entry.data;
+
+---
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      dateModified={dateModified}
+      datePublished={datePublished}
+      path={slug}
+      isDraft={draft}
+    />
+  </head>
+  <body>
+    <Header as="strong" />
+    <main class="container">
+      <h1 class="title">{title}</h1>
+      <Timestamp dateModified={dateModified} />
+      <Layout frontmatter={entry.data}>
+        <Content />
+      </Layout>
+    </main>
+    <Footer />
+    <style lang="scss">
+      .title {
+        margin: 0 0 12px;
+        color: hsl(var(--color-shade150));
+        font-size: 3.6rem;
+        line-height: 48px;
+      }
+    </style>
+  </body>
+</html>

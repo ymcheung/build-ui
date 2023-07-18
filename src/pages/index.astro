@@ -1,4 +1,5 @@
 ---
+import { getCollection } from 'astro:content';
 import { SITENAME } from '../../constants';
 import Layout from '../layouts/Index.astro';
 import Card from '../components/Card.astro';
@@ -20,16 +21,20 @@ interface Frontmatter {
   type: string;
 }
 
-const mdxes = await Astro.glob<Frontmatter>('./*.mdx');
-let articles = mdxes.filter(
-  ({ frontmatter: { type, draft } }) => type === 'article' && !draft
+const mdocs = await getCollection('posts');
+
+let publishedPosts = await getCollection('posts', ({ data }) => {
+  return data.draft !== true;
+});
+
+publishedPosts = publishedPosts.sort(
+  (older, newer) =>
+    new Date(newer.data.dateModified).valueOf() -
+    new Date(older.data.dateModified).valueOf()
 );
 
-articles = articles.sort(
-  (older, newer) =>
-    new Date(newer.frontmatter.dateModified).valueOf() -
-    new Date(older.frontmatter.dateModified).valueOf()
-);
+console.log(publishedPosts)
+
 ---
 
 <Layout
@@ -40,14 +45,14 @@ articles = articles.sort(
 >
   <ul class="indexList">
     {
-      articles.map(
-        ({ frontmatter: { title, description, dateModified, sticker }, url }) => (
+      publishedPosts.map(
+        ({ data: { title, description, dateModified, sticker }, slug }) => (
           <Card
             title={title}
             description={description}
             dateModified={dateModified}
             sticker={sticker}
-            path={url}
+            path={`/${slug}`}
           />
         )
       )
