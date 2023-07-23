@@ -12,17 +12,6 @@ const meta = {
   datePublished: '2021-08-11T00:00:00+08:00',
 };
 
-interface Frontmatter {
-  draft?: boolean;
-  title: string;
-  description: string;
-  dateModified: string;
-  sticker?: string;
-  type: string;
-}
-
-const mdocs = await getCollection('posts');
-
 let publishedPosts = await getCollection('posts', ({ data }) => {
   return data.draft !== true;
 });
@@ -32,9 +21,6 @@ publishedPosts = publishedPosts.sort(
     new Date(newer.data.dateModified).valueOf() -
     new Date(older.data.dateModified).valueOf()
 );
-
-console.log(publishedPosts)
-
 ---
 
 <Layout
