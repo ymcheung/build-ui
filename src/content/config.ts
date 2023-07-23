@@ -6,8 +6,8 @@ const postCollection = defineCollection(
     schema: z.object({
       title: z.string(),
       description: z.string(),
-      dateModified: z.string(),
-      datePublished: z.string(),
+      dateModified: z.date(),
+      datePublished: z.date(),
       sticker: z.string(),
       draft: z.boolean()
     }),
@@ -19,8 +19,8 @@ const pageCollection = defineCollection(
     schema: z.object({
       title: z.string(),
       description: z.string(),
-      dateModified: z.string(),
-      datePublished: z.string()
+      dateModified: z.date(),
+      datePublished: z.date()
     }),
   }
 );

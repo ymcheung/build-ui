@@ -17,16 +17,7 @@
   },
   "dependencies": {
     "@astrojs/deno": "^4.1.1",
-    "@astrojs/markdoc": "^0.4.2",
-    "@astrojs/solid-js": "^2.2.0",
-    "@astrojs/svelte": "^3.1.0",
-    "date-fns": "^2.29.3",
-    "prismjs": "^1.29.0",
-    "rehype-attr": "^2.1.4",
-    "rehype-external-links": "^2.1.0",
-    "remark-gfm": "^3.0.1",
-    "remark-unwrap-images": "^3.0.1",
-    "solid-js": "^1.4.3",
-    "svelte": "^4.0.0"
+    "@astrojs/markdoc": "^0.4.3",
+    "date-fns": "^2.29.3"
   }
 }

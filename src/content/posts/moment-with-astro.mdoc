@@ -1,9 +1,9 @@
 ---
-title: "使用 Astro 打造速度飛快的靜態網站"
-description: "在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 目前以幾乎每天更新一次的頻率快速發展中。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。"
-dateModified: "2023-07-23T17:10:00+08:00"
-datePublished: "2022-02-16T00:00:00+08:00"
-sticker: "Astro"
+title: 使用 Astro 打造速度飛快的靜態網站
+description: 在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 目前以幾乎每天更新一次的頻率快速發展中。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。
+dateModified: 2023-07-23T17:10:00+08:00
+datePublished: 2022-02-16T00:00:00+08:00
+sticker: Astro
 draft: false
 ---
 
@@ -100,7 +100,7 @@ body {
 
 ### 以 `import` 匯入全域 CSS 檔案
 
-```jsx
+```astro
 // Head.astro
 import '~/styles/global.css';
 ```
@@ -133,7 +133,7 @@ import '~/styles/global.css';
 </section>
 ```
 
-```markdown
+```mdx
 ---
 # /pages/bohemian-rhapsody.mdx
 
@@ -167,7 +167,7 @@ No escape from reality
 
 我想要設定 `<section>` 下面的 `<p>` 樣式，會發現也是因為 `scoped` 的緣故，沒辦法直接指定：
 
-```jsx
+```astro
 // LyricSection.astro
 ...
 <style lang="scss">
@@ -205,10 +205,9 @@ No escape from reality
 
 按照直覺把結構化資料放在 `<head> ... </head>` 裡面時，會發現無法如預期輸出 JSON LD 語法：
 
-```jsx
+```astro
 // BaseHead.astro
 ---
-
 const schema = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [{
@@ -226,7 +225,7 @@ const schema = JSON.stringify({
 
 `0.23.0` 版開始，在 `<script>` 得要讓 HTML 有 Escape 過，才會出現有效的 JSON LD 語法：
 
-```jsx
+```html
 // BaseHead.astro
 <script type="application/ld+json" set:html={schema} />
 ```
