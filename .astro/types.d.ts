@@ -9,87 +9,6 @@ declare module 'astro:content' {
 
 declare module 'astro:content' {
 	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
-		'.mdoc': Promise<{
-			Content(props: Record<string, any>): import('astro').MarkdownInstance<{}>['Content'];
-			headings: import('astro').MarkdownHeading[];
-		}>;
-	}
-}
-
-declare module 'astro:content' {
-	interface Render {
 		'.md': Promise<{
 			Content: import('astro').MarkdownInstance<{}>['Content'];
 			headings: import('astro').MarkdownHeading[];
@@ -278,7 +197,16 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"posts": {
+		"pages": {
+"translations.mdoc": {
+	id: "translations.mdoc";
+  slug: "translations";
+  body: string;
+  collection: "pages";
+  data: InferEntrySchema<"pages">
+} & { render(): Render[".mdoc"] };
+};
+"posts": {
 "analytics-tool-splitbee.mdoc": {
 	id: "analytics-tool-splitbee.mdoc";
   slug: "analytics-tool-splitbee";

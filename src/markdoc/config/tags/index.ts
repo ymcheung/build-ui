@@ -1,1 +1,1 @@
-export { default as code } from "./code.markdoc";
+// export { default as code } from "./code.markdoc";
