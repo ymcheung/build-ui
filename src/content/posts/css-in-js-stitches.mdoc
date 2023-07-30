@@ -109,11 +109,11 @@ const Sidebar = styled('ul', {
 
 [`Theme Tokens`](https://stitches.dev/docs/tokens) 會以 `CSS Custom Properties` 呈現。`Stitches` 沒有 SCSS 自動編譯變數的功能，所以如果顏色有透明度的需求，建議使用 HSL 或 RGB，把 Token 設定為括弧裡的數字就好，例如：
 
-```json
+```jsx
 theme: {
   colors: {
     shade1600: '162deg 2% 99%',
-    ...
+    // ...
   }
 }
 ```
@@ -199,7 +199,7 @@ useEffect(() => {
 
 像這樣很常使用的一組 CSS:
 
-```json
+```jsx
 utils: {
   fullAbsolute: () => {
     position: 'absolute',
@@ -213,7 +213,7 @@ utils: {
 
 沒有必要傳入 props 的時候，用法是：
 
-```json
+```jsx
 '&::before': {
   fullAbsolute: ''
 }
@@ -223,7 +223,7 @@ utils: {
 
 Stitches 升級成 1.0.0 之後，如果也有用 TypeScript，就會發現設定檔出現型別錯誤：
 
-```json
+```jsx
 size: (value) => ({
   width: value,
   height: value
@@ -234,7 +234,7 @@ size: (value) => ({
 
 得要指定使用的 Token：
 
-```json
+```jsx
 size: (value: Stitches.ScaleValue<'sizes'>) => ({
   width: value,
   height: value
