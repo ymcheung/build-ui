@@ -1,17 +1,16 @@
 ---
 interface Props {
-  src: string;
-  maxWidth?: string;
-  description: string;
-  caption: boolean;
+//  src: string;
+//  maxWidth?: string;
+  description?: string;
 }
 
-const { description, caption } = Astro.props as Props;
+const { description } = Astro.props as Props;
 ---
 
 <figure class="wrap">
   <slot />
-  {caption && <figcaption class="caption">{description}</figcaption>}
+  {!!description && <figcaption class="caption">{description}</figcaption>}
 </figure>
 
 
