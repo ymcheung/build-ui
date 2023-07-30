@@ -1,25 +1,25 @@
 ---
 import '../style/global.scss';
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Post.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Timestamp from '../components/Timestamp.astro';
 
-import { getEntry } from "astro:content";
-
-const { slug } = Astro.params;
-if (slug === undefined) {
-  throw new Error("Slug is required");
+export async function getStaticPaths() {
+  const postEntries = await getCollection('posts');
+  return postEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
 }
-const entry = await getEntry("posts", slug);
 
-if (entry === undefined) {
-  return Astro.redirect("/404");
-}
-// 4. (Optional) Render the entry to HTML in the template
+const { entry } = Astro.props;
+const { slug, data } = entry;
+
 const { Content } = await entry.render();
-const { title, description, dateModified, datePublished, draft } = entry.data;
+
+const { title, description, dateModified, datePublished, draft } = data;
 
 ---
 
