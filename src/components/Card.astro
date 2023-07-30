@@ -4,7 +4,7 @@ import Timestamp from './Timestamp.astro';
 interface Props {
   title: string;
   description: string;
-  dateModified: string;
+  dateModified: Date;
   sticker?: string;
   path?: string;
 }
@@ -20,7 +20,7 @@ const { title, description, dateModified, sticker, path } = Astro.props as Props
       </figure>
     }
     <h2 class="title">{title}</h2>
-    <Timestamp dateModified={dateModified} />
+    <Timestamp dateModified={dateModified.toString()} />
     <p class="description">{description}</p>
     <span class="action">📃&nbsp;閱讀</span>
 </li>

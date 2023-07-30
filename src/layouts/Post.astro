@@ -1,22 +1,15 @@
 ---
 import '../style/global.scss';
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Timestamp from '../components/Timestamp.astro';
 
 interface Props {
   frontmatter: {
     title: string;
     description: string;
-    datePublished: string;
-    dateModified: string;
+    datePublished: Date;
+    dateModified: Date;
     draft?: boolean;
   };
 }
-
-const { frontmatter } = Astro.props as Props;
-const { title, description, datePublished, dateModified, draft } = frontmatter;
 ---
 
 <article class="article">

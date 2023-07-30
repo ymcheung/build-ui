@@ -2,7 +2,7 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@astrojs/deno':
-    specifier: ^4.1.1
+    specifier: ^4.2.0
     version: 4.3.0(astro@2.9.1)
   '@astrojs/markdoc':
     specifier: ^0.4.3

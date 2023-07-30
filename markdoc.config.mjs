@@ -1,7 +1,7 @@
 import { defineMarkdocConfig } from '@astrojs/markdoc/config';
 import shiki from '@astrojs/markdoc/shiki';
 import * as nodes from './src/markdoc/config/nodes';
-// import * as tags from './src/markdoc/config/tags';
+import * as tags from './src/markdoc/config/tags';
 
 // const config = defineMarkdocConfig({
 //   nodes,
@@ -11,6 +11,7 @@ import * as nodes from './src/markdoc/config/nodes';
 
 export default defineMarkdocConfig({
   nodes,
+  tags,
   extends: [
     shiki({
       theme: 'dracula',

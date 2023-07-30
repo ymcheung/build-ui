@@ -7,15 +7,13 @@ import Footer from '../components/Footer.astro';
 import Timestamp from '../components/Timestamp.astro';
 
 import { getEntry } from "astro:content";
-// 1. Get the slug from the incoming server request
 
 const { slug } = Astro.params;
 if (slug === undefined) {
   throw new Error("Slug is required");
 }
-// 2. Query for the entry directly using the request slug
 const entry = await getEntry("posts", slug);
-// 3. Redirect if the entry does not exist
+
 if (entry === undefined) {
   return Astro.redirect("/404");
 }
@@ -31,8 +29,8 @@ const { title, description, dateModified, datePublished, draft } = entry.data;
     <BaseHead
       title={title}
       description={description}
-      dateModified={dateModified}
-      datePublished={datePublished}
+      dateModified={dateModified.toString()}
+      datePublished={datePublished.toString()}
       path={slug}
       isDraft={draft}
     />
@@ -41,7 +39,7 @@ const { title, description, dateModified, datePublished, draft } = entry.data;
     <Header as="strong" />
     <main class="container">
       <h1 class="title">{title}</h1>
-      <Timestamp dateModified={dateModified} />
+      <Timestamp dateModified={dateModified.toString()} />
       <Layout frontmatter={entry.data}>
         <Content />
       </Layout>
