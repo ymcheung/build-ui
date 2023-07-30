@@ -1,8 +1,5 @@
 import { defineConfig } from 'astro/config';
 // import deno from '@astrojs/deno';
-// import remarkGfm from 'remark-gfm';
-// import remarkUnwrapImages from 'remark-unwrap-images';
-// import rehypeExternalLinks from 'rehype-external-links';
 import sitemap from '@astrojs/sitemap';
 // import mdx from '@astrojs/mdx';
 // import svelte from "@astrojs/svelte";
@@ -39,6 +36,6 @@ export default defineConfig({
   //   },
   //   drafts: true
   // },
-  site: 'https://build.intersection.tw/',
+  site: 'https://build.intersection.tw',
   trailingSlash: 'never', // experimental: { assets: true }
 });
