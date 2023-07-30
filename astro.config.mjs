@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import deno from '@astrojs/deno';
+// import deno from '@astrojs/deno';
 // import remarkGfm from 'remark-gfm';
 // import remarkUnwrapImages from 'remark-unwrap-images';
 // import rehypeExternalLinks from 'rehype-external-links';
@@ -10,8 +10,8 @@ import markdoc from '@astrojs/markdoc';
 
 // https://astro.build/config
 export default defineConfig({
-  // output: 'server',
-  adapter: deno(),
+  output: 'static',
+  // adapter: deno(),
   integrations: [
     sitemap({
       customPages: [
