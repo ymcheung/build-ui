@@ -212,12 +212,14 @@ const schema = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [{
     '@type': 'WebPage',
-    url: `${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`,
+    url: `${īmport.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`,
     name: title,
     datePublished: published,
     dateModified: modified
   }]
 });
+
+// 要把 īmport 改為 import
 ---
 
 <script type="application/ld+json">{schema}</script>
