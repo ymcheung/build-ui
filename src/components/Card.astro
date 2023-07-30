@@ -35,7 +35,6 @@ const { title, description, dateModified, sticker, path } = Astro.props as Props
     position: absolute;
     inset: 0;
     z-index: 0;
-    text-decoration: none;
   }
 
   .sticker {
@@ -49,6 +48,15 @@ const { title, description, dateModified, sticker, path } = Astro.props as Props
     color: hsl(var(--color-shade150));
     font-size: 2.4rem;
     line-height: 32px;
+    text-decoration-line: underline;
+    text-decoration-color: transparent;
+    text-decoration-style: wavy;
+    text-decoration-thickness: 4px;
+    transition: text-decoration-color 0.15s ease-in;
+
+    .indexListItem:hover & {
+      text-decoration-color: hsl(var(--color-shade30));
+    }
   }
 
   .description {
@@ -64,11 +72,18 @@ const { title, description, dateModified, sticker, path } = Astro.props as Props
     margin-right: 0;
     margin-left: auto;
     padding: 14px 0 12px;
-    color: hsl(var(--color-shade10));
+    color: hsl(var(--color-shade150));
     font-size: 1.6rem;
     line-height: 1;
     text-align: center;
-    background-color: hsl(var(--color-accent));
+    border: 2px solid hsl(var(--color-accent));
     border-radius: 6px;
+    transition: color 0.15s ease-in,
+                background-color 0.15s ease-in;
+
+    .indexListItem:hover & {
+      color: hsl(var(--color-shade10));
+      background-color: hsl(var(--color-accent));
+    }
   }
 </style>

@@ -6,7 +6,6 @@
     "dev": "astro check --watch & astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "deno run --allow-net --allow-read --allow-env ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "devDependencies": {
@@ -16,7 +15,6 @@
     "sass": "^1.54.5"
   },
   "dependencies": {
-    "@astrojs/deno": "^4.3.0",
     "@astrojs/markdoc": "^0.4.4",
     "date-fns": "^2.29.3"
   }
