@@ -37,5 +37,6 @@ export default defineConfig({
   //   drafts: true
   // },
   site: 'https://build.intersection.tw/',
-  trailingSlash: 'never', // experimental: { assets: true }
+  trailingSlash: 'never',
+  experimental: { assets: true }
 });

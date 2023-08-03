@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Timestamp from './Timestamp.astro';
 
 interface Props {
@@ -6,17 +7,18 @@ interface Props {
   description: string;
   dateModified: Date;
   sticker?: string;
+  stickerAlt?: string;
   path?: string;
 }
 
-const { title, description, dateModified, sticker, path } = Astro.props as Props;
+const { title, description, dateModified, sticker, stickerAlt, path } = Astro.props as Props;
 ---
 
 <li class="indexListItem">
-  <a class="link" href={path} />
+  <a class="link" href={`/${path}`} />
     {!!sticker &&
       <figure class="sticker">
-        <img src={`/images${path}/sticker.svg`} alt={`${sticker} 的標誌`} />
+        <Image src={sticker} alt={stickerAlt} />
       </figure>
     }
     <h2 class="title">{title}</h2>

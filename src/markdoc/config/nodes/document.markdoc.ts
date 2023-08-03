@@ -1,5 +1,4 @@
-import markdoc from '@markdoc/markdoc';
-const { nodes } = markdoc;
+import { nodes } from '@astrojs/markdoc/config';
 
 export default {
   ...nodes.document,
