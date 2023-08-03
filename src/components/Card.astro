@@ -7,7 +7,7 @@ interface Props {
   title: string;
   description: string;
   dateModified: Date;
-  sticker: ImageMetadata;
+  sticker?: ImageMetadata;
   stickerAlt?: string;
   path?: string;
 }
@@ -19,7 +19,7 @@ const { title, description, dateModified, sticker, stickerAlt, path } =
 <li class="indexListItem">
   <a class="link" href={`/${path}`}></a>
   {
-    !!sticker && (
+    !!sticker && !!stickerAlt && (
       <figure class="sticker">
         <Image src={sticker} alt={stickerAlt} />
       </figure>

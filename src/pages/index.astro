@@ -32,7 +32,10 @@ publishedPosts = publishedPosts.sort(
   <ul class="indexList">
     {
       publishedPosts.map(
-        ({ data: { title, description, dateModified, sticker, stickerAlt }, slug }) => (
+        ({
+          data: { title, description, dateModified, sticker, stickerAlt },
+          slug,
+        }) => (
           <Card
             title={title}
             description={description}
