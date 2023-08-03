@@ -5,6 +5,18 @@ interface Props {
 }
 
 const { href, title } = Astro.props as Props;
+
+function handleClassName() {
+  if (href.startsWith('http')) {
+    return 'lgspt-external-link';
+  }
+
+  if (href.startsWith('#')) {
+    return 'lgspt-anchor-link';
+  }
+
+  return 'lgspt-link';
+};
 ---
 
-<a class="lgspt-link" href={href}><slot /></a>
+<a class={handleClassName()} href={href}><slot /></a>
