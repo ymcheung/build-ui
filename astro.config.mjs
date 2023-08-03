@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, sharpImageService } from 'astro/config';
 // import deno from '@astrojs/deno';
 import sitemap from '@astrojs/sitemap';
 // import mdx from '@astrojs/mdx';
@@ -38,5 +38,8 @@ export default defineConfig({
   // },
   site: 'https://build.intersection.tw/',
   trailingSlash: 'never',
-  experimental: { assets: true }
+  experimental: { assets: true },
+  image: {
+    service: sharpImageService(),
+  }
 });
