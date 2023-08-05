@@ -19,4 +19,6 @@ function handleClassName() {
 }
 ---
 
-<a class={handleClassName()} href={href}><slot /></a>
+<a class={handleClassName()} href={href} title={!!title ? title : undefined}
+  ><slot /></a
+>

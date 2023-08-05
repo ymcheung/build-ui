@@ -1,7 +1,7 @@
 ---
 title: "簡單介紹 CSS-In-JS 套件：Stitches"
 description: "Stitches 可以讓 CSS 樣式寫得更清楚，甚至補齊 CSS 先天沒有那麼方便的地方。這篇文章以小訣竅的方式，介紹 Stitches 的特色，包含多行使用情境與 body 樣式的切換方法。"
-dateModified: 2022-06-06T00:00:00+08:00
+dateModified: 2023-08-05T20:45:00+08:00
 datePublished: 2021-07-28T00:00:00+08:00
 sticker: "~/assets/css-in-js-stitches/sticker.svg"
 stickerAlt: "Stitches"
@@ -12,7 +12,7 @@ draft: false
 
 `Stitches` 是已經進入穩定 `1.0.0` 版的 CSS-In-JS 套件，用起來手感相當成熟，常見的 CSS 規畫都能迎刃而解。
 
-2022 年 6 月，Stitches 開發團隊被 WorkOS 收購，目前承諾會持續更新，並且接受社群 Pull Request 新功能。
+2022 年 6 月，Stitches 開發團隊被 WorkOS 收購；2023 年 2 月，已正式[宣告停止維護](https://discord.com/channels/752614004387610674/752614004387610678/1079141308540661850)，提到 React 18 讓 Stitches 的機制更棘手。
 
 - 網站：[https://stitches.dev](https://stitches.dev)
 - 文件：[https://stitches.dev/docs](https://stitches.dev/docs)
@@ -35,19 +35,19 @@ draft: false
 
 ## 接下來的內容
 
-- Stitches vs. styled-components
-- 基本語法
-- Theme Tokens
-- 多行與引號
-- 指定 `<body>` 的樣式
-- 用來傳入數值的 Utils
-- 混搭 `styled` 和 `css`
+- [Stitches v.s. styled-components](#stitches-vs-styled-components "連至「Stitches v.s. styled-components」段落")
+- [基本語法](#基本語法 "連至「基本語法」段落")
+- [Theme Tokens](#theme-tokens "連至「Theme Tokens」段落")
+- [多行與引號](#多行與引號 "連至「多行與引號」段落")
+- [指定 `<body>` 的樣式](#指定-body-的樣式 "連至「指定 body 的樣式」段落")
+- [用來傳入數值的 Utils](#用來傳入數值的-utils "連至「用來傳入數值的 Utils」段落")
+- [混搭 `styled` 和 `css`](#混搭-styled-和-css "連至「混搭 styled 和 css`」段落")
 
 ---
 
-## Stitches vs. styled-components
+## Stitches v.s. styled-components
 
-在使用 Stitches 之前就是 styled-components，我覺得差別在：
+在使用 `Stitches` 之前就是 `styled-components`，我覺得差別在：
 
 ### Stitches
 
