@@ -20,8 +20,8 @@ const handleStartingSlash = (thePath?: string) => {
 };
 
 const ogCoverPath = path
-  ? `images/${handleStartingSlash(path)}/og.jpg`
-  : 'og.jpg';
+  ? `og/${handleStartingSlash(path)}.jpg`
+  : 'og/home.jpg';
 const canonicalPath = path ? handleStartingSlash(path) : '';
 
 const schema = () => {
