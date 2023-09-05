@@ -21,3 +21,6 @@ pnpm-debug.log*
 
 # vs code
 .vscode
+
+# generated types
+.astro/
