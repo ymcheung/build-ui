@@ -10,8 +10,9 @@ import Timestamp from '../components/Timestamp.astro';
 export async function getStaticPaths() {
   const postEntries = await getCollection('posts');
   const pageEntries = await getCollection('pages');
-  return [...postEntries, ...pageEntries].map(entry => ({
-    params: { slug: entry.slug }, props: { entry }
+  return [...postEntries, ...pageEntries].map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
   }));
 }
 
