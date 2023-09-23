@@ -1,7 +1,7 @@
 ---
 title: 使用 Astro 打造速度飛快的靜態網站
 description: 在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 目前以幾乎每天更新一次的頻率快速發展中。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。
-dateModified: 2023-09-13T20:10:00+08:00
+dateModified: 2023-09-23T20:10:00+08:00
 datePublished: 2022-02-16T00:00:00+08:00
 sticker: "~/assets/moment-with-astro/sticker.svg"
 stickerAlt: Astro
@@ -40,6 +40,7 @@ Moment 是搭配 `Solid.js`，用來處理影片播放互動，後來 Astro 本�
 ### Astro 2.9.0 之後遇到的問題
 
 - [根據文件路徑載入圖片](#根據文件路徑載入圖片 "連至「根據文件路徑載入圖片」")
+- [以變數載入 Content Collection 的型別設定](#以變數載入-content-collection-的型別設定 "連至「以變數載入 Content Collection 的型別設定」")
 - [Markdoc 設定檔的 build 型別錯誤](#markdoc-設定檔的-build-型別錯誤 "連至「Markdoc 設定檔的 build 型別錯誤」")
 
 ### Astro 2.9.0 之前的心得/問題
@@ -58,7 +59,7 @@ Moment 是搭配 `Solid.js`，用來處理影片播放互動，後來 Astro 本�
 
 ```astro
 ---
-// src/pages/[categories]/[...slug].astro
+// /src/pages/[categories]/[...slug].astro
 import { Image } from 'astro:assets';
 import ovenMittImage from "../assets/utensils/oven-mitt/cover.jpg";
 ---
@@ -70,7 +71,7 @@ import ovenMittImage from "../assets/utensils/oven-mitt/cover.jpg";
 
 ```mdx
 ---
-# src/content/utensils/oven-mitt.mdx
+# /src/content/utensils/oven-mitt.mdx
 title: "標題名稱"
 cover: "../../assets/utensils/oven-mitt/cover.jpg" # 對應到檔案 "src/assets//utensils/oven-mitt/cover.jpg"
 coverAlt: "圖片說明"
@@ -103,7 +104,7 @@ import { Image } from 'astro:assets';
 
 ```astro
 ---
-// src/pages/[categories]/[...slug].astro
+// /src/pages/[categories]/[...slug].astro
 import { Image } from 'astro:assets';
 const { categories: categoryName, slug } = Astro.params;
 ---
@@ -120,6 +121,133 @@ const { categories: categoryName, slug } = Astro.params;
 ### 資料來源
 
 [Using Dynamic Filename Props in Astro Images](https://vaihe.com/blog/astro/astro-dynamic-image-prop)
+
+---
+
+## 以變數載入 `Content Collection` 的型別設定
+
+以 `Content Collection` 製作比較複雜的導覽介面時，遇到須以 `Astro.props` 或 `Astro.params` 來取得特定的文章列表或內容。
+
+```astro
+---
+// /src/components/navigation/Slug.astro
+import { getCollection } from 'astro:content';
+
+const { categoryName } = Astro.props;
+
+const slugItems = await getCollection(categoryName);
+---
+```
+
+`getCollection()` 只能傳入已經設定好的 `collection` 名稱：
+
+```ts
+// /src/content/config.ts
+import { defineCollection } from 'astro:content';
+import { itemSchema } from '../schemas';
+
+const tidyCollection = defineCollection({
+  type: 'content',
+  schema: itemSchema
+});
+const utensilsCollection = defineCollection({
+  type: 'content',
+  schema: itemSchema
+});
+
+export const collections = {
+  'tidy': tidyCollection,
+  'utensils': utensilsCollection
+};
+```
+
+所以，在指定此處 `prop` 型別的時候，必須設定為 `string literal types`。
+
+以最偷懶的方法，是手動列出可能的 `string`：
+
+```astro
+---
+// /src/components/navigation/Slug.astro
+import { getCollection } from 'astro:content';
+
+type Props = {
+  categoryName: 'tidy' | 'utensils';
+};
+const { categoryName } = Astro.props;
+
+const slugItems = await getCollection(categoryName);
+---
+```
+
+只不過，如果 `categoryName` 有內容變動，就要記得回來這個檔案跟上，很不方便。
+
+因此想要用一組陣列，既產生靜態網址，也可以定義 `string literal types`。
+
+使用的方法是把陣列指定為 `const assertion`：
+
+```ts
+// constants.ts
+export const categories = <const>
+[
+  {
+    name: 'tidy',
+    label: '收納'
+  },
+  {
+    name: 'utensils',
+    label: '廚房清潔'
+  }
+];
+```
+
+這可以用在靜態網址的 `getStaticPaths()`：
+
+```astro
+---
+// /src/pages/[categories].astro
+import { categories } from '../../constants';
+
+export async function getStaticPaths() {
+  return categories.map(({ name, label }) => ({
+    params: { categories: name },
+    props: { name, label }
+  }));
+};
+---
+```
+
+也能符合要傳入 `getCollection()` 的 `props` 型別設定：
+
+```astro
+---
+// /src/layouts/Slug.astro
+import SlugNavigation from '@components/navigation/Slugs.astro';
+
+type Params = { categories: (typeof categories)[number]['name'] };
+const { categories: categoryName } = Astro.params as Params;
+---
+<!-- ... -->
+<SlugNavigation categoryName={categoryName} />
+<!-- ... -->
+```
+
+```astro
+---
+// /src/components/navigation/Slugs.astro
+
+type Props = { categoryName: (typeof categories)[number]['name'] };
+const { categoryName } = Astro.props as Props;
+
+const slugItems = await getCollection(categoryName);
+---
+<!-- ... -->
+{
+  slugItems.map(({ slug, data }) => (
+    // ...
+  ))
+}
+<!-- ... -->
+```
 
 ---
 
