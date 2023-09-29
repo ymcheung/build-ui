@@ -3,12 +3,17 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "strict": true,
     "importsNotUsedAsValues": "error",
     "jsx": "preserve",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": ["src/assets/*"]
+    }
   }
 }

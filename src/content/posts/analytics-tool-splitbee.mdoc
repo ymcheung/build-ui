@@ -3,7 +3,7 @@ title: "簡單介紹輕量級訪客分析工具：Splitbee"
 description: "業界™預設的使用者分析、統計工具是 Google Analytics，然而過於臃腫又不直覺的 GA4，驅使小專案改用 Splitbee。"
 dateModified: 2023-02-26T10:00:00+08:00
 datePublished: 2021-08-11T00:00:00+08:00
-sticker: "~/assets/analytics-tool-splitbee/sticker.svg"
+sticker: "@assets/analytics-tool-splitbee/sticker.svg"
 stickerAlt: "Splitbee"
 draft: false
 ---
@@ -18,7 +18,7 @@ draft: false
 
 ---
 
-## ![Splitbee 的標誌](~/assets/analytics-tool-splitbee/sticker.svg)
+## ![Splitbee 的標誌](src/assets/analytics-tool-splitbee/sticker.svg)
 
 - 首頁：https://splitbee.io
 - 文件：https://splitbee.io/docs
@@ -43,9 +43,9 @@ draft: false
 ## 基本功能
 
 - 整體資訊
-  ![「專業人士的設計流程」近 7 天的訪客總覽](~/assets/analytics-tool-splitbee/01.webp)
+  ![「專業人士的設計流程」近 7 天的訪客總覽](src/assets/analytics-tool-splitbee/01.webp)
 - 個別使用者資訊：哪裡來的、裝置訊息、近 6 個月該使用者在網站上的足跡
-  ![某位台灣使用者被 Splitbee 記錄的足跡](~/assets/analytics-tool-splitbee/02.webp)
+  ![某位台灣使用者被 Splitbee 記錄的足跡](src/assets/analytics-tool-splitbee/02.webp)
 - 記錄外連網址，不必像 GA 得埋 Tag Manager 才知道
 
 ### 還可以：
@@ -87,11 +87,11 @@ draft: false
 <a href="/process/01-project...html" data-splitbee-event="開始閱讀" data-splitbee-event-type="第 1 章">第 1 章</a>
 ```
 
-![在 Splitbee 呈現事件的副標題](~/assets/analytics-tool-splitbee/03.webp)
+![在 Splitbee 呈現事件的副標題](src/assets/analytics-tool-splitbee/03.webp)
 
 雖然 Splitbee 內建就會抓外連網址，如果這外連網址是很重要的轉換行為，還是要設定事件，才可以讓 `Funnel` 幫忙統計轉換率。
 
-![在 Splitbee 呈現外連網址的轉換率](~/assets/analytics-tool-splitbee/04.webp)
+![在 Splitbee 呈現外連網址的轉換率](src/assets/analytics-tool-splitbee/04.webp)
 
 ---
 
@@ -104,13 +104,13 @@ draft: false
 首先在 Discord 伺服器後台取得 Webhook 網址：
 `Server Settings` > `Integrations` > `Webhooks` > `New Webhook`
 
-![在 Discord 新增 Webhook](~/assets/analytics-tool-splitbee/05.webp)
+![在 Discord 新增 Webhook](src/assets/analytics-tool-splitbee/05.webp)
 
 按下 `Copy Webhook URL`
 
 ### 設定 Automation
 
-![Splitbee 填入 Discord 的 Webhook](~/assets/analytics-tool-splitbee/06.webp)
+![Splitbee 填入 Discord 的 Webhook](src/assets/analytics-tool-splitbee/06.webp)
 
 把剛剛 `Copy Webhook URL` 的網址貼進來，並且設定通知訊息，格式是
 
@@ -124,7 +124,7 @@ draft: false
 
 設定成功便可以在 Discord 收到像這樣的 Bot 訊息：
 
-![Bot 在 Discord 顯示 "New Visitor from Taiwan"](~/assets/analytics-tool-splitbee/07.webp)
+![Bot 在 Discord 顯示 "New Visitor from Taiwan"](src/assets/analytics-tool-splitbee/07.webp)
 
 自訂 Discord Bot 訊息樣式的方法參考：[Discohook](https://discohook.org)
 

@@ -1,7 +1,7 @@
 ---
-import Code from 'astro/components/Code.astro';
+import AstroCode from 'astro/components/Code.astro';
 import * as shiki from 'shiki';
-import path from 'path';
+import * as path from 'path';
 
 const themePath = path.join(process.cwd(), '/src/lib/dracula.json');
 
@@ -10,4 +10,4 @@ const theme = await shiki.loadTheme(themePath);
 const {code, lang} = Astro.props;
 
 ---
-<Code code={code} lang={lang} wrap={true} theme={theme}></Code>
+<AstroCode code={code} lang={lang} wrap={true} theme={theme}></AstroCode>
