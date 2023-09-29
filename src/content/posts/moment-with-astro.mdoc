@@ -12,7 +12,7 @@ draft: false
 
 Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/releases)的頻率快速發展中，2022 年 8 月進入 1.0 穩定版本。這篇文章不會再講一次 Astro 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
 
-## ![Astro 的標誌](src/assets/moment-with-astro/sticker.svg)
+## ![Astro 的標誌](@assets/moment-with-astro/sticker.svg)
 
 ```json
 "astro": "^2.9.0"
@@ -23,13 +23,13 @@ Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/rel
 
 Moment 是搭配 `Solid.js`，用來處理影片播放互動，後來 Astro 本身幾乎是隱形，跟框架整合得不錯。
 
-[![Moment 的 Queen: Bohemian Rhapsody](src/assets/moment-with-astro/momentStartVideo.gif)](https://moment.intersection.tw/queen/bohemian-rhapsody)
+[![Moment 的 Queen: Bohemian Rhapsody](@assets/moment-with-astro/momentStartVideo.gif)](https://moment.intersection.tw/queen/bohemian-rhapsody)
 
 首頁有 30 張，平均 24 KB 的 JPG 圖檔，依然可以在 Lighthouse 獲得 4 個 100 綠燈。（慶祝動畫怎麼不見了？）
 
-[![Moment 首頁截圖](src/assets/moment-with-astro/moment.webp)](https://moment.intersection.tw)
+[![Moment 首頁截圖](@assets/moment-with-astro/moment.webp)](https://moment.intersection.tw)
 
-![Moment 首頁的 Lighthouse 分數](src/assets/moment-with-astro/lighthouse.webp)
+![Moment 首頁的 Lighthouse 分數](@assets/moment-with-astro/lighthouse.webp)
 
 如果是從 Astro 的 [Blog Starter 範例](https://github.com/withastro/astro/tree/main/examples/blog)進行修改，基礎是 `preact`，使用的體感跟 React 幾乎沒有差別。
 
@@ -310,7 +310,7 @@ body {
 
 發現首頁的 `<body>` 樣式，會被內頁的設定覆蓋：
 
-![首頁的 body 樣式被內文頁覆蓋](src/assets/moment-with-astro/astroOverride.webp)
+![首頁的 body 樣式被內文頁覆蓋](@assets/moment-with-astro/astroOverride.webp)
 
 詢問過 Astro 製作團隊，是他們刻意這樣設計，如果也有不同 `<body>` 樣式需求，有以下 3 個步驟：
 
@@ -472,7 +472,7 @@ const schema = JSON.stringify({
 
 如果是使用 MDX，已經在 `@astrojs/mdx@0.11.2` 修正。
 
-![把環境變數顯示出來的 Markdown 程式碼區塊](src/assets/moment-with-astro/codeblock.webp)
+![把環境變數顯示出來的 Markdown 程式碼區塊](@assets/moment-with-astro/codeblock.webp)
 
 然而，如果用了 Astro 最近新增的 [Markdoc 格式](https://docs.astro.build/en/guides/integrations-guide/markdoc/)，會造成編譯錯誤。
 
