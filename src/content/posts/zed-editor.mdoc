@@ -1,20 +1,24 @@
 ---
-title: 簡單介紹即時合作的程式碼編輯器 Zed
-description: Zed 編輯器
-dateModified: 2023-09-30T00:00:00+08:00
-datePublished: 2023-09-30T00:00:00+08:00
+title: 簡單介紹即時共編的程式碼編輯器 Zed
+description: Zed 是仍在公開測試的程式碼編輯器，主打團隊共同編輯專案。因為 VS Code 動作遲緩又讓 Macbook 發燙，尋找足以成為日常使用的編輯器。目前先把使用 prettier 的方法記錄下來。
+dateModified: 2023-09-30T20:00:00+08:00
+datePublished: 2023-09-30T20:00:00+08:00
 sticker: "@assets/zed-editor/sticker.webp"
 stickerAlt: Zed
-draft: true
+draft: false
 ---
 
-Zed 是仍在公開測試的程式碼編輯器，主打讓團隊同時在專案裡共同編輯，省下反覆溝通的時間。
+`Zed` 是仍在公開測試的程式碼編輯器，主打讓團隊同時在專案裡共同編輯，省下反覆溝通的時間。
 
-在業界 ™，已經是微軟 `VS Code` 的天下。但是，瀏覽器也是微軟的 Edge (幸好在 macOS 可以選擇 Arc)；Github 又是微軟的子公司；連 TypeScript 也是微軟在維護的。想要避開微軟全家桶。因此開始尋找替代方案，希望只剩 Github。
+在業界™，程式碼編輯器已經是微軟 `VS Code` 的天下。但是，在編輯規模稍大的專案時，明顯可以感受到 `VS Code` 動作遲緩，又會讓 Macbook 發燙。
+
+還有，瀏覽器也是微軟的 Edge (幸好在 macOS 可以選擇 Arc)；Github 又是微軟的子公司；連 TypeScript 都是微軟在維護的。想要避開微軟全家桶。因此開始尋找替代方案，希望只剩 Github。
 
 曾經購買過 `Sublime Text 3`，可惜近年的 4 版仍覺得難以使用，體驗大輸 `VS Code`。直到 `Zed` 的出現才覺得能一較高下。
 
-## ![Zed 的標誌](@assets/zed-editor/sticker.webp)
+{% logo width=36 ratio=1 alt="Zed 的標誌" %}
+  ![Zed 的標誌](@assets/zed-editor/sticker.webp)
+{% /logo %}
 
 - 網站：[https://zed.dev](https://zed.dev)
 - 使用版本： `0.105.5` 以上
@@ -23,6 +27,43 @@ Zed 是仍在公開測試的程式碼編輯器，主打讓團隊同時在專案�
 
 ## 接下來的內容
 
-- 搭配使用 Prettierd
-- 與其它編輯器比較
-- 缺點
+- [搭配使用 Prettierd](#搭配使用-prettierd "連至「搭配使用 Prettierd」段落")
+- [缺點](#缺點 "連至「缺點」段落")
+
+---
+
+## 搭配使用 Prettierd
+
+一開始使用 `Zed`，感受最明顯差別的是沒有整合 `prettier`。這在 Github 的 Repo 上有[很多人關心](https://github.com/zed-industries/community/issues/340)。目前唯一的方法也在其中，是以 Homebrew 安裝 [`prettierd`](https://github.com/fsouza/prettierd)。
+
+接著在 `Zed` 的設定檔加上：
+
+```json
+{
+  "formatter": {
+    "external": {
+      "command": "/opt/homebrew/bin/prettierd",
+      "arguments": [
+        "--stdin-filepath",
+        "{buffer_path}"
+      ]
+    }
+  }
+}
+```
+
+資料來源：[smastron@github](https://github.com/zed-industries/community/issues/340#issuecomment-1722629779)
+
+---
+
+## 缺點
+
+即使覺得 `Zed` 已經足以在日常使用，但畢竟是公開測試版，還是有相對於 `VS Code`，仍不夠方便的地方。
+
+### 還沒有擴充功能
+
+`VS Code` 最讓人覺得好用的，就是各式各樣的擴充功能，每個人都可以自訂自己最舒適的工作流程，而 `Zed` 還沒有。
+
+### 支援的檔案類型還不夠多
+
+這跟還沒有擴充功能有關，不支援 `.astro` 和 `.mdoc` 可以理解，但 `scss` 也沒有。

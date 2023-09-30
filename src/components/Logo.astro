@@ -1,0 +1,25 @@
+---
+interface Props {
+  src: string;
+  width: number;
+  ratio: number;
+  alt: string;
+}
+
+const { src, width, ratio, alt } = Astro.props as Props;
+
+---
+<figure style={{ width: `${width}px`, aspectRatio: `${ratio}` }}>
+  <slot />
+</figure>
+<style lang="scss">
+  figure {
+    position: relative;
+    margin: 0 0 1.2rem;
+
+    :global(p) {
+      margin: 0;
+      font-size: 0;
+    }
+  }
+</style>
