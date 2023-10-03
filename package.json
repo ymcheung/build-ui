@@ -8,17 +8,21 @@
     "build": "astro build",
     "astro": "astro"
   },
+  "trustedDependencies": [
+    "sharp"
+  ],
   "devDependencies": {
     "@astrojs/mdx": "^0.19.7",
     "@astrojs/sitemap": "^1.3.1",
     "astro": "^3.2.0",
+    "bun-types": "^1.0.4-canary.20231003T140149",
     "sass": "^1.54.5"
   },
   "dependencies": {
     "@astrojs/check": "^0.2.0",
     "@astrojs/markdoc": "^0.5.0",
     "date-fns": "^2.29.3",
-    "sharp": "^0.32.4",
+    "sharp": "0.32.6",
     "typescript": "^5.2.2"
   }
 }
