@@ -8,9 +8,6 @@ export default {
     },
     ratio: {
       type: Number
-    },
-    alt: {
-      type: String
     }
   }
 };

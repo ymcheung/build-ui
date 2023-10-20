@@ -1,4 +1,4 @@
-import { nodes, component } from '@astrojs/markdoc/config';
+import { nodes } from '@astrojs/markdoc/config';
 
 export default {
   ...nodes.image
