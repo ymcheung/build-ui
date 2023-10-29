@@ -1,7 +1,7 @@
 ---
 title: 簡單介紹即時共編的程式碼編輯器 Zed
 description: Zed 是仍在公開測試的程式碼編輯器，主打團隊共同編輯專案。因為 VS Code 動作遲緩又讓 Macbook 發燙，尋找足以成為日常使用的編輯器。目前先把使用 prettier 的方法記錄下來。
-dateModified: 2023-10-01T17:15:00+08:00
+dateModified: 2023-10-29T09:15:00+08:00
 datePublished: 2023-09-30T20:00:00+08:00
 sticker: "@assets/zed-editor/sticker.webp"
 stickerAlt: Zed
@@ -12,7 +12,7 @@ draft: false
 
 在業界™，程式碼編輯器已經是微軟 `VS Code` 的天下。但是，在編輯規模稍大的專案時，明顯可以感受到 `VS Code` 動作遲緩，又會讓 Macbook 發燙。
 
-還有，瀏覽器也是微軟的 Edge (幸好在 macOS 可以選擇 Arc)；Github 又是微軟的子公司；連 TypeScript 都是微軟在維護的。想要避開微軟全家桶。因此開始尋找替代方案，希望只剩 Github。
+還有，瀏覽器也是微軟的 Edge (幸好在 macOS 可以選擇 Arc)；Github 又是微軟的子公司；連 TypeScript 都是微軟在維護的。想要避開微軟全家桶。因此開始尋找替代方案，希望被掌握的範圍只剩 Github 和 TypeScript。
 
 曾經購買過 `Sublime Text 3`，可惜近年的 4 版仍覺得難以使用，體驗大輸 `VS Code`。直到 `Zed` 的出現才覺得能一較高下。
 
@@ -25,14 +25,14 @@ draft: false
 {% /logo %}
 
 - 網站：[https://zed.dev](https://zed.dev)
-- 使用版本： `0.105.5` 以上
+- 使用版本： `0.109.1` 以上
 
 ---
 
 ## 接下來的內容
 
 - [優點](#優點 "連至「優點」段落")
-- [搭配使用 Prettierd](#搭配使用-prettierd "連至「搭配使用 Prettierd」段落")
+- [使用 Prettier](#使用-prettier "連至「使用 Prettier」段落")
 - [缺點](#缺點 "連至「缺點」段落")
 
 ---
@@ -62,9 +62,15 @@ draft: false
 
 ---
 
-## 搭配使用 Prettierd
+## 使用 `Prettier`
 
-一開始使用 `Zed`，感受最明顯差別的是沒有整合 `prettier`。這在 Github 的 Repo 上有[很多人關心](https://github.com/zed-industries/community/issues/340)。目前唯一的方法也在其中，是以 Homebrew 安裝 [`prettierd`](https://github.com/fsouza/prettierd)。
+`0.109.1` 版本以上的 `Zed` 已經可以用 `Prettier`，同樣也是在專案根目錄新增 `.prettierrc` 即可自訂。
+
+### 之前的用法
+
+這方法也還是可行，留下來當參考用：
+
+另一種方法，是以 Homebrew 安裝 [`prettierd`](https://github.com/fsouza/prettierd)。
 
 接著在 `Zed` 的設定檔加上：
 
