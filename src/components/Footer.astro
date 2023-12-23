@@ -75,14 +75,16 @@
   }
 
   .nav {
-    align-self: start;
-    position: sticky;
-    top: 144px;
+    @media screen and (min-width: 992px) {
+      align-self: start;
+      position: sticky;
+      top: 144px;
+    }
   }
 
   .navLinks {
     display: grid;
-    grid: auto / repeat(auto-fill, minmax(120px, 1fr));
+    grid: auto / repeat(auto-fill, minmax(144px, 1fr));
     justify-content: center;
     justify-items: center;
     margin: 0 0 24px;

@@ -119,16 +119,21 @@ body {
       'header footer' auto
       'main footer' 1fr / 640px 320px;
     justify-content: center;
+    column-gap: 32px;
+  }
+
+
+  @media screen and (min-width: 1200px) {
     column-gap: 64px;
   }
 }
 
 .container {
-  padding-top: 12px;
+  padding-block-start: 12px;
   padding-inline-start: 16px;
   padding-inline-end: 16px;
 
   @media screen and (min-width: 992px) {
-    padding-top: 24px;
+    padding-block-start: 24px;
   }
 }
