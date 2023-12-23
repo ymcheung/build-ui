@@ -11,8 +11,8 @@ const postCollection = defineCollection({
       sticker: image().optional(),
       // sticker: z.string().optional(),
       stickerAlt: z.string().optional(),
-      draft: z.boolean(),
-    }),
+      draft: z.boolean()
+    })
 });
 const pageCollection = defineCollection({
   type: 'content',
@@ -21,12 +21,13 @@ const pageCollection = defineCollection({
     description: z.string(),
     dateModified: z.date(),
     datePublished: z.date(),
-  }),
+    draft: z.boolean()
+  })
 });
 
 // 3. Export a single `collections` object to register your collection(s)
 //    This key should match your collection directory name in "src/content"
 export const collections = {
   posts: postCollection,
-  pages: pageCollection,
+  pages: pageCollection
 };
