@@ -1,37 +1,35 @@
 ---
 title: 使用 Astro 打造速度飛快的靜態網站
 description: 在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 目前以幾乎每天更新一次的頻率快速發展中。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。
-dateModified: 2023-09-23T20:10:00+08:00
+dateModified: 2023-12-23T15:10:00+08:00
 datePublished: 2022-02-16T00:00:00+08:00
 sticker: "@assets/moment-with-astro/sticker.svg"
 stickerAlt: Astro
 draft: false
 ---
 
-在蓋「[Moment：看電影看劇時，聽到喜歡的音樂](https://moment.intersection.tw)」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求，找到了 Astro 和 [Remix](https://remix.run)。
+在蓋「[用得到的猫紋](https://goods.carrier.express)」和「[Moment：看電影看劇時，聽到喜歡的音樂](https://moment.intersection.tw)」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求，找到了 Astro 和 [Remix](https://remix.run)。
+
+Remix 後來發展與靜態網頁越來越不同，因此以內容和 SEO 為目標的網站，選擇使用 Astro。
 
 Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/releases)的頻率快速發展中，2022 年 8 月進入 1.0 穩定版本。這篇文章不會再講一次 Astro 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
 
 ## ![Astro 的標誌](@assets/moment-with-astro/sticker.svg)
 
 ```json
-"astro": "^2.9.0"
+"astro": "^3.6.1"
 ```
 
-- 網站：https://astro.build
-- 文件：https://docs.astro.build/zh-tw/getting-started/
+- 網站：[https://astro.build](https://astro.build)
+- 文件：[https://docs.astro.build/zh-tw/getting-started/](https://docs.astro.build/zh-tw/getting-started)
 
-Moment 是搭配 `Solid.js`，用來處理影片播放互動，後來 Astro 本身幾乎是隱形，跟框架整合得不錯。
+## 使用 Astro 的專案
 
-[![Moment 的 Queen: Bohemian Rhapsody](@assets/moment-with-astro/momentStartVideo.gif)](https://moment.intersection.tw/queen/bohemian-rhapsody)
+[![Images](@assets/moment-with-astro/carrierExpressGoodsLink.webp)](https://goods.carrier.express)
 
-首頁有 30 張，平均 24 KB 的 JPG 圖檔，依然可以在 Lighthouse 獲得 4 個 100 綠燈。（慶祝動畫怎麼不見了？）
+[![Images](@assets/moment-with-astro/momentLink.webp)](https://moment.intersection.tw)
 
-[![Moment 首頁截圖](@assets/moment-with-astro/moment.webp)](https://moment.intersection.tw)
-
-![Moment 首頁的 Lighthouse 分數](@assets/moment-with-astro/lighthouse.webp)
-
-如果是從 Astro 的 [Blog Starter 範例](https://github.com/withastro/astro/tree/main/examples/blog)進行修改，基礎是 `preact`，使用的體感跟 React 幾乎沒有差別。
+這兩個網站都是搭配 `Solid.js`，用來處理表單或影片播放互動，Astro 本身幾乎是隱形，跟框架整合得不錯。
 
 ---
 
@@ -45,7 +43,6 @@ Moment 是搭配 `Solid.js`，用來處理影片播放互動，後來 Astro 本�
 
 ### Astro 2.9.0 之前的心得/問題
 
-- [Astro v.s. Remix](#astro-vs-remix "連至「Astro v.s. Remix」段落")
 - [區分 `<body>` 樣式](#區分-body-樣式 "連至「區分 body 樣式」段落")
 - [設定 Markdown 語法的樣式](#設定-markdown-語法的樣式 "連至「設定 Markdown 語法的樣式」段落")
 - [加入結構化資料 JSON LD 語法](#加入結構化資料-json-ld-語法 "連至「加入結構化資料 JSON LD 語法」段落")
@@ -274,24 +271,6 @@ Found 1 error in markdoc.config.ts:15
 
 ---
 
-## Astro v.s. Remix
-
-Remix 的開發體驗確實很棒，社群也非常活絡。但畢竟是全端套件，如果只是要做靜態網站，以後會優先選擇 Astro。
-
-### Astro
-
-- 可以發布到靜態網站服務：Github Pages、Vercel 或 Netlify 都行，也就是可以免費。
-- 開發團隊建議使用 Tailwind、SCSS（或者更像 CSS Modules）和 PostCSS。
-- 未正式支援 `CSS-In-JS`，但社群有整理出[可以使用的套件](https://github.com/withastro/astro/issues/4432)。
-
-### Remix
-
-- 可以使用 `CSS-In-JS`。
-- 雖然同樣可以做成靜態網頁，但 MDX 放在路徑資料夾裡的時候，連路徑名稱都無法取得，實用程度不高，官方文件都說不推薦使用。
-- 無法在（免費）靜態網站服務使用 `mdx-bundler` 的原因與考究，詳情請看這篇：[初次使用 Remix，搭配 mdx-bundler](/remix-with-mdx-bundler)。
-
----
-
 ## 區分 `<body>` 樣式
 
 Astro 的 CSS 是 `scoped`，不同頁的樣式不會混在一起。我想要首頁跟內文頁的外觀、版面不同。因此在各自頁面的 `<body>` 設定：
@@ -442,7 +421,7 @@ const schema = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [{
     '@type': 'WebPage',
-    url: `${īmport.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`,
+    url: `${import.meta.env.PUBLIC_HOSTNAME}${canonicalPath}`,
     name: title,
     datePublished: published,
     dateModified: modified
@@ -482,4 +461,4 @@ const schema = JSON.stringify({
 [error] Unexpected token (Note that you need plugins to import files that are not JavaScript)
 ```
 
-這個問題已經[回報](https://github.com/withastro/astro/issues/7818)，正等待解決。
+這個問題在 4.0 版已經獲得解決。

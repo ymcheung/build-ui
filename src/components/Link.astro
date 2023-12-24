@@ -17,8 +17,24 @@ function handleClassName() {
 
   return 'lgspt-link';
 }
+
+function handleIsExternal() {
+  if (href.startsWith('http')) {
+    return ({
+      target: '_blank',
+      rel: 'noopener noreferrer'
+    });
+  }
+
+  return ({});
+}
+
 ---
 
-<a class={handleClassName()} href={href} title={!!title ? title : undefined}
+<a
+  class={handleClassName()}
+  href={href}
+  title={!!title ? title : undefined}
+  {...handleIsExternal()}
   ><slot /></a
 >
