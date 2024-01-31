@@ -9,16 +9,16 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^2.0.2",
-    "@astrojs/sitemap": "^3.0.3",
-    "astro": "^4.0.7",
-    "sass": "^1.54.5"
+    "@astrojs/mdx": "^2.1.1",
+    "@astrojs/sitemap": "^3.0.5",
+    "astro": "^4.2.8",
+    "sass": "^1.64.2"
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.4",
-    "@astrojs/markdoc": "^0.8.1",
+    "@astrojs/check": "^0.4.1",
+    "@astrojs/markdoc": "^0.8.3",
     "date-fns": "^2.29.3",
-    "sharp": "^0.32.4",
+    "sharp": "^0.32.6",
     "typescript": "^5.2.2"
   }
 }
