@@ -1,7 +1,7 @@
 ---
 title: 簡單介紹即時共編的程式碼編輯器 Zed
 description: Zed 是仍在公開測試的程式碼編輯器，主打團隊共同編輯專案。因為 VS Code 動作遲緩又讓 Macbook 發燙，尋找足以成為日常使用的編輯器。目前先把使用 prettier 的方法記錄下來。
-dateModified: 2023-10-29T09:15:00+08:00
+dateModified: 2024-02-18T09:15:00+08:00
 datePublished: 2023-09-30T20:00:00+08:00
 sticker: "@assets/zed-editor/sticker.webp"
 stickerAlt: Zed
@@ -12,7 +12,7 @@ draft: false
 
 在業界™，程式碼編輯器已經是微軟 `VS Code` 的天下。但是，在編輯規模稍大的專案時，明顯可以感受到 `VS Code` 動作遲緩，又會讓 Macbook 發燙。
 
-還有，瀏覽器也是微軟的 Edge (幸好在 macOS 可以選擇 Arc)；Github 又是微軟的子公司；連 TypeScript 都是微軟在維護的。想要避開微軟全家桶。因此開始尋找替代方案，希望被掌握的範圍只剩 Github 和 TypeScript。
+還有，瀏覽器也是微軟的 Edge (幸好在 macOS 可以選擇 `Arc`)；`Github` 又是微軟的子公司；連 `TypeScript` 都是微軟在維護的。想要避開微軟全家桶。因此開始尋找替代方案，希望被掌握的範圍只剩 `Github` 和 `TypeScript`。
 
 曾經購買過 `Sublime Text 3`，可惜近年的 4 版仍覺得難以使用，體驗大輸 `VS Code`。直到 `Zed` 的出現才覺得能一較高下。
 
@@ -66,6 +66,23 @@ draft: false
 
 `0.109.1` 版本以上的 `Zed` 已經可以用 `Prettier`，同樣也是在專案根目錄新增 `.prettierrc` 即可自訂。
 
+### 搭配 `Bun`
+
+雖然已經可以直接使用 `Prettier`，但是反應速度其實不太理想，目前最順的方法是透過 `Bun`。
+
+```json
+{
+  "formatter": {
+    "external": {
+      "command": "bunx",
+      "arguments": ["prettier", "--stdin-filepath", "{buffer_path}", "--write"]
+    }
+  }
+}
+```
+
+資料來源：[shinebayar-g@github](https://github.com/zed-industries/zed/issues/5612#issuecomment-1933335814)
+
 ### 之前的用法
 
 這方法也還是可行，留下來當參考用：
@@ -98,8 +115,8 @@ draft: false
 
 ### 還沒有擴充功能
 
-`VS Code` 最讓人覺得好用的，就是各式各樣的擴充功能，每個人都可以自訂自己最舒適的工作流程，而 `Zed` 還沒有。
+`VS Code` 最讓人覺得好用的，就是各式各樣的擴充功能，每個人都可以自訂自己最舒適的工作流程，而 `Zed` 還在測試中。
 
 ### 支援的檔案類型還不夠多
 
-這跟還沒有擴充功能有關，不支援 `.astro` 和 `.mdoc` 可以理解，但 `scss` 也沒有。
+2024 年起開始加速支援許多檔案格式，`.astro` 已經在預覽版推出，但是仍無法理解還沒有 `scss` (`CSS Modules`)。
