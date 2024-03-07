@@ -1,12 +1,12 @@
 ---
-title: "以 2023 年的方法製作 Favicon：6 個檔案就搞定大多數需求 (翻譯)"
+title: "以 2024 年的方法製作 Favicon：6 個檔案就搞定大多數需求 (翻譯)"
 description: "用 SVG 取代 PNG，相信瀏覽器向下相容，捨棄過時的格式—現代網頁 Favicon 的終極、詳盡指南。包含靜態 HTML 和 Webpack 會用到的步驟。"
-dateModified: 2023-09-30T09:30:00+08:00
+dateModified: 2024-03-07T23:30:00+08:00
 datePublished: 2023-06-04T20:00:00+08:00
 draft: false
 ---
 
-**本文翻譯自** [How to Favicon in 2023: Six files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
+**本文翻譯自** [How to Favicon in 2024: Six files that fit most needs](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
 
 **發表於** [Martian Chronicles](https://evilmartians.com/chronicles)
 
@@ -32,6 +32,9 @@ draft: false
 **作者的 2023 年註記：**
 再次保證，這裡一定有最新的資訊！
 
+**作者的 2024 年註記：**
+已經確認過，所有內容都還是最新的！
+
 {% /editorNote %}
 
 ## 極致簡短版
@@ -43,7 +46,7 @@ draft: false
 ```html
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
 <link rel="manifest" href="/manifest.webmanifest">
 ```
 
@@ -70,7 +73,7 @@ draft: false
 
 Favicon，也就是 “Favorite Icon” 的縮寫，這個概念在 2000 年代左右就滿街跑了。大家都有看到瀏覽器分頁上可愛的小圖片，協助分辨已經打開的網站。使用者**預期**網站有 Favicon，這是會獲得其他人敬重的小事情之一。
 
-即使是蘋果公司，一直有對 Cupertino 以外的圖示美學具有影響力，長年在 Safari 佛系對待 Favicon，最終還是放棄，現在已經在所有裝置上正確顯示。
+即使是蘋果公司，一直對 Cupertino 以外的圖示美學看不順眼，長年在 Safari 佛系對待 Favicon，最終還是放棄。現在，已經在所有裝置上正確顯示。
 
 > 如果是對外公開的網站，就必須要有 Favicon。讓人悲傷的是，使用者看到的圖示，背後有非常多個。
 
@@ -152,7 +155,7 @@ SVG 能夠加上描述 CSS 用的 `<style>` 標籤，是一種 XML 格式。既�
 很多教學（已經過時的）提到在 HTML 加入這樣的  `favicon.ico`：
 
 ```html
-<link rel="shortcut icon" href="/favicon.ico" sizes="any">
+<link rel="shortcut icon" href="/favicon.ico" sizes="32x32">
 ```
 
 請注意，`shortcut` 從來就不是有效的連結關係。請拜讀這篇 Mathias Bynens 10 年前的[好文](https://mathiasbynens.be/notes/rel-shortcut-icon)，說明一開始就沒必要用 shortcut，只要 `rel="icon"` 就夠了。
@@ -199,7 +202,7 @@ SVG 圖片必須是正方形。在系統打開原始檔案，檢查圖片的寬�
 
 ```bash
 inkscape ./icon.svg --export-width=32 --export-filename="./tmp.png"
-
+# 在 Windows，下指令 `magick convert ./tmp.png ./favicon.ico`
 convert ./tmp.png ./favicon.ico
 rm ./tmp.png
 ```
@@ -224,6 +227,13 @@ convert ./icon-32.png ./icon-16.png ./favicon.ico
 再次用點陣圖編輯器打開原始 SVG 檔案，建立 512x512 的圖片。輸出為 `icon-512.png`。
 
 把圖片縮成 192x192，輸出為 `icon-192.png`。把這個檔案再縮成 140x140，畫布設定成 180x180，輸出為 `apple-touch-icon.png`。
+
+或者，在 Inkscape 這樣做：
+
+```bash
+inkscape --export-type="png" --export-width=512 --export-filename="./icon-512.png" ./icon.svg
+inkscape --export-type="png" --export-width=192 --export-filename="./icon-192.png" ./icon.svg
+```
 
 ### 步驟 4：將 PNG 和 SVG 檔案最佳化
 
@@ -252,7 +262,7 @@ npx svgo --multipass icon.svg
 
 ```html
   <title>My website</title>
-+ <link rel="icon" href="/favicon.ico" sizes="any">
++ <link rel="icon" href="/favicon.ico" sizes="32x32">
 + <link rel="icon" href="/icon.svg" type="image/svg+xml">
 + <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ```
@@ -275,7 +285,7 @@ new HtmlWebpackPlugin({ template: "./view/index.html" });
     <meta charset="utf-8">
     <title>My website</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" type="image/svg+xml" href="<%=
       require('./icon.svg').default
     %>">
@@ -305,7 +315,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
       <meta charset="utf-8">
       <title>My website</title>
       <meta name="viewport" content="width=device-width,initial-scale=1">
--     <link rel="icon" href="/favicon.ico" sizes="any">
+-     <link rel="icon" href="/favicon.ico" sizes="32x32">
 +     <link rel="icon" sizes="any" href="<%=
 +       process.env.NODE_ENV === 'production'
 +         ? '/favicon.ico'
@@ -344,7 +354,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
 ```html
   <title>My website</title>
 + <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 ```
