@@ -137,7 +137,7 @@ export default defineConfig({
 
 3. Vercel Preview 網址的 API Endpoint 錯誤訊息
 
-進行 Preview Deployment 之後，發現 API Endpoint 回傳錯誤訊息，原來是找不到 `./public/jf-openhuninn.ttf` 和 `./public/nunito-sans-latin-500-normal.ttf`，在 Vercel 的 Log 找出錯誤訊息：
+進行 Preview Deployment 之後，發現 API Endpoint 回傳錯誤訊息，原來是找不到 `./public/jf-openhuninn.ttf` 和 `./public/nunito-sans-latin-500-normal.ttf`，在 Vercel 的 Log 找出問題：
 
 ```bash
 Error: ENOENT: no such file or directory, open '/var/task/public/fonts/nunito-sans-latin-500-normal.ttf'
