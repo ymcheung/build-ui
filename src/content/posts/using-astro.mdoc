@@ -3,7 +3,7 @@ title: 使用 Astro 打造速度飛快的靜態網站
 description: 在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 目前以幾乎每天更新一次的頻率快速發展中。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。
 dateModified: 2023-12-23T15:10:00+08:00
 datePublished: 2022-02-16T00:00:00+08:00
-sticker: "@assets/moment-with-astro/sticker.svg"
+sticker: "@assets/using-astro/sticker.svg"
 stickerAlt: Astro
 draft: false
 ---
@@ -14,7 +14,7 @@ Remix 後來發展與靜態網頁越來越不同，因此以內容和 SEO 為目
 
 Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/releases)的頻率快速發展中，2022 年 8 月進入 1.0 穩定版本。這篇文章不會再講一次 Astro 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
 
-## ![Astro 的標誌](@assets/moment-with-astro/sticker.svg)
+## ![Astro 的標誌](@assets/using-astro/sticker.svg)
 
 ```json
 "astro": "^3.6.1"
@@ -27,11 +27,11 @@ Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/rel
 
 ## 使用 Astro 的專案
 
-[![Images](@assets/moment-with-astro/carrierExpressGoodsLink.webp)](https://goods.carrier.express)
+[![Images](@assets/using-astro/carrierExpressGoodsLink.webp)](https://goods.carrier.express)
 
 「用得到的猫紋」以 [`View Transition`](https://docs.astro.build/en/guides/view-transitions) 做出目錄切換的操作體驗。
 
-[![Images](@assets/moment-with-astro/momentLink.webp)](https://moment.intersection.tw)
+[![Images](@assets/using-astro/momentLink.webp)](https://moment.intersection.tw)
 
 「Moment：看電影看劇時，聽到喜歡的音樂」讓大部份頁面跟撰寫 HTML/CSS 無異，Lighthouse 分數輕易達到 4 顆 100。
 
@@ -295,7 +295,7 @@ body {
 
 發現首頁的 `<body>` 樣式，會被內頁的設定覆蓋：
 
-![首頁的 body 樣式被內文頁覆蓋](@assets/moment-with-astro/astroOverride.webp)
+![首頁的 body 樣式被內文頁覆蓋](@assets/using-astro/astroOverride.webp)
 
 詢問過 Astro 製作團隊，是他們刻意這樣設計，如果也有不同 `<body>` 樣式需求，有以下 3 個步驟：
 
@@ -457,7 +457,7 @@ const schema = JSON.stringify({
 
 如果是使用 MDX，已經在 `@astrojs/mdx@0.11.2` 修正。
 
-![把環境變數顯示出來的 Markdown 程式碼區塊](@assets/moment-with-astro/codeblock.webp)
+![把環境變數顯示出來的 Markdown 程式碼區塊](@assets/using-astro/codeblock.webp)
 
 然而，如果用了 Astro 最近新增的 [Markdoc 格式](https://docs.astro.build/en/guides/integrations-guide/markdoc/)，會造成編譯錯誤。
 

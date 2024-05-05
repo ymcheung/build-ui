@@ -9,14 +9,14 @@
     "astro": "astro"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^2.1.1",
-    "@astrojs/sitemap": "^3.0.5",
-    "astro": "^4.2.8",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/sitemap": "^3.1.4",
+    "astro": "^4.7.1",
     "sass": "^1.64.2"
   },
   "dependencies": {
-    "@astrojs/check": "^0.4.1",
-    "@astrojs/markdoc": "^0.8.3",
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/markdoc": "^0.11.0",
     "date-fns": "^2.29.3",
     "sharp": "^0.32.6",
     "typescript": "^5.2.2"

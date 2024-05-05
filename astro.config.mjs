@@ -17,11 +17,12 @@ export default defineConfig({
         'https://build.intersection.tw/mdx-typescript',
         'https://build.intersection.tw/analytics-tool-splitbee',
         'https://build.intersection.tw/css-in-js-stitches',
-        'https://build.intersection.tw/moment-with-astro',
+        'https://build.intersection.tw/using-astro',
         'https://build.intersection.tw/react-i18next',
         'https://build.intersection.tw/remix-with-mdx-bundler',
         'https://build.intersection.tw/how-to-favicon',
-        'https://build.intersection.tw/translations'
+        'https://build.intersection.tw/translations',
+        'https://build.intersection.tw/ui-translations'
       ]
     }),
     markdoc()
