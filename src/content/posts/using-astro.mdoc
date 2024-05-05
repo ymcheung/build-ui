@@ -43,6 +43,7 @@ Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/rel
 
 ### Astro 2.9.0 之後遇到的問題
 
+- [在 Vercel 的 API Endpoint 載入字型檔案](#在-api-endpoint-載入字型檔案 "連至「在 Vercel 的 API Endpoint 載入字型檔案」")
 - [根據文件路徑載入圖片](#根據文件路徑載入圖片 "連至「根據文件路徑載入圖片」")
 - [以變數載入 Content Collection 的型別設定](#以變數載入-content-collection-的型別設定 "連至「以變數載入 Content Collection 的型別設定」")
 - [Markdoc 設定檔的 build 型別錯誤](#markdoc-設定檔的-build-型別錯誤 "連至「Markdoc 設定檔的 build 型別錯誤」")
@@ -53,6 +54,162 @@ Astro 目前以幾乎[每天更新一次](https://github.com/withastro/astro/rel
 - [設定 Markdown 語法的樣式](#設定-markdown-語法的樣式 "連至「設定 Markdown 語法的樣式」段落")
 - [加入結構化資料 JSON LD 語法](#加入結構化資料-json-ld-語法 "連至「加入結構化資料 JSON LD 語法」段落")
 - [遇到的 Bug](#遇到的-bug "連至「遇到的 Bug」段落")
+
+---
+
+## 在 API Endpoint 載入字型檔案
+
+### 為什麼要載入字型檔案？
+
+想要使用 [`satori`](https://og-playground.vercel.app)，讓網站的 Open Graph 封面圖片根據標題與主要圖片動態產生。
+
+製作過程遇到：
+
+- `satori` 的設定裡，要求必須指定字型
+- 如果只有加入英文字型，中文會變成豆腐（長方框）
+
+查詢幾篇在 `Astro` 使用 `satori` 的教學，共通點是把字型放在 `/public` 資料夾，
+
+只是，在本機環境的時候，一切正常，繼續要上傳到 Vercel 時就有問題了。
+
+### ❌ 按照教學的設定，只能在本機環境正常
+
+1. API Endpoint 裡使用 `satori`、讀入字型
+
+```tsx
+// src/pages/api/og/[id].png.ts
+import { readFileSync } from 'fs';
+import path from 'path';
+import { html } from 'satori-html';
+import satori from 'satori';
+
+// ...
+
+const markup = html(`
+  <div>
+    <!-- ... -->
+  </div>
+`);
+
+const hankakuFontFile = readFileSync(
+  path.resolve('./public/fonts/nunito-sans-latin-500-normal.ttf')
+);
+
+const zenkakuFontFile = readFileSync(
+  path.resolve('./public/fonts/jf-openhuninn.ttf')
+);
+
+const svg: string = await satori(markup, {
+  width: 1200,
+  height: 630,
+  fonts: [
+    {
+      name: 'Nunito Sans',
+      data: hankakuFontFile.buffer,
+      style: 'normal'
+    },
+    {
+      name: 'jf-openhuninn-2.0',
+      data: zenkakuFontFile.buffer,
+      style: 'normal'
+    }
+  ]
+});
+```
+
+2. 打開 `Astro` 設定檔，在 `Vercel Adapter` 加入字型檔案。
+
+```jsx
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel/serverless';
+
+export default defineConfig({
+// ...
+  adapter: vercel({
+    includeFiles: [
+      './public/fonts/jf-openhuninn.ttf',
+      './public/fonts/nunito-sans-latin-500-normal.ttf'
+    ]
+  })
+});
+```
+
+3. Vercel Preview 網址的 API Endpoint 錯誤訊息
+
+進行 Preview Deployment 之後，發現 API Endpoint 回傳錯誤訊息，原來是找不到 `./public/jf-openhuninn.ttf` 和 `./public/nunito-sans-latin-500-normal.ttf`，在 Vercel 的 Log 找出錯誤訊息：
+
+```bash
+Error: ENOENT: no such file or directory, open '/var/task/public/fonts/nunito-sans-latin-500-normal.ttf'
+  at Object.openSync (node:fs:596:3)
+  ...
+```
+
+### ✅ 移到 `/src/assets`，即可正常使用
+
+Astro 的開發成員回應：
+
+{% foreword %}
+
+只要把字型檔案移到 `/src` 資料夾就好了。
+
+{% /foreword %}
+
+也就是：
+
+```tsx
+// src/pages/api/og/[id].png.ts
+// ...
+const hankakuFontFile = readFileSync(
+  path.resolve('./src/assets/nunito-sans-latin-500-normal.ttf')
+);
+// ...
+```
+
+```jsx
+// astro.config.mjs
+// ...
+  adapter: vercel({
+    includeFiles: [
+      './src/assets/jf-openhuninn.ttf',
+      './src/assets/nunito-sans-latin-500-normal.ttf'
+    ]
+  })
+// ...
+```
+
+### ⚠️ 有用，但是感覺繞一圈的做法
+
+這是在 Vercel 支援討論區獲得的方法。
+
+- 字型檔案同樣放在 `/public` 資料夾
+- 以 `fetch` 載入 `/public` 對應網址的檔案
+- 不需要在 `Astro` 的設定檔的 `Vercel Adapater` 加入 `includeFiles`
+
+```tsx
+// src/pages/api/og/[id].png.ts
+...
+const hankakuFontFile = await fetch(
+  new URL('fonts/nunito-sans-latin-500-normal.ttf', import.meta.env.SITE)
+).then((res) => res.arrayBuffer());
+...
+
+const svg: string = await satori(markup, {
+  width: 1200,
+  height: 630,
+  fonts: [
+    {
+      name: 'Nunito Sans',
+      data: hankakuFontFile,
+      style: 'normal'
+    },
+// ...
+  ]
+});
+
+// ...
+
+```
 
 ---
 
