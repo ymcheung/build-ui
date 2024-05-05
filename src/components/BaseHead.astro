@@ -28,7 +28,7 @@ const schema = () => {
   const website = {
     '@type': 'Website',
     name: SITENAME,
-    url: import.meta.env.SITE,
+    url: import.meta.env.SITE
   };
 
   const blogPosting = {
@@ -41,8 +41,8 @@ const schema = () => {
       {
         '@type': 'Person',
         name: 'Yuming Cheung',
-        url: 'https://read.cv/ymcheung',
-      },
+        url: 'https://read.cv/ymcheung'
+      }
     ],
     publisher: {
       '@type': 'Organization',
@@ -53,14 +53,14 @@ const schema = () => {
         name: 'Intersection: 優化、插件、高清、視頻、反饋、交互設計：已經看膩這些中國網路媒體用語。',
         width: 400,
         height: 400,
-        url: 'https://intersection.tw/intersection.png',
-      },
-    },
+        url: 'https://intersection.tw/intersection.png'
+      }
+    }
   };
 
   return JSON.stringify({
     '@context': 'https://schema.org/',
-    '@graph': [website, ...(path ? [blogPosting] : [])],
+    '@graph': [website, ...(path ? [blogPosting] : [])]
   });
 };
 ---
@@ -107,13 +107,18 @@ const schema = () => {
 />
 <meta name="format-detection" content="telephone=no" />
 <meta property="fb:app_id" content="1241704385975640" />
-<script type="application/ld+json" set:html={schema()}></script>
+<script type="application/ld+json" set:html={schema()} is:inline />
 <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
 />
 {
-  import.meta.env.PROD && (
-    <script async data-logspot-pk="pk_YDvfjOTdIKaLhCXEYvyRwn1gi1p7B2hf3hEaQ-3f" src="https://cdn.logspot.io/lg.js" />
+  process.env.PUBLIC_VERCEL_ENV === 'production' && (
+    <script
+      async
+      data-logspot-pk={import.meta.env.PUBLIC_VITE_LOGSPOT_PUBLIC_KEY}
+      src="https://cdn.logspot.io/lg.js"
+      is:inline
+    />
   )
 }
