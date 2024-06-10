@@ -1,0 +1,154 @@
+---
+title: Supabase 的瑣碎使用心得
+description: 在蓋「Moment：看電影看劇時，聽到喜歡的音樂」專案的時候，覺得輕量級的網站，用 Markdown 語法可以滿足快速、便於更新內容的需求。Astro 目前以幾乎每天更新一次的頻率快速發展中。這篇文章是文件上找不到參考，只好到處從社群爬文記下來的做法。
+dateModified: 2024-06-09T23:59:59+08:00
+datePublished: 2024-06-09T23:59:59+08:00
+sticker: "@assets/using-supabase/sticker.svg"
+stickerAlt: Supabase
+draft: false
+---
+
+Supabase 是個人專案「用得到的猫紋」裡，放置帳號與留言資料的地方。
+
+[![Images](@assets/using-astro/carrierExpressGoodsLink.webp)](https://goods.carrier.express?utm_source=build-ui&utm_medium=image&utm_campaign=technical)
+
+## ![Supabase 的標誌](@assets/using-supabase/sticker.svg)
+
+```json
+"@supabase/supabase-js": "^2.43.1"
+```
+
+- 網站：[https://supabase.com](https://supabase.com)
+- 文件：[https://supabase.com/docs](https://supabase.com/docs)
+
+一開始知道 Supabase，是因為社群誇讚以網站前端的角度，想要存取資料非常容易，在搭車時快速看過，確實覺得 CRUD 都簡化得簡單易懂。Supabase 背後的運作原理是 PostgreSQL，在加入 function 或 trigger 時，會用到不少 PostgreSQL 語法。
+
+這篇文章不會再講一次 Supabase 文件提到的功能，而是文件上找不到參考，只好到處從社群爬文記下來的做法。
+
+## 接下來的內容
+
+- [使用 Auth 的帳號管理功能，要把使用者資訊複製到 `public` 權限的表格](#使用-auth-的帳號管理功能要把使用者資訊複製到-public-權限的表格 "連至「使用 Auth 的帳號管理功能，要把使用者資訊複製到 public 權限的表格」段落")
+- [透過 Foreign Key，存取使用者相關資訊](#透過-foreign-key存取使用者相關資訊 "連至「透過 Foreign Key，存取使用者相關資訊」段落")
+
+---
+
+## 使用 Auth 的帳號管理功能，要把使用者資訊複製到 `public` 權限的表格
+
+如果網站或 App 使用了 Supabase 的帳號管理功能，官方文件提到：建議在每個帳號建立的當下，使用 `trigger` 觸發 `function`，複製可以公開的資訊到 `public` 下的表格裡。
+
+一開始不理解為什麼要這樣做，直到需顯示文章或留言的作者訊息。在 Supabase 裡，以 `id` 找出 `auth` 權限底下的使用者資料，必須有管理員權限。
+
+---
+
+## 透過 Foreign Key，存取使用者相關資訊
+
+若使用者在網站上留言，常見要記錄的項目會有：留言內容、時間，以使用者的 `UUID`。而使用者的照片和全名等資訊，則是透過使用者的 `UUID` 抓取資料。這可以用 `insert()` 寫入資料。
+
+```tsx
+const nanoid = customAlphabet('1234567890abcdef', 8);
+const body = await request.json();
+const postId = body?.postId;
+const message = body?.message;
+const createdBy = body?.createdBy;
+
+const record = {
+  id: nanoid(),
+  post_id: postId,
+  message,
+  created_by: createdBy
+};
+
+const { error } = await supabase.from('comment').insert({
+  ...record
+});
+```
+
+並且在 Supabase 資料庫上，把 `created_by` 設定 foreign key 連結至 `auth.users`，如果系統找不到 `UUID`，就會回傳錯誤。感覺很像設定完成了，而且系統會幫你把關資料是正確的。
+
+### 問題
+
+想要在讀取資料並且將使用者的公開資訊，例如：`public.users` 合併至一次的查詢，就不用一直使用 `await supabase`：
+
+```tsx
+const commentsQuery = supabase
+  .from('comments')
+  .select(
+    `id, message, created_by:users(full_name, avatar), created_at`
+  )
+  .eq('post_id', postId);
+```
+
+按照文件上的說明，應該可以透過 `created_by` 欄位的使用者 `UUID` 資訊，回傳 `public.users` 裡，對應的 `full_name` 和 `avatar`  資料。然而，這裡會出現錯誤訊息：
+
+```txt
+Could not find a relationship between 'comments' and 'users' in the schema cache
+```
+
+### ❌ 嘗試修正
+
+既然以 foreign key 連到 `auth.users` 的使用者 `UUID`，會找不到關連性，那連到 `public.users` 的使用者 `UUID` 呢？
+
+得到無法設定 foreign key 的錯誤訊息：
+
+```txt
+foreign key constraint "users_id_fkey" cannot be implemented
+```
+
+### ✅ 解決方法
+
+建立資料的時候，不要從 `supabase.from('comments').insert()` 填入使用者的 `UUID`：
+
+```tsx
+// ...
+const record = {
+  id: nanoid(),
+  post_id: postId,
+  message
+  // 取消從 supabase client 填入 UUID
+  // created_by: createdBy
+};
+
+const { error } = await supabase.from('comment').insert({
+  ...record
+});
+```
+
+該欄位應要以預設值的方式填入：
+
+{% figure description="預設值欄位指定 auth.uid()" %}
+
+![預設值欄位指定 auth.uid()](@assets/using-supabase/createdByColumn.webp)
+
+{% /figure %}
+
+接著，foreign key 就可以成功連到 `public.users` 的 `UUID`：
+
+```tsx
+import type { QueryData } from '@supabase/supabase-js';
+
+const commentsQuery = supabase
+  .from('comments')
+  .select(
+    `id, message, created_by:users(id, full_name, avatar), created_at`
+  )
+  .eq('post_id', postId);
+
+type CommentsFetchType = QueryData<typeof commentsQuery>;
+
+const { data, error } = await asksQuery;
+```
+
+就會回傳該使用者的相關資料：
+
+```json
+"data": [{
+  "id": "2c62b3e0",
+  "message": "這個商品是在哪裡找到的呢？",
+  "created_by": {
+    "id": "f211e73d-****-****-****-************",
+    "email": null,
+    "avatar": "black.svg"
+  },
+  "created_at": "2024-06-04T12:38:06.428392+00:00"
+}]
+```
