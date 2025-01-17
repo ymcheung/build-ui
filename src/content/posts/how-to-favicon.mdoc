@@ -1,7 +1,7 @@
 ---
 title: "以 2024 年的方法製作 Favicon：6 個檔案就搞定大多數需求 (翻譯)"
 description: "用 SVG 取代 PNG，相信瀏覽器向下相容，捨棄過時的格式—現代網頁 Favicon 的終極、詳盡指南。包含靜態 HTML 和 Webpack 會用到的步驟。"
-dateModified: 2024-07-30T22:30:00+08:00
+dateModified: 2025-01-17T22:30:00+08:00
 datePublished: 2023-06-04T20:00:00+08:00
 draft: false
 ---
@@ -44,22 +44,32 @@ draft: false
 用在瀏覽器的 HTML：
 
 ```html
-<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+```
+
+如果正在做的是 PWA (Progressive Web App)，也要把這加進 HTML：
+
+```html
 <link rel="manifest" href="/manifest.webmanifest">
 ```
+
 
 還有用在 Web App 的 Manifest：
 
 ```json
+// manifest.webmanifest
 {
   "icons": [
     { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-mask.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" },
     { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
   ]
 }
 ```
+
+Maskable 的圖示要有比較多留白。安全區域是 409x409 的圓圈。可以使用 [maskable.app](https://maskable.app) 檢查圖示。
 
 這樣就好了。如果想要知道這是怎麼歸納出來、得要妥協的決定，還有從無到有一步一步做出這一組，別轉台，都在這篇文章剩下的部分。
 
@@ -105,7 +115,7 @@ Favicon，也就是 “Favorite Icon” 的縮寫，這個概念在 2000 年代�
 
 資料夾、靜態檔案資料夾結構和快取破壞方面就不要自作聰明。`https://example.com﻿` 這個網站的 Favicon 就要放在 `https://example.com/favicon.ico﻿`。像是 RSS 閱讀器等工具，只會找伺服器的 `/favicon.ico`，絕對不有其它地方。
 
-連至 .ico 的 `<link>` 要有 `sizes="any"`，這是為了修正 [Chrome 的 Bug](https://twitter.com/subzey/status/1417099064949235712)，會選擇 ICO 檔案，而不是 SVG 檔案。
+連至 .ico 的 `<link>` 要有 `sizes="32x32"`，這是為了修正 [Chrome 的 Bug](https://twitter.com/subzey/status/1417099064949235712)，會選擇 ICO 檔案，而不是 SVG 檔案。
 
 ### II. 現代瀏覽器能以單獨的 SVG 圖示擁有亮色/暗色版本
 
@@ -126,14 +136,28 @@ SVG 能夠加上描述 CSS 用的 `<style>` 標籤，是一種 XML 格式。既�
 ### IV. Android 裝置使用的 Android Web 應用程式 Manifest，192x192 和 512x512 PNG 圖示
 
 - Web 應用程式 Manifest 是 JSON 檔案，裡面有讓瀏覽器把網站安裝成系統應用程式的所有細節。這個格式誕生於 Google 倡議的 [PWA](https://en.wikipedia.org/wiki/Progressive_web_application)。
-- HTML 頁面必須要有 標籤，連至 Manifest 檔案。
-- Manifest 要有 `icon` 欄位，連至 2 個圖示：192x192 是在主畫面顯示的，512x512 是 PWA 在讀取時當作進場等待畫面。
+- HTML 頁面必須要有 `<link rel="manifest" href="path.webmanifest">` 標籤，連至 Manifest 檔案。
+- Manifest 要有 `icon` 欄位，連至 3 個圖示：192x192 是在主畫面顯示的、512x512 用在各種 Android Launcher 的 maskable 圖示，和 512x512 是 PWA 在讀取時當作進場等待畫面。
+- Maskable 圖示應該要在圖示周圍有[較多的留白](https://w3c.github.io/manifest/#icon-masks)，才能由 Launcher 裁切後放入適合的設計裡。安全區域是 409x409 的圓圈。可以使用 [maskable.app](https://maskable.app) 檢查圖示。
 
 ```json
 {
   "icons": [
-    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
-    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192" },
+    {
+      "src": "/icon-mask.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
   ]
 }
 ```
@@ -228,6 +252,8 @@ convert ./icon-32.png ./icon-16.png ./favicon.ico
 
 把圖片縮成 192x192，輸出為 `icon-192.png`。把這個檔案再縮成 140x140，畫布設定成 180x180，輸出為 `apple-touch-icon.png`。
 
+接著，把它縮成 409x409，然後把畫布加到 512x512，輸出為 `icon-mask.png`。在 [maskable.app](https://maskable.app) 檢查各種遮罩。有需要的話，再調整圖示尺寸。
+
 或者，在 Inkscape 這樣做：
 
 ```bash
@@ -316,7 +342,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
       <title>My website</title>
       <meta name="viewport" content="width=device-width,initial-scale=1">
 -     <link rel="icon" href="/favicon.ico" sizes="32x32">
-+     <link rel="icon" sizes="any" href="<%=
++     <link rel="icon" sizes="32x32" href="<%=
 +       process.env.NODE_ENV === 'production'
 +         ? '/favicon.ico'
 +         : require('./favicon-dev.ico').default
@@ -344,6 +370,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
   "name": "My website",
   "icons": [
     { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-mask.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable" },
     { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
   ]
 }
@@ -368,6 +395,7 @@ Favicon 是用來分辨正式跟 Staging 環境的絕妙方法。我發現 Stagi
       name: 'My website',
       icons: [
         { src: resolve('./icon-192.png'), sizes: '192x192' },
+        { src: resolve('./icon-mask.png'), sizes: '512x512', purpose: 'maskable' },
         { src: resolve('./icon-512.png'), sizes: '512x512' }
       ]
     })
