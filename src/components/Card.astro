@@ -17,7 +17,7 @@ const { title, description, dateModified, sticker, stickerAlt, path } =
 ---
 
 <li class="indexListItem">
-  <a class="link" href={`/${path}`}></a>
+  <a class="link" href={`/${path}`} aria-labelledby={path}></a>
   {
     !!sticker && !!stickerAlt && (
       <figure class="sticker">
@@ -25,7 +25,7 @@ const { title, description, dateModified, sticker, stickerAlt, path } =
       </figure>
     )
   }
-  <h2 class="title">{title}</h2>
+  <h2 id={path} class="title">{title}</h2>
   <Timestamp dateModified={dateModified.toString()} />
   <p class="description">{description}</p>
   <span class="action">📃&nbsp;閱讀</span>
