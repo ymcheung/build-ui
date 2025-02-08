@@ -8,21 +8,21 @@ import Footer from '../components/Footer.astro';
 import Timestamp from '../components/Timestamp.astro';
 
 export async function getStaticPaths() {
-  const postEntries = await getCollection('posts');
-  return [ ...postEntries].map((entry) => ({
-    params: { slug: entry.id },
+  const pageEntries = await getCollection('pages');
+  return [ ...pageEntries].map((entry) => ({
+    params: { pageSlug: entry.id },
     props: entry,
   }));
 }
 
-const { slug } = Astro.params;
+const { pageSlug } = Astro.params;
 const { data } = Astro.props;
 
-const post = await getEntry('posts', slug);
+const page = await getEntry('pages', pageSlug);
 
-if (!post) return;
+if (!page) return;
 
-const { Content } = await render(post);
+const { Content } = await render(page);
 
 const { title, description, dateModified, datePublished, draft } = data;
 ---
@@ -35,7 +35,7 @@ const { title, description, dateModified, datePublished, draft } = data;
       description={description}
       dateModified={dateModified.toString()}
       datePublished={datePublished.toString()}
-      path={slug}
+      path={pageSlug}
       isDraft={draft}
     />
   </head>
@@ -50,7 +50,7 @@ const { title, description, dateModified, datePublished, draft } = data;
       <hr class="divide" />
       <div class="discussions">
         <h2 class="discussionsTitle">💬 討論</h2>
-        <a class="create lgspt-create-discussions" href={`https://github.com/ymcheung/build-ui/discussions/new?category=general&labels=${slug}`}>
+        <a class="create lgspt-create-discussions" href={`https://github.com/ymcheung/build-ui/discussions/new?category=general&labels=${pageSlug}`}>
           新增討論
         </a>
         <span>👆連至 Github 的 Discussions 參與</span>
