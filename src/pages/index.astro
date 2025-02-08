@@ -16,6 +16,8 @@ let publishedPosts = await getCollection('posts', ({ data }) => {
   return data.draft !== true;
 });
 
+// const posts = await getCollection('posts');
+
 publishedPosts = publishedPosts.sort(
   (older, newer) =>
     new Date(newer.data.dateModified).valueOf() -
@@ -34,7 +36,7 @@ publishedPosts = publishedPosts.sort(
       publishedPosts.map(
         ({
           data: { title, description, dateModified, sticker, stickerAlt },
-          slug,
+          id,
         }) => (
           <Card
             title={title}
@@ -42,7 +44,7 @@ publishedPosts = publishedPosts.sort(
             dateModified={dateModified}
             sticker={sticker}
             stickerAlt={stickerAlt}
-            path={slug}
+            path={id}
           />
         )
       )

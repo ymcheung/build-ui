@@ -7,7 +7,7 @@ interface Props {
   title: string;
   description: string;
   dateModified: Date;
-  sticker?: ImageMetadata;
+  sticker?: boolean;
   stickerAlt?: string;
   path?: string;
 }
@@ -19,9 +19,9 @@ const { title, description, dateModified, sticker, stickerAlt, path } =
 <li class="indexListItem">
   <a class="link" href={`/${path}`} aria-labelledby={path}></a>
   {
-    !!sticker && !!stickerAlt && (
+    sticker && !!stickerAlt && (
       <figure class="sticker">
-        <Image src={sticker} alt={stickerAlt} height="40" />
+        <Image src={import(`../assets/${path}/sticker.svg`)} alt={stickerAlt} height="40" />
       </figure>
     )
   }
