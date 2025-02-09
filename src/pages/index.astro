@@ -35,14 +35,14 @@ publishedPosts = publishedPosts.sort(
     {
       publishedPosts.map(
         ({
-          data: { title, description, dateModified, sticker, stickerAlt },
+          data: { title, description, dateModified, hasSticker, stickerAlt },
           id,
         }) => (
           <Card
             title={title}
             description={description}
             dateModified={dateModified}
-            sticker={sticker}
+            hasSticker={hasSticker}
             stickerAlt={stickerAlt}
             path={id}
           />

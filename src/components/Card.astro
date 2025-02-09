@@ -1,25 +1,24 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
 import Timestamp from './Timestamp.astro';
 
 interface Props {
   title: string;
   description: string;
   dateModified: Date;
-  sticker?: boolean;
+  hasSticker: boolean;
   stickerAlt?: string;
   path?: string;
 }
 
-const { title, description, dateModified, sticker, stickerAlt, path } =
+const { title, description, dateModified, hasSticker, stickerAlt, path } =
   Astro.props as Props;
 ---
 
 <li class="indexListItem">
   <a class="link" href={`/${path}`} aria-labelledby={path}></a>
   {
-    sticker && !!stickerAlt && (
+    hasSticker && !!stickerAlt && (
       <figure class="sticker">
         <Image src={import(`../assets/${path}/sticker.svg`)} alt={stickerAlt} height="40" />
       </figure>

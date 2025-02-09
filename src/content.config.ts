@@ -8,7 +8,7 @@ const postCollection = defineCollection({
     description: z.string(),
     dateModified: z.date(),
     datePublished: z.date(),
-    sticker: z.boolean(),
+    hasSticker: z.boolean(),
     stickerAlt: z.string().optional(),
     draft: z.boolean()
   })
