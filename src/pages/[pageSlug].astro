@@ -33,8 +33,8 @@ const { title, description, dateModified, datePublished, draft } = data;
     <BaseHead
       title={title}
       description={description}
-      dateModified={dateModified.toString()}
-      datePublished={datePublished.toString()}
+      dateModified={dateModified.toISOString()}
+      datePublished={datePublished.toISOString()}
       path={pageSlug}
       isDraft={draft}
     />
