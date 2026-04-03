@@ -24,7 +24,12 @@
   }
 
   :global(.note p) {
+    margin: 0;
     color: hsl(var(--color-shade130));
     font-size: 1.4rem;
+  }
+
+  :global(.note p + p) {
+    margin-top: 16px;
   }
 </style>
