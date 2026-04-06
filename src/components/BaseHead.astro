@@ -26,6 +26,11 @@ const canonicalPath = path ? handleStartingSlash(path) : '';
 const interAnalyticsSiteKey = import.meta.env.PUBLIC_INTER_ANALYTICS_SITE_KEY;
 const shouldLoadAnalytics =
   process.env.PUBLIC_VERCEL_ENV === 'production' && !!interAnalyticsSiteKey;
+const analyticsSnippet = `window.interAnalyticsConfig = ${JSON.stringify({
+  endpoint: 'https://analytics.intersection.tw/api/e',
+  siteKey: interAnalyticsSiteKey,
+  autoPageview: true
+})};`;
 
 const schema = () => {
   const website = {
@@ -112,13 +117,7 @@ const schema = () => {
 {
   shouldLoadAnalytics && (
     <>
-      <script is:inline>
-        {`window.interAnalyticsConfig = {
-  endpoint: "https://analytics.intersection.tw/api/e",
-  siteKey: ${JSON.stringify(interAnalyticsSiteKey)},
-  autoPageview: true
-};`}
-      </script>
+      <script is:inline set:html={analyticsSnippet} />
       <script
         defer
         src="https://analytics.intersection.tw/tracker.js"
