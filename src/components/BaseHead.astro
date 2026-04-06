@@ -23,6 +23,9 @@ const ogCoverPath = path
   ? `og/${handleStartingSlash(path)}.jpg`
   : 'og/home.jpg';
 const canonicalPath = path ? handleStartingSlash(path) : '';
+const interAnalyticsSiteKey = import.meta.env.PUBLIC_INTER_ANALYTICS_SITE_KEY;
+const shouldLoadAnalytics =
+  process.env.PUBLIC_VERCEL_ENV === 'production' && !!interAnalyticsSiteKey;
 
 const schema = () => {
   const website = {
@@ -107,12 +110,26 @@ const schema = () => {
 <meta property="fb:app_id" content="1241704385975640" />
 <script type="application/ld+json" set:html={schema()} is:inline />
 {
-  process.env.PUBLIC_VERCEL_ENV === 'production' && (
-    <script
-      async
-      data-logspot-pk={import.meta.env.PUBLIC_VITE_LOGSPOT_PUBLIC_KEY}
-      src="https://cdn.logspot.io/lg.js"
-      is:inline
-    />
+  shouldLoadAnalytics && (
+    <>
+      <script is:inline>
+        {`window.interAnalyticsConfig = {
+  endpoint: "https://analytics.intersection.tw/api/e",
+  siteKey: ${JSON.stringify(interAnalyticsSiteKey)},
+  autoPageview: true
+};`}
+      </script>
+      <script
+        defer
+        src="https://analytics.intersection.tw/tracker.js"
+        is:inline
+      />
+      <script
+        async
+        data-logspot-pk={import.meta.env.PUBLIC_VITE_LOGSPOT_PUBLIC_KEY}
+        src="https://cdn.logspot.io/lg.js"
+        is:inline
+      />
+    </>
   )
 }
