@@ -27,7 +27,7 @@ const interAnalyticsSiteKey = import.meta.env.PUBLIC_INTER_ANALYTICS_SITE_KEY;
 const shouldLoadAnalytics =
   process.env.PUBLIC_VERCEL_ENV === 'production' && !!interAnalyticsSiteKey;
 const analyticsSnippet = `window.interAnalyticsConfig = ${JSON.stringify({
-  endpoint: 'https://analytics.intersection.tw/api/e',
+  endpoint: 'https://analytics.intersection.tw/v1',
   siteKey: interAnalyticsSiteKey,
   autoPageview: true
 })};`;
@@ -120,7 +120,7 @@ const schema = () => {
       <script is:inline set:html={analyticsSnippet} />
       <script
         defer
-        src="https://analytics.intersection.tw/tracker.js"
+        src="https://analytics.intersection.tw/client.js"
         is:inline
       />
       <script
