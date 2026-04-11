@@ -1,0 +1,31 @@
+# 喜歡的 UI 就要親手做出來
+
+> Canonical site: https://build.intersection.tw/
+> Language: Traditional Chinese (zh-TW)
+> Type: Personal technical blog focused on UI engineering, frontend development, Astro, React, translations, and implementation notes.
+
+This site publishes hands-on frontend engineering articles and selected technical translations. The most current translation on the site is the favicon article below; it is maintained as a living translation of a living original article.
+
+## Priority Pages
+
+- Home: https://build.intersection.tw/
+- How to Favicon in 2026: Three files that fit most needs (translation): https://build.intersection.tw/how-to-favicon
+
+## Published Posts
+
+- Let Airtable API results follow the same order as the grid view: https://build.intersection.tw/airtable-grid-view
+- Splitbee analytics introduction: https://build.intersection.tw/analytics-tool-splitbee
+- Chakra UI with React Hook Form notes: https://build.intersection.tw/chakra-ui-with-react-hook-form
+- Stitches introduction: https://build.intersection.tw/css-in-js-stitches
+- How to favicon in 2026 (translation): https://build.intersection.tw/how-to-favicon
+- Solving MDX component TypeScript typing issues: https://build.intersection.tw/mdx-typescript
+- i18next implementation notes: https://build.intersection.tw/react-i18next
+- First use of Remix with mdx-bundler: https://build.intersection.tw/remix-with-mdx-bundler
+- Building a fast static site with Astro: https://build.intersection.tw/using-astro
+- Supabase usage notes: https://build.intersection.tw/using-supabase
+- Zed editor introduction: https://build.intersection.tw/zed-editor
+
+## Pages
+
+- Technical translations: https://build.intersection.tw/translations
+- UI translations: https://build.intersection.tw/ui-translations
