@@ -8,14 +8,14 @@ const { href, title } = Astro.props as Props;
 
 function handleClassName() {
   if (href.startsWith('http')) {
-    return 'lgspt-external-link';
+    return 'lgspt-external-link chungli-external-link';
   }
 
   if (href.startsWith('#')) {
-    return 'lgspt-anchor-link';
+    return 'lgspt-anchor-link chungli-anchor-link';
   }
 
-  return 'lgspt-link';
+  return 'lgspt-link chungli-link';
 }
 
 function handleIsExternal() {
