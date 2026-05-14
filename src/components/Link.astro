@@ -8,14 +8,26 @@ const { href, title } = Astro.props as Props;
 
 function handleClassName() {
   if (href.startsWith('http')) {
-    return 'lgspt-external-link chungli-external-link';
+    return 'lgspt-external-link';
   }
 
   if (href.startsWith('#')) {
-    return 'lgspt-anchor-link chungli-anchor-link';
+    return 'lgspt-anchor-link';
   }
 
-  return 'lgspt-link chungli-link';
+  return 'lgspt-link';
+}
+
+function handleChungliEvent() {
+  if (href.startsWith('http')) {
+    return 'External Link';
+  }
+
+  if (href.startsWith('#')) {
+    return 'Anchor Link';
+  }
+
+  return 'Link';
 }
 
 function handleIsExternal() {
@@ -33,6 +45,7 @@ function handleIsExternal() {
 
 <a
   class={handleClassName()}
+  data-chungli-event={handleChungliEvent()}
   href={href}
   title={!!title ? title : undefined}
   {...handleIsExternal()}
