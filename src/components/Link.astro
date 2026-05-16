@@ -20,11 +20,11 @@ function handleClassName() {
 
 function handleChungliEvent() {
   if (href.startsWith('http')) {
-    return 'External Link';
+    return `External Link: ${href}`;
   }
 
   if (href.startsWith('#')) {
-    return 'Anchor Link';
+    return `Anchor Link: ${href}`;
   }
 
   return 'Link';
