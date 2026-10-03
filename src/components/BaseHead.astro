@@ -25,7 +25,7 @@ const ogCoverPath = path
 const canonicalPath = path ? handleStartingSlash(path) : '';
 const interAnalyticsSiteKey = import.meta.env.PUBLIC_INTER_ANALYTICS_SITE_KEY;
 const shouldLoadAnalytics =
-  process.env.PUBLIC_VERCEL_ENV === 'production' && !!interAnalyticsSiteKey;
+  import.meta.env.PROD && !!interAnalyticsSiteKey;
 const analyticsSnippet = `window.interAnalyticsConfig = ${JSON.stringify({
   endpoint: 'https://analytics.intersection.tw/v1',
   siteKey: interAnalyticsSiteKey,
