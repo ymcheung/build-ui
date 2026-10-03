@@ -8,6 +8,7 @@ import markdoc from '@astrojs/markdoc';
 export default defineConfig({
   output: 'static',
   adapter: cloudflare({ imageService: 'compile' }),
+  session: false,
   compressHTML: true,
   integrations: [
     sitemap({
