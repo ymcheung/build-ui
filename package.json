@@ -6,6 +6,7 @@
     "node": ">=22.12.0"
   },
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "dev": "astro check --watch & astro dev",
     "start": "astro dev",
     "build": "astro build",
@@ -20,8 +21,11 @@
   "dependencies": {
     "@astrojs/check": "^0.9.8",
     "@astrojs/markdoc": "^1.0.3",
+    "@vercel/functions": "^3.9.11",
+    "cheerio": "^1.2.0",
     "date-fns": "^2.29.3",
     "sharp": "^0.34.5",
+    "turndown": "^7.2.4",
     "typescript": "^5.9.3"
   }
 }
