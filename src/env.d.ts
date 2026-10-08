@@ -2,7 +2,7 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
-  readonly PUBLIC_INTER_ANALYTICS_SITE_KEY?: string;
+  readonly PUBLIC_CHUNGLI_ANALYTICS_SITE_KEY?: string;
 }
 
 interface ImportMeta {
