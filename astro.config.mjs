@@ -1,15 +1,16 @@
 import { defineConfig, sharpImageService } from 'astro/config';
-// import deno from '@astrojs/deno';
+import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
-// import svelte from "@astrojs/svelte";
 import markdoc from '@astrojs/markdoc';
 import markdown from './integrations/markdown.mjs';
 
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  // adapter: deno(),
+  adapter: cloudflare({ imageService: 'compile' }),
+  session: false,
+  compressHTML: true,
   integrations: [
     sitemap({
       filter: (page) =>

@@ -24,3 +24,8 @@ pnpm-debug.log*
 
 # generated types
 .astro/
+
+# Cloudflare local state and secrets
+.wrangler/
+.dev.vars
+.dev.vars.*
