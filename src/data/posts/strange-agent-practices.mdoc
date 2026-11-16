@@ -1,0 +1,92 @@
+---
+title: 使用 Agent 遇過的奇怪做法
+description: 記錄交給 Agent 寫程式時遇過的奇怪做法：每次部署都更換資料庫密碼、為了通過 oxlint 加入例外，以及把功能拆成 25 個 Pull Request。
+datePublished: 2026-11-16T12:00:00+08:00
+dateModified: 2026-11-16T12:00:00+08:00
+hasSticker: false
+draft: false
+---
+
+2026 年已經是由 Agent 做好 99.9% 程式碼工作的時代。這裡記錄從 `chatgpt-5.3` 左右起，遇到交給模型後，產生的奇怪做法，包含資安、Git 與程式碼管理。
+
+---
+
+## 接下來的內容
+
+- [使用工具](#使用工具 "連至「使用工具」段落")
+- [每次合併到正式環境，必須換新的資料庫密碼](#每次合併到正式環境必須換新的資料庫密碼 "連至「每次合併到正式環境，必須換新的資料庫密碼」段落")
+- [為了通過 oxlint，在設定檔加入例外](#為了通過-oxlint在設定檔加入例外 "連至「為了通過 oxlint，在設定檔加入例外」段落")
+- [限制 Pull Request 規模](#限制-pull-request-規模 "連至「限制 Pull Request 規模」段落")
+
+---
+
+## 使用工具
+
+ChatGPT 的 GUI 介面和 [T3 Code](https://t3.codes)。
+
+## 每次合併到正式環境，必須換新的資料庫密碼
+
+當時，開始有人以 Vibe Coding 把整套線上功能做出來，但好幾位把金鑰也一起公開。這種事情應該還是持續在發生，只是不算話題了。
+
+因為對資安領域不熟，交由 Agent 檢測可能風險，避免發生金鑰外洩的狀況，最直覺的第一道防線是 `AGENTS.md` 嚴格規定。接著收到的建議是每次進行 Production 更新，都改環境變數裡的資料庫密碼。於是更改純介面也都得這樣做，非常奇怪。
+
+![Agent 建議每次更新正式環境都更換資料庫密碼的對話紀錄](https://resv2.craft.do/user/full/b768af94-f1d1-e14e-092e-2d8fe20ccc7b/doc/1BC5AC42-751F-4FD9-AAED-EE70AFF18C6F/6EAC450E-9A65-41D7-8B72-B3420D253886_2/TH7prUBZDzQFeO35xXHZIcfEIq2PucxZXBvolAwWNA8z/Image.jpeg)
+
+有哪間公司是這樣做嗎？Agent 回答不出來，只說這是全世界獨一無二的做法。現在遇到這種夢裡才會有的做法，機率應該不高，畢竟已經有相當公信力的資安檢測 Skill：
+
+要把這款 Skill 發揮最大功效，可以直接看：[security-audit-skill 是什麼？拆解 Cloudflare 讓 agent 稽核結果可信的設計](https://warmwater.dev/blog/cloudflare-security-audit-skill/)
+
+## 為了通過 oxlint，在設定檔加入例外
+
+shadcn 推出透過 oxlint，以明確規定避免 Agent 用 `tailwind` 把樣式以自訂單位來做的 [`@shadcn/lint`](https://github.com/shadcn-ui/lint)。只要完成工作後，順手 lint 一下就可以知道哪些地方用了自訂 `tailwind` 樣式。
+
+有一天發覺編輯器的 eslint 標示出現一堆自訂 `tailwind` 樣式，才發現 `oxlint` 指令可以通過：
+
+```other
+oxlint --config .oxlintrc.json .
+```
+
+其實是因為自動把任何不符規定的樣式，都成為例外：
+
+```other
+"shadcn/no-arbitrary-values": [
+      "error",
+      {
+        "allow": [
+          "layout",
+          "motion",
+          "effects",
+          "[&>kbd]:rounded-[calc(var(--radius)-5px)]",
+          "rounded-[calc(var(--radius)-5px)]",
+          "px-[var(--cell-size)]",
+          "pb-[calc(0.5rem_+_env(safe-area-inset-bottom))]",
+          "peer-data-[mobile-navigation=true]/mobile-navigation:pb-[calc(5rem_+_env(safe-area-inset-bottom))]",
+          "leading-[1.2]",
+          "leading-[18px]",
+          "leading-[22px]",
+          "leading-[26px]",
+          "px-[18px]",
+          "text-[11px]",
+          "text-[15px]",
+          "text-[32px]",
+          "text-[0.65rem]",
+          "text-[0.7rem]",
+          "text-[0.8rem]",
+          "tracking-[0.2em]",
+          "tracking-[0.32em]",
+          "bg-[linear-gradient(to_bottom,hsl(var(--muted)_/_0)_0%,hsl(var(--muted)_/_0.24)_20%,hsl(var(--muted)_/_0.3)_48%)]",
+          "bg-[linear-gradient(to_right,rgba(0,0,0,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.12)_1px,transparent_1px),linear-gradient(to_right,rgba(0,0,0,0.22)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.22)_1px,transparent_1px)]",
+          "dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.24)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.24)_1px,transparent_1px)]",
+          "bg-[length:24px_24px,24px_24px,96px_96px,96px_96px]"
+        ]
+      }
+    ]
+```
+
+…等，每個類別都加入例外。
+
+## 限制 Pull Request 規模
+
+一個龐大規模的專案，想要節省跑 CI 流程的時間，於是限制單一 PR 只能新增/修改多少行。於是有一個中等規模的功能被切成 25 個 Pull Request。
+
+目前還沒有很確信根本原因是不是來自「只要 Production 有更新，所有 PR 都要跟上並重新確認 CI 都通過」，但如果只有 1 個 PR，應該不至於造成一直重複確認。
