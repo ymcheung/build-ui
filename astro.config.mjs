@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import markdoc from '@astrojs/markdoc';
 import markdown from './integrations/markdown.mjs';
+import ogImages from './integrations/og-images.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +19,8 @@ export default defineConfig({
     }),
     mdx(),
     markdoc(),
-    markdown()
+    markdown(),
+    ogImages()
   ],
   site: 'https://build.intersection.tw/',
   trailingSlash: 'never',
