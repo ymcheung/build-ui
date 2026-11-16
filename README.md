@@ -55,6 +55,8 @@ pnpm deploy:preview
 
 預覽網址透過 `public/_headers` 加上 `X-Robots-Tag: noindex, nofollow`。正式網址與 canonical URL 維持 `https://build.intersection.tw`。
 
+OG 與 Twitter 的頁面、圖片網址在 Workers Builds 依 `WORKERS_CI_BRANCH` 選擇網域：`master` 使用正式網域，其餘分支使用預覽網域。例如 `feature/generate-og-images` 使用 `https://feature-generate-og-images.build-preview.intersection.tw`。本機執行 `pnpm deploy:preview` 前，請將 `PUBLIC_SOCIAL_ORIGIN` 環境變數設為該次部署的完整預覽網域；這個變數可覆寫自動選擇的網域。
+
 參考 [Workers GitHub integration](https://developers.cloudflare.com/workers/ci-cd/builds/git-integration/github-integration/)、[Worker Preview custom domains](https://developers.cloudflare.com/workers/previews/custom-domains/)。
 
 分析服務使用建置時的環境變數 `PUBLIC_CHUNGLI_ANALYTICS_SITE_KEY` 與 `PUBLIC_VITE_LOGSPOT_PUBLIC_KEY`。請在 Cloudflare Workers Builds 的建置環境中設定；本機可使用 `.env`。只有正式建置且已設定 `PUBLIC_CHUNGLI_ANALYTICS_SITE_KEY` 時才會載入分析程式。

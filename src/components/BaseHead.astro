@@ -23,6 +23,9 @@ const ogCoverPath = path
   ? `og/${handleStartingSlash(path)}.jpg`
   : 'og/home.jpg';
 const canonicalPath = path ? handleStartingSlash(path) : '';
+const socialOrigin = import.meta.env.PUBLIC_SOCIAL_ORIGIN;
+const socialUrl = new URL(canonicalPath ?? '', `${socialOrigin}/`).href;
+const ogImageUrl = new URL(ogCoverPath, `${socialOrigin}/`).href;
 const interAnalyticsSiteKey = import.meta.env.PUBLIC_CHUNGLI_ANALYTICS_SITE_KEY;
 const shouldLoadAnalytics =
   import.meta.env.PROD && !!interAnalyticsSiteKey;
@@ -84,10 +87,10 @@ const schema = () => {
 <link rel="manifest" href="/favicons/site.webmanifest" />
 <meta property="og:type" content={path ? 'article' : 'website'} />
 <meta property="og:site_name" content={SITENAME} />
-<meta property="og:url" content={`${import.meta.env.SITE}${canonicalPath}`} />
+<meta property="og:url" content={socialUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
+<meta property="og:image" content={ogImageUrl} />
 <meta property="og:image:type" content="image/jpeg" />
 {isDraft && <meta name="robots" content="noindex" />}
 <meta
@@ -104,10 +107,10 @@ const schema = () => {
   )
 }
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={`${import.meta.env.SITE}${canonicalPath}`} />
+<meta name="twitter:url" content={socialUrl} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={`${import.meta.env.SITE}${ogCoverPath}`} />
+<meta name="twitter:image" content={ogImageUrl} />
 <meta
   name="twitter:image:alt"
   content={`${title}${path ? `（發表於${SITENAME}）` : ''}`}
