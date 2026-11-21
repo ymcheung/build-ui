@@ -30,7 +30,7 @@ const interAnalyticsSiteKey = import.meta.env.PUBLIC_CHUNGLI_ANALYTICS_SITE_KEY;
 const shouldLoadAnalytics =
   import.meta.env.PROD && !!interAnalyticsSiteKey;
 const analyticsSnippet = `window.interAnalyticsConfig = ${JSON.stringify({
-  endpoint: 'https://analytics.intersection.tw/v1',
+  endpoint: 'https://analytics.chungli.works/v1',
   siteKey: interAnalyticsSiteKey,
   autoPageview: true
 })};`;
@@ -124,7 +124,7 @@ const schema = () => {
       <script is:inline set:html={analyticsSnippet} />
       <script
         defer
-        src="https://analytics.intersection.tw/client.js"
+        src="https://analytics.chungli.works/client.js"
         is:inline
       />
       <script
